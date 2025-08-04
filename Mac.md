@@ -68,32 +68,52 @@ You should see your boot time drop from 2+ minutes → ~15 seconds or less.
 
 🔁 To Undo the Effects of Disabling and Masking the Wait-Online Service
 If you previously ran:
-sudo systemctl disable systemd-networkd-wait-online.service
-sudo systemctl mask systemd-networkd-wait-online.service
+
+- sudo systemctl disable systemd-networkd-wait-online.service
+
+- sudo systemctl mask systemd-networkd-wait-online.service
+  
 You can restore the service like this:
+
 ✅ Step 1: Unmask the service
-sudo systemctl unmask systemd-networkd-wait-online.service
+
+- sudo systemctl unmask systemd-networkd-wait-online.service
+
 ✅ Step 2: Re-enable the service at boot
-sudo systemctl enable systemd-networkd-wait-online.service
+
+- sudo systemctl enable systemd-networkd-wait-online.service
 ✅ Step 3 (Optional): Start it immediately (not needed for reboot use)
+
 sudo systemctl start systemd-networkd-wait-online.service
+
 🔁 Same steps apply if you disabled NetworkManager-wait-online.service:
 Just replace the service name in each command.
 Example:
 
 sudo systemctl unmask NetworkManager-wait-online.service
+
 sudo systemctl enable NetworkManager-wait-online.service
+
 🧪 Confirm it's active again:
+
 systemctl status systemd-networkd-wait-online.service
 or
 systemctl is-enabled systemd-networkd-wait-online.service
+
 You should see:
-enabled
+
+`enabled`
+
 ✅ Summary: Rollback Commands
+
 # Unmask and re-enable systemd-networkd-wait-online
+
 sudo systemctl unmask systemd-networkd-wait-online.service
+
 sudo systemctl enable systemd-networkd-wait-online.service
 
 # Optional: Also for NetworkManager-wait-online (if previously masked)
+
 sudo systemctl unmask NetworkManager-wait-online.service
+
 sudo systemctl enable NetworkManager-wait-online.service
