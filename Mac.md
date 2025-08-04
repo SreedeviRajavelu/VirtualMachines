@@ -10,8 +10,8 @@ https://youtu.be/j8Ne96h8UDg?si=aBwXLuINWmvPNp1l
 
 
 Fix slow booting for ubuntu vm based on output of these commands to find what was slowing down the booting time
-** 
+
 
      systemd-analyze
      systemd-analyze blame
-**
+
