@@ -15,53 +15,40 @@ Fix slow booting for ubuntu vm based on output of these commands to find what wa
      systemd-analyze
      systemd-analyze blame
 
-sreedevi@sreedevi:~/Desktop$ systemd-analyze blame
-2min 258ms systemd-networkd-wait-online.service
-    1.782s fwupd.service
-    1.622s snapd.seeded.service
-    1.578s snapd.service
-    1.124s snap.docker.nvidia-container-toolkit.service
-     710ms NetworkManager.service
-     704ms vboxadd.service
-     335ms dev-mapper-ubuntu\x2d\x2dvg\x2dubuntu\x2d\x2dlv.device
-     290ms gnome-remote-desktop.service
-     241ms NetworkManager-wait-online.service
-     231ms power-profiles-daemon.service
-     222ms accounts-daemon.service
-     217ms polkit.service
-     214ms snapd.apparmor.service
-     213ms udisks2.service
-     187ms rsyslog.service
-     179ms apparmor.service
-     167ms apport.service
-     163ms grub-common.service
-     142ms avahi-daemon.service
-     132ms ModemManager.service
-     130ms dev-loop1.device
-     128ms systemd-udev-trigger.service
-lines 1-23
+<img width="834" height="1050" alt="image" src="https://github.com/user-attachments/assets/c3858581-9f21-4ea7-a27c-97ae02c66da2" />
+
 
 Top delay:
+
 2min 258ms systemd-networkd-wait-online.service
 
 This service alone adds over 2 minutes to your boot. That’s practically your entire userspace delay.
+
 🔍 What is systemd-networkd-wait-online.service?
+
 It waits for the network to be fully up (like getting a DHCP lease or full connection).
 Used mostly on servers to ensure critical services only start after network is available.
 In most VMs and desktops, it's not necessary and can be safely disabled.
+
 ✅ Fix: Disable the Wait-Online Service
+
 Run:
-sudo systemctl disable systemd-networkd-wait-online.service
-sudo systemctl mask systemd-networkd-wait-online.service
+- sudo systemctl disable systemd-networkd-wait-online.service
+- sudo systemctl mask systemd-networkd-wait-online.service
+  
 💡 mask ensures it cannot be accidentally started again.
 
 
 If you also see or use NetworkManager, you can disable its wait service too:
+
 sudo systemctl disable NetworkManager-wait-online.service
+
 sudo systemctl mask NetworkManager-wait-online.service
+
 🔁 Then reboot your VM:
 sudo reboot
 🧪 After reboot:
+
 Check again:
 systemd-analyze
 You should see your boot time drop from 2+ minutes → ~15 seconds or less.
