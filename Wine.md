@@ -7,3 +7,8 @@ https://www.youtube.com/watch?v=XSZ3UJbHqAk
 
 
 https://unix.stackexchange.com/questions/344795/is-there-a-program-like-mobaxterm-for-linux-systems-sftp-gui-browser-termina
+
+## How to Install Wine on Ubuntu 24.04 LTS Linux | Running Windows Programs on Linux
+
+https://youtu.be/J6EkEdQCNaQ?si=1QM9hzJSIiUMwCYW
+
