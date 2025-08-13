@@ -4,8 +4,8 @@
 For Powerplant Twin
 
 
-
-`version: '3.8'
+```
+version: '3.8'
 services:
   database:
     container_name: mysql
@@ -38,6 +38,6 @@ services:
       - "8000"
 
 volumes:
-  mysql-data:`
-
+  mysql-data:
+```
 
