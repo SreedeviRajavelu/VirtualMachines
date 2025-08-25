@@ -8,7 +8,7 @@ Reference: https://youtu.be/fBRgw5dyBd4?si=LodjJDx4AdnjYOS6
   - virtual network created by Docker
   -       
 
-### When you install Docker for the first time, it will create a default bridge network on the host (slightly different on MacOS as it will 
+### When you install Docker for the first time, it will create a default bridge network on the host (slightly different on MacOS as it will run al containers inside a Linux VM, virtualization framework)  
 - all containers you create on that host will get an IP address on that range
 
 On a Linux host, Docker Engine directly creates a docker0 bridge network interface in the host’s network stack. That’s the familiar default bridge you see with ifconfig or ip a (usually 172.17.0.1/16).
