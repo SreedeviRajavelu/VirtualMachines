@@ -1,3 +1,7 @@
+## Docker Networking Tutorial (Bridge - None - Host - IPvlan - Macvlan - Overlay)
+
+Reference: https://youtu.be/fBRgw5dyBd4?si=LodjJDx4AdnjYOS6
+
 ## Docker Bridge
 - 2 segments that the bridge connects is:
   - local host e.g. your laptop, or linux server where you run your Docker containers
