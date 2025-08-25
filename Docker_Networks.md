@@ -8,6 +8,9 @@
 - all containers you create on that host will get an IP address on that range
 
 On a Linux host, Docker Engine directly creates a docker0 bridge network interface in the host’s network stack. That’s the familiar default bridge you see with ifconfig or ip a (usually 172.17.0.1/16).
+<img width="884" height="610" alt="image" src="https://github.com/user-attachments/assets/0f59a653-6033-4d16-b14b-aaaf61bfb04f" />
+
+
 On a Mac (macOS) or Windows, things are different:
 
 Docker Desktop does not create a native docker0 bridge interface on your MacBook’s network stack.
