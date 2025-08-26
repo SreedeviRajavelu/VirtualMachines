@@ -39,5 +39,17 @@ Inside the `.tgz`:
  ## How .tgz files work in practice
  - `.tgz` = portable snapshot of a Docker image
  - you can transfer it, then use docker load < my image.tgz to load it into Docker on another host
- -  
-     
+ -  mostly for air-gapped environments (no Docker Hub access) or backups.
+
+## To load the .tgz into Docker
+  `docker load < myimage.tgz`
+
+- makes the image available locally so you can run containers from it
+
+## To create a .tgz from an existing image
+`docker save myimage:tag | gzip > myimage.tgz`
+- now you can copy over myimage.tgz to another machine and docker load it there
+
+
+
+
