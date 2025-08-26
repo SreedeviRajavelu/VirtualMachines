@@ -11,12 +11,14 @@ this does not work (as need to create a config file ):
 ssh -i ~/.ssh/id_ed25519_private -J ADSC_SmartGrid_5@gateway.ncl.sg -i ~/.ssh/id_ed25519_private pgt@10.10.10.13
  
 Create config file first
- 
+
+```
 # Gateway host
 Host gateway
     HostName gateway.ncl.sg
     User ADSC_SmartGrid_5
     IdentityFile ~/.ssh/id_ed25519_private
+
 # Intermediate host
 Host intermediate
     HostName 172.18.178.17
@@ -24,6 +26,7 @@ Host intermediate
     Port 4696
     IdentityFile ~/.ssh/id_ed25519_private
     ProxyJump gateway
+
 # Final internal host
 Host pgt10.13
     HostName 10.10.10.13
@@ -31,6 +34,9 @@ Host pgt10.13
     IdentityFile ~/.ssh/id_ed25519_private
     ProxyJump intermediate
  
-chmod 600 ~/.ssh/config  
-ssh -v pgt10.13
+```
+ 
+
+`chmod 600 ~/.ssh/config`
+`ssh -v pgt10.13`
  
