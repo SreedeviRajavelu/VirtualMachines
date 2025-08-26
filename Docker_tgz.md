@@ -3,9 +3,11 @@
 In the Docker context, a `.tgz ` file is a **compressed archive of a Docker image** created with:
 
 ```
-docker save -o image.tar <image:tag>
+  docker save -o image.tar <image:tag>
+
   # then gzip it
-tar czf image.tgz image.tar
+
+  tar czf image.tgz image.tar
 ```
 
 Or directly:
