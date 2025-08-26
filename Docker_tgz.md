@@ -3,14 +3,14 @@
 In the Docker context, a `.tgz ` file is a **compressed archive of a Docker image** created with:
 
 ```
-- docker save -o image.tar <image:tag>
+docker save -o image.tar <image:tag>
   # then gzip it
-- tar czf image.tgz image.tar
+tar czf image.tgz image.tar
 ```
 
 Or directly:
 
-`- docker save <image:tag> | gzip > image.tgz`
+`docker save <image:tag> | gzip > image.tgz`
 
 Inside the `.tgz`:
 - it is basically a tarball of JSON metadata and filesystem layer tarballs
@@ -29,7 +29,7 @@ Inside the `.tgz`:
   2. Make modifications
   3. Commit the container -> new image
   ```
-- docker commit <container-id> myimage:modified
+  docker commit <container-id> myimage:modified
   ```
   4. Save it back:
   `docker save myimage:modified | gzip > myimage-modified.tgz`
