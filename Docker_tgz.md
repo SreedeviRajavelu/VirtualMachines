@@ -67,7 +67,9 @@ Let’s debug step by step:
 This produces a tarball with manifest.json, repositories, and layer directories inside.
 
 If your .tgz was created another way (e.g., tar czf on a Docker context or folder), docker load will reject it.
+
 2. Check the contents of your .tgz
+   
 Run on your MacBook:
 tar -tzf 7ss_db_docker_20250218.tgz | head -20
 If you see manifest.json and layer directories → ✅ this is a docker save image, and something else is wrong.
@@ -81,6 +83,7 @@ cd extracted
 docker build -t my-image:latest .
 
 4. If it is a valid docker save image
+
 Try re-loading:
 gunzip -c 7ss_db_docker_20250218.tgz | docker load
 (some tools produce gzip-compressed vs tar-compressed files differently).
