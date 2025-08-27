@@ -91,15 +91,27 @@ gunzip -c 7ss_db_docker_20250218.tgz | docker load
 sreedevirajavelu@srees-MacBook-Air pgtwin_7ss % tar -tzf 7ss_db_docker_20250218.tgz | head -20
 
 7ss_db/
+
 7ss_db/docker-sql/
+
 7ss_db/docker-sql/pgtv4_pp_7ss_db_20240302.sql
+
 7ss_db/docker-sql/my.cnf
+
 7ss_db/docker-sql/build_fixed_max_conn.sh
+
 7ss_db/docker-sql/build.sh
+
 7ss_db/docker-sql/pandapower_db_initial.sql
+
 7ss_db/docker-sql/prepare_max_connections.py
+
 7ss_db/docker-sql/README.md
+
 7ss_db/docker-sql/pandapower_db_structure.sql
+
 7ss_db/docker-sql/Dockerfile
+
 7ss_db/docker-sql/run_db.sh
+
 sreedevirajavelu@srees-MacBook-Air pgtwin_7ss % 
