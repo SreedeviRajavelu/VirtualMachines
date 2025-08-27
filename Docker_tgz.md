@@ -53,3 +53,50 @@ Inside the `.tgz`:
 
 
 
+sreedevirajavelu@srees-MacBook-Air pgtwin_7ss % docker load -i 7ss_db_docker_20250218.tgz 
+unrecognized image format
+
+That error means the file 7ss_db_docker_20250218.tgz is not in the expected Docker save/load format.
+Let’s debug step by step:
+
+1. What docker load expects
+`docker load -i file.tgz` only works if the archive was created using:
+
+`docker save -o image_name.tgz image:tag`
+
+This produces a tarball with manifest.json, repositories, and layer directories inside.
+
+If your .tgz was created another way (e.g., tar czf on a Docker context or folder), docker load will reject it.
+2. Check the contents of your .tgz
+Run on your MacBook:
+tar -tzf 7ss_db_docker_20250218.tgz | head -20
+If you see manifest.json and layer directories → ✅ this is a docker save image, and something else is wrong.
+If you see Dockerfile, requirements.txt, Panda-db/, etc. → ❌ this is just the build context, not an image.
+
+3. If it’s a Docker context (not an image)
+   
+You cannot load it directly. Instead you need to build:
+tar -xzf 7ss_db_docker_20250218.tgz -C ./extracted/
+cd extracted
+docker build -t my-image:latest .
+
+4. If it is a valid docker save image
+Try re-loading:
+gunzip -c 7ss_db_docker_20250218.tgz | docker load
+(some tools produce gzip-compressed vs tar-compressed files differently).
+
+sreedevirajavelu@srees-MacBook-Air pgtwin_7ss % tar -tzf 7ss_db_docker_20250218.tgz | head -20
+
+7ss_db/
+7ss_db/docker-sql/
+7ss_db/docker-sql/pgtv4_pp_7ss_db_20240302.sql
+7ss_db/docker-sql/my.cnf
+7ss_db/docker-sql/build_fixed_max_conn.sh
+7ss_db/docker-sql/build.sh
+7ss_db/docker-sql/pandapower_db_initial.sql
+7ss_db/docker-sql/prepare_max_connections.py
+7ss_db/docker-sql/README.md
+7ss_db/docker-sql/pandapower_db_structure.sql
+7ss_db/docker-sql/Dockerfile
+7ss_db/docker-sql/run_db.sh
+sreedevirajavelu@srees-MacBook-Air pgtwin_7ss % 
