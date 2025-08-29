@@ -79,7 +79,7 @@ Do you want me to also explain how you can check the actual IP range of the brid
 -  Comment from youtuber: to manage containers at scale, especially in production, consider using Kubernetes.
 -  need to disable
 -  Example of usage of overlay network:
-  -  2 ubuntu VMs
+  -  `2 ubuntu VMs`
   -  find network interfaces on both VMs, e.g. ens33 on both VMs -> disable this on the network interface on both VMs
   -  `sudo ethtool -K ens33 tx-checksum-ip-generic off` (not persistent across restarts so might need to use something like a script using systemd service to automatically run it on boot)
   -  Even if you want to connect individual containers to overlay network, we still need to initialize the Docker Swarm
@@ -91,5 +91,29 @@ Do you want me to also explain how you can check the actual IP range of the brid
   -  on the worker node (VM) if you do `docker network ls`, you will only see the overlay network when you start a container that uses the network (can start on the manager node)
   -  to verify that we can access containers on that overlay network deployed on different VMs, can SSH to the second container and use curl to send a request to the first container on the manager node
   -  
-  -  
+
+
+# Overlay Networks 
+- Allow containers running on **different Docker hosts (machines)** to communicate with each other as if they are on the same local network, while keeping the communcation secure and isolated.
+
+Why normal Docker networks is not enough?
+- By default, Docker creates a **bridge network** on a single host (like bridge0 on Linux)
+- Containers connected to this __bridge__ can talk to each other, **but only on the same host**.
+
+If you want: 
+- multiple physical/virtual servers
+- running containers that need to talk to each other
+- **Need something that span across hosts**
+
+## How overlay networks work?
+- Docker creates a virtual distributed network that spans all participating nodes (hosts).
+- uses VXLAN tunneling (encapsulating packets inside UDP) so that container-to-container traffic can move across hosts transparently.
+- network is managed by Docker swarm or Docker engine in swarm mode
+
+Example:
+- Host A has a container running web.
+- Host B has a container running db.
+- Both containers join the same overlay network called backend-net.
+- Now web can talk to db using the container name (db:3306), even though they are on different machines.
+
 
