@@ -921,25 +921,29 @@
 <p><code>eth0 : 10.0.1.6/24</code></p>
 </li>
 <li>
-<p>Default interface created when the container is attached to a Docker network (bridge, overlay, or custom)
-     <strong>Use case:</strong></p>
-<ul>
+<p>Default interface created when the container is attached to a Docker network (bridge, overlay, or custom)</p>
+</li>
+<li><strong>Use case:</strong><ul>
 <li>Used for container-to-container communication inside the same Docker network</li>
 <li>Other containers on the same network (subnet <code>10.0.1.0/24</code>) can reach this container via <code>10.0.1.6</code></li>
-<li>Not directly routable from the host machine unless you expose ports (via <code>-p host_port:container_port</code>)
-   <strong>Example:</strong></li>
+<li>Not directly routable from the host machine unless you expose ports (via <code>-p host_port:container_port</code>)</li>
+</ul>
+</li>
+<li>
+<p><strong>Example:</strong></p>
+<ul>
 <li>If you have another container on the same Docker network, it can <code>ping 10.0.1.6</code> or connect directly to its services.</li>
 </ul>
 </li>
 <li>
 <p><code>eth1 : 172.24.10.11/24</code></p>
 </li>
-<li>A second interface — likely because you attached this container to another Docker network (such as with <code>--network</code> flag or via Docker Compose multiple networks)
-     <strong>Use case:</strong><ul>
+<li>A second interface — likely because you attached this container to another Docker network (such as with <code>--network</code> flag or via Docker Compose multiple networks)<ul>
+<li><strong>Use case:</strong></li>
 <li>Provides connectivity to containers/services on the <code>172.24.10.0/24</code> subnet</li>
 <li>Might be used for external integration (such as simulating a "backend network" while <code>eth0</code> handles a "frontend network")</li>
-<li>Useful in multi-network setups, where a container acts as a bridge between 2 networks
-   <strong>Example:</strong></li>
+<li>Useful in multi-network setups, where a container acts as a bridge between 2 networks</li>
+<li><strong>Example:</strong></li>
 <li>If you are running a database container on the <code>172.24.10.0/24</code> network, this container can talk to it via <code>172.24.10.x</code></li>
 </ul>
 </li>
