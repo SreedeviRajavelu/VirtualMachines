@@ -923,9 +923,7 @@
 <li>
 <p>Default interface created when the container is attached to a Docker network (bridge, overlay, or custom)</p>
 </li>
-<li>
-<p><strong>Use case:</strong></p>
-<ul>
+<li><strong>Use case:</strong><ul>
 <li>Used for container-to-container communication inside the same Docker network</li>
 <li>Other containers on the same network (subnet <code>10.0.1.0/24</code>) can reach this container via <code>10.0.1.6</code></li>
 <li>Not directly routable from the host machine unless you expose ports (via <code>-p host_port:container_port</code>)</li>
