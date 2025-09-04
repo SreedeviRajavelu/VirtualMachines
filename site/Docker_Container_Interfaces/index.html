@@ -919,29 +919,21 @@
 <ol>
 <li>
 <p><code>eth0 : 10.0.1.6/24</code></p>
-</li>
-<li>
-<p>default interface created when the container is attached to a Docker network (bridge, overlay, or custom)</p>
-</li>
-<li>
-<p><strong>Use case:</strong></p>
-</li>
-<li>
-<p>used for container-to-container communication inside the same Docker network</p>
-</li>
-<li>other containers have the same network (subnet 10.0.0.1/24) can reach this container via 10.0.1.6</li>
-<li>
-<p>not directly routable from the host machine unless you expose ports (via <code>-p host_port:container_port</code>)</p>
-</li>
-<li>
-<p><strong>Example:</strong></p>
-</li>
-<li>
-<p>if you have another container on the same Docker container, it can <code>ping 10.0.1.6</code> or connect directly to its services.</p>
+<pre><code>- default interface created when the container is attached to a Docker network (bridge, overlay, or custom)
+- **Use case:**
+
+- used for container-to-container communication inside the same Docker network
+- other containers have the same network (subnet 10.0.0.1/24) can reach this container via 10.0.1.6
+- not directly routable from the host machine unless you expose ports (via `-p host_port:container_port`)
+
+- **Example:**
+
+- if you have another container on the same Docker container, it can `ping 10.0.1.6` or connect directly to its services.
+</code></pre>
 </li>
 <li>
 <p><code>eth1 : 172.24.10.11/24</code></p>
-</li>
+<ul>
 <li>
 <p>a second interface -- likely because you attached this container to another Docker network (such as with <code>--network</code> flag or via Docker Compose multiple networks)</p>
 </li>
@@ -960,6 +952,8 @@
 </li>
 <li>
 <p>if you are running a database container on the <code>172.24.10.0/24</code> network, this container can talk to it via <code>172.24.10.x</code></p>
+</li>
+</ul>
 </li>
 </ol>
 <h3 id="which-ip-can-you-use-from-the-host-machine">Which IP can you use from the host machine?</h3>
