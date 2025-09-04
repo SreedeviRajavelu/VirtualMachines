@@ -8,23 +8,25 @@
       
       
       
-        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/">
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Docker_Container_Interfaces/">
       
       
+        <link rel="prev" href="../CommunicationBetweenInsideAndOutsideDocker/">
       
-        <link rel="next" href="DockerBuild/">
+      
+        <link rel="next" href="../Docker_tgz/">
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
-        <title>Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+        <title>Docker Container Interfaces - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
       
       
 
@@ -43,7 +45,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -62,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sree-devis-documentation-on-virtual-machines-docker-networking" class="md-skip">
+        <a href="#docker-container-interfaces" class="md-skip">
           Skip to content
         </a>
       
@@ -78,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-header__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-header__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -98,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Docker, Virtual Machines & Networks
+              Docker Container Interfaces
             
           </span>
         </div>
@@ -188,7 +190,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-nav__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-nav__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -215,32 +217,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Docker, Virtual Machines & Networks
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -251,71 +231,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#virtualization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Virtualization
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tools
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scada" class="md-nav__link">
-    <span class="md-ellipsis">
-      SCADA
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#os" class="md-nav__link">
-    <span class="md-ellipsis">
-      OS
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -324,18 +239,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -351,7 +268,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Docker
@@ -365,7 +282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="DockerBuild/" class="md-nav__link">
+      <a href="../DockerBuild/" class="md-nav__link">
         
   
   
@@ -388,7 +305,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Docker_Networks/" class="md-nav__link">
+      <a href="../Docker_Networks/" class="md-nav__link">
         
   
   
@@ -411,7 +328,7 @@
   
   
     <li class="md-nav__item">
-      <a href="DockerEngine_Ubuntu/" class="md-nav__link">
+      <a href="../DockerEngine_Ubuntu/" class="md-nav__link">
         
   
   
@@ -434,7 +351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="CommunicationBetweenInsideAndOutsideDocker/" class="md-nav__link">
+      <a href="../CommunicationBetweenInsideAndOutsideDocker/" class="md-nav__link">
         
   
   
@@ -454,10 +371,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="Docker_Container_Interfaces/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Docker Container Interfaces
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -468,6 +405,33 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker-container-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Container Interfaces
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -480,7 +444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Docker_tgz/" class="md-nav__link">
+      <a href="../Docker_tgz/" class="md-nav__link">
         
   
   
@@ -548,7 +512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="VM-to-VM-Communication/" class="md-nav__link">
+      <a href="../VM-to-VM-Communication/" class="md-nav__link">
         
   
   
@@ -571,7 +535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Fix_Slow_UbuntuVM_Boot/" class="md-nav__link">
+      <a href="../Fix_Slow_UbuntuVM_Boot/" class="md-nav__link">
         
   
   
@@ -639,7 +603,7 @@
   
   
     <li class="md-nav__item">
-      <a href="SSH/" class="md-nav__link">
+      <a href="../SSH/" class="md-nav__link">
         
   
   
@@ -662,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Matlab/" class="md-nav__link">
+      <a href="../Matlab/" class="md-nav__link">
         
   
   
@@ -685,7 +649,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Wine/" class="md-nav__link">
+      <a href="../Wine/" class="md-nav__link">
         
   
   
@@ -753,7 +717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ScadaLTS/" class="md-nav__link">
+      <a href="../ScadaLTS/" class="md-nav__link">
         
   
   
@@ -821,7 +785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Mac/" class="md-nav__link">
+      <a href="../Mac/" class="md-nav__link">
         
   
   
@@ -861,8 +825,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -871,45 +833,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
+  <a href="#docker-container-interfaces" class="md-nav__link">
     <span class="md-ellipsis">
-      Docker
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#virtualization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Virtualization
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tools
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scada" class="md-nav__link">
-    <span class="md-ellipsis">
-      SCADA
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#os" class="md-nav__link">
-    <span class="md-ellipsis">
-      OS
+      Docker Container Interfaces
     </span>
   </a>
   
@@ -934,36 +860,13 @@
   
 
 
-<h1 id="sree-devis-documentation-on-virtual-machines-docker-networking">Sree Devi's Documentation on Virtual Machines, Docker &amp; Networking</h1>
-<p>Welcome! Use the sidebar to navigate to different sections of this project.</p>
-<h2 id="docker">Docker</h2>
+  <h1>Docker Container Interfaces</h1>
+
+<h2 id="docker-container-interfaces">Docker Container Interfaces</h2>
 <ul>
-<li><a href="DockerBuild/">Docker Build</a></li>
-<li><a href="Docker_Networks/">Docker Networking</a></li>
-<li><a href="CommunicationBetweenInsideAndOutsideDocker/">Communication Between Inside &amp; Outside Docker</a></li>
-<li><a href="Docker_Container_Interfaces/">Docker Container Interfaces</a></li>
-<li><a href="DockerEngine_Ubuntu/">Docker Engine on Ubuntu</a></li>
-<li><a href="Docker_tgz/">Using tarballs (.tgz)</a></li>
+<li><code>ip a</code> inside the docker container of an IED after <code>docker exec -it ds1cb1 bash</code>:</li>
 </ul>
-<h2 id="virtualization">Virtualization</h2>
-<ul>
-<li><a href="VM-to-VM-Communication/">VM-to-VM Communication</a></li>
-<li><a href="Fix_Slow_UbuntuVM_Boot/">Fix Slow Ubuntu VM Boot</a></li>
-</ul>
-<h2 id="tools">Tools</h2>
-<ul>
-<li><a href="SSH/">SSH Setup</a></li>
-<li><a href="Matlab/">Matlab Setup</a></li>
-<li><a href="Wine/">Wine on Linux</a></li>
-</ul>
-<h2 id="scada">SCADA</h2>
-<ul>
-<li><a href="ScadaLTS/">ScadaLTS</a></li>
-</ul>
-<h2 id="os">OS</h2>
-<ul>
-<li><a href="Mac/">Mac Notes</a></li>
-</ul>
+<p><img alt="alt text" src="../image.png" /></p>
 
 
 
@@ -1012,10 +915,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   </body>

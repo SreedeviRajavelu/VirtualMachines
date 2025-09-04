@@ -1,7 +1,7 @@
 theme: minima
 title: Virtual Machines, Docker & Networking
 nav:
-  - Sree Devi's Documentation on Virtual Machines, Docker & Networking: index.md
+  - Home: index.md
   - Docker:
       - Docker Build: DockerBuild.md
       - Networking: Docker_Networks.md
