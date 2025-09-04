@@ -921,17 +921,21 @@
 <p><code>eth0 : 10.0.1.6/24</code></p>
 </li>
 <li>
-<p>default interface created when the container is attached to a Docker network (bridge, overlay, or custom)
-     <strong>Use case:</strong></p>
+<p>default interface created when the container is attached to a Docker network (bridge, overlay, or custom)</p>
+</li>
+<li>
+<p><strong>Use case:</strong></p>
 </li>
 <li>
 <p>used for container-to-container communication inside the same Docker network</p>
 </li>
 <li>other containers have the same network (subnet 10.0.0.1/24) can reach this container via 10.0.1.6</li>
-<li>not directly routable from the host machine unless you expose ports (via <code>-p host_port:container_port</code>)</li>
-</ol>
+<li>
+<p>not directly routable from the host machine unless you expose ports (via <code>-p host_port:container_port</code>)</p>
+</li>
+<li>
 <p><strong>Example:</strong></p>
-<ul>
+</li>
 <li>
 <p>if you have another container on the same Docker container, it can <code>ping 10.0.1.6</code> or connect directly to its services.</p>
 </li>
@@ -941,17 +945,23 @@
 <li>
 <p>a second interface -- likely because you attached this container to another Docker network (such as with <code>--network</code> flag or via Docker Compose multiple networks)</p>
 </li>
-</ul>
+<li>
 <p><strong>Use case:</strong></p>
-<ul>
-<li>provides connectivity to containers/services on the 172.24.10.0/24 subnet</li>
+</li>
+<li>
+<p>provides connectivity to containers/services on the 172.24.10.0/24 subnet</p>
+</li>
 <li>might be used for external integration (such as simulating a 'backend network' while <code>eth0</code> handles a 'frontend network')</li>
-<li>useful in multi-network setups, where a container acts as a bridge between 2 networks</li>
-</ul>
+<li>
+<p>useful in multi-network setups, where a container acts as a bridge between 2 networks</p>
+</li>
+<li>
 <p><strong>Example:</strong></p>
-<ul>
-<li>if you are running a database container on the <code>172.24.10.0/24</code> network, this container can talk to it via <code>172.24.10.x</code></li>
-</ul>
+</li>
+<li>
+<p>if you are running a database container on the <code>172.24.10.0/24</code> network, this container can talk to it via <code>172.24.10.x</code></p>
+</li>
+</ol>
 <h3 id="which-ip-can-you-use-from-the-host-machine">Which IP can you use from the host machine?</h3>
 <ul>
 <li>Normally, you don't use these internal container IPs from the host.</li>
