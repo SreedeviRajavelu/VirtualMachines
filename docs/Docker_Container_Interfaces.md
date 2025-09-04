@@ -9,7 +9,6 @@ Different use cases of the 2 network interfaces:
 1. `eth0 : 10.0.1.6/24`
 
    - Default interface created when the container is attached to a Docker network (bridge, overlay, or custom)
-
    - **Use case:**
      - Used for container-to-container communication inside the same Docker network
      - Other containers on the same network (subnet `10.0.1.0/24`) can reach this container via `10.0.1.6`
