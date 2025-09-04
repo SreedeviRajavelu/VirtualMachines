@@ -1,0 +1,28 @@
+site_name: "Sree Devi’s Documentation on Virtual Machines, Docker & Networking"
+site_url: https://sreedevirajavelu.github.io/VirtualMachines/
+theme:
+  name: material
+site_dir: site
+use_directory_urls: true
+repo_url: https://github.com/SreedeviRajavelu/VirtualMachines
+repo_name: GitHub
+nav:
+  - Docker, Virtual Machines & Networks: index.md
+  - Docker:
+      - Docker Build: DockerBuild.md
+      - Docker Networking: Docker_Networks.md
+      - Docker Engine on Ubuntu: DockerEngine_Ubuntu.md
+      - Communication Inside & Outside Docker: CommunicationBetweenInsideAndOutsideDocker.md
+      - Docker Container Interfaces: Docker_Container_Interfaces.md
+      - Using tarballs (.tgz): Docker_tgz.md
+  - Virtualization:
+      - VM-to-VM Communication: VM-to-VM-Communication.md
+      - Fix Slow Ubuntu VM Boot: Fix_Slow_UbuntuVM_Boot.md
+  - Tools:
+      - SSH: SSH.md
+      - Matlab: Matlab.md
+      - Wine: Wine.md
+  - SCADA:
+      - ScadaLTS: ScadaLTS.md
+  - OS:
+      - Mac Notes: Mac.md
