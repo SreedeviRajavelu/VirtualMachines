@@ -1,4 +1,3 @@
-# Sree Devi's Documentation on Virtual Machines, Docker & Networking
 
 Welcome! Use the sidebar to navigate to different sections of this project.
 
