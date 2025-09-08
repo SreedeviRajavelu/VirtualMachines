@@ -864,12 +864,24 @@
 
 <h2 id="building-docker-images">Building Docker images</h2>
 <p><code>docker build --network host --tag database .</code></p>
-<p>What each part does:
-- <code>docker build</code>: command to build a Docker image
-- <code>--network host</code>: uses host's network stack during the build process (allows the build to access network resources as if it were running directly on the host machine)
-- <code>--tag database</code>: tags (names) the resulting image as "database"
-- <code>.</code>: uses current directory as the build context (where Docker looks for the Dockerfile and any files it needs to copy)
-  - <code>--network host</code>: this flag is often used when the build process needs to download packages or access network resources that might be blocked by Docker's default networking.</p>
+<p>What each part does:</p>
+<ul>
+<li>
+<p><code>docker build</code>: command to build a Docker image</p>
+</li>
+<li>
+<p><code>--network host</code>: uses host's network stack during the build process (allows the build to access network resources as if it were running directly on the host machine)</p>
+</li>
+<li>
+<p><code>--tag database</code>: tags (names) the resulting image as "database"</p>
+</li>
+<li>
+<p><code>.</code>: uses current directory as the build context (where Docker looks for the Dockerfile and any files it needs to copy)</p>
+</li>
+<li>
+<p><code>--network host</code>: this flag is often used when the build process needs to download packages or access network resources that might be blocked by Docker's default networking.</p>
+</li>
+</ul>
 
 
 
