@@ -4,6 +4,8 @@
 
 What each part does:
 
+### checking ...
+
 - `docker build`: command to build a Docker image
 
 - `--network host`: uses host's network stack during the build process (allows the build to access network resources as if it were running directly on the host machine)
