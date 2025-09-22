@@ -20,6 +20,7 @@ Welcome! Use the sidebar to navigate to different sections of this project.
 - [SSH Setup](SSH.md)
 - [Matlab Setup](Matlab.md)
 - [Wine on Linux](Wine.md)
+- [SQL](SQL.md)
 
 ## SCADA
 
