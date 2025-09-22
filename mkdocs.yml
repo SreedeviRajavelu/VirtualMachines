@@ -22,6 +22,7 @@ nav:
       - SSH: SSH.md
       - Matlab: Matlab.md
       - Wine: Wine.md
+      - SQL: SQL.md 
   - SCADA:
       - ScadaLTS: ScadaLTS.md
   - OS:
