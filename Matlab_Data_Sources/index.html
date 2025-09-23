@@ -736,6 +736,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container-with-persistent-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#steps-to-use-postgresql-database-with-matlab" class="md-nav__link">
     <span class="md-ellipsis">
       Steps to use PostgreSQL database with MATLAB:
@@ -963,6 +972,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container-with-persistent-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#steps-to-use-postgresql-database-with-matlab" class="md-nav__link">
     <span class="md-ellipsis">
       Steps to use PostgreSQL database with MATLAB:
@@ -1035,6 +1053,7 @@ is the right driver for you.</p>
 If it shows Java 7 → use postgresql-42.2.29.jar.
 If Java 6 (unlikely unless MATLAB is very old) → use postgresql-42.2.27.jar.</p>
 <h2 id="content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container">Content of docker-compose.yml file to use postgresql database as docker container</h2>
+<p>This version does not persist volume and data will vanish if you remove the container.</p>
 <pre><code>services:
   postgres:
     image: postgres:16
@@ -1061,6 +1080,24 @@ If Java 6 (unlikely unless MATLAB is very old) → use postgresql-42.2.27.jar.</
 ❗ This is not where live database data is stored. Live data is in /var/lib/mysql. Since you’re not mounting that, the data lives in a Docker-managed anonymous volume.
 
 So: Changing this bind mount will not remove your MySQL data. It only affects which init scripts would run on container creation.
+</code></pre>
+<h2 id="content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container-with-persistent-volume">Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)</h2>
+<pre><code>services:
+  postgres:
+    image: postgres:16
+    container_name: ccp-multi-ied-multi-plc-pg
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: powerplant
+    ports:
+      - &quot;5432:5432&quot;
+    volumes:
+      - postgres_data:/var/lib/postgresql/data   # &lt;-- persistent volume for DB data
+      - ./postgres-sql:/docker-entrypoint-initdb.d  # &lt;-- init scripts
+
+volumes:
+  postgres_data:   # &lt;-- named volume definition
 </code></pre>
 <h2 id="steps-to-use-postgresql-database-with-matlab">Steps to use PostgreSQL database with MATLAB:</h2>
 <ol>
