@@ -54,6 +54,9 @@ If Java 6 (unlikely unless MATLAB is very old) → use postgresql-42.2.27.jar.
 
 ## Content of docker-compose.yml file to use postgresql database as docker container 
 
+This version does not persist volume and data will vanish if you remove the container.
+
+
 ```
 services:
   postgres:
@@ -83,6 +86,27 @@ Use of
     ❗ This is not where live database data is stored. Live data is in /var/lib/mysql. Since you’re not mounting that, the data lives in a Docker-managed anonymous volume.
 
     So: Changing this bind mount will not remove your MySQL data. It only affects which init scripts would run on container creation.
+
+
+## Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)
+```
+services:
+  postgres:
+    image: postgres:16
+    container_name: ccp-multi-ied-multi-plc-pg
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: powerplant
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data   # <-- persistent volume for DB data
+      - ./postgres-sql:/docker-entrypoint-initdb.d  # <-- init scripts
+
+volumes:
+  postgres_data:   # <-- named volume definition
+```
 
 
 

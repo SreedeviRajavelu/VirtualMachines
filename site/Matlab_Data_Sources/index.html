@@ -726,6 +726,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content of docker-compose.yml file to use postgresql database as docker container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steps-to-use-postgresql-database-with-matlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to use PostgreSQL database with MATLAB:
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -935,6 +953,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content of docker-compose.yml file to use postgresql database as docker container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steps-to-use-postgresql-database-with-matlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to use PostgreSQL database with MATLAB:
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -961,6 +997,76 @@
 <p>https://ww2.mathworks.cn/help/database/ug/postgresql-jdbc-for-macos.html</p>
 <h4 id="postgresql-jdbc-for-windows">PostgreSQL JDBC for Windows:</h4>
 <p>https://ww2.mathworks.cn/help/database/ug/postgresql-jdbc-windows.html</p>
+<p><strong>I have configured a JDBC data source on matlab using mysql-connector-j-9.3.0 as the driver , and connecting to a dockerized version of a mysql database, how can I change this to postgresql database instead with minimal changes?</strong></p>
+<ol>
+<li>Replace JDBC Driver
+MySQL and PostgreSQL require different JDBC drivers:
+Current (MySQL): mysql-connector-j-9.3.0.jar
+Required (Postgres): postgresql-<version>.jar (latest is 42.x)
+👉 Download the .jar and place it in the same folder where MATLAB can access JDBC drivers (often under matlabroot/toolbox/local or a custom path you’ve set).</li>
+</ol>
+<p><strong>Link to download JDBC Drivers</strong></p>
+<p>https://ww2.mathworks.cn/en/products/database/driver-installation.html</p>
+<ul>
+<li>choose PostgreSQL JDBC driver</li>
+</ul>
+<p>✅ Which JDBC Driver to Use
+F
+rom the PostgreSQL JDBC site:</p>
+<p>You are on Postgres 16 → supported by all recent drivers.</p>
+<p>You are likely running Java 8+ (MATLAB since R2020a bundles Java 8, and newer releases may bundle Java 11).</p>
+<p>👉 So you should use the JDBC 4.2 driver (version 42.7.8, latest stable).
+That means:
+<code>postgresql-42.7.8.jar</code>
+is the right driver for you.</p>
+<ul>
+<li>
+<p>check version of Java on Matlab</p>
+</li>
+<li>
+<p>check version of PostgreSQL used as JDBC data source</p>
+</li>
+</ul>
+<p>🔍 Things to Check Before Connecting</p>
+<p>Java Version in MATLAB</p>
+<p>In MATLAB, check which JVM it’s using:</p>
+<p>version -java</p>
+<p>If it shows <code>Java 8 or higher</code>, you’re good with <code>postgresql-42.7.8.jar</code>.
+If it shows Java 7 → use postgresql-42.2.29.jar.
+If Java 6 (unlikely unless MATLAB is very old) → use postgresql-42.2.27.jar.</p>
+<h2 id="content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container">Content of docker-compose.yml file to use postgresql database as docker container</h2>
+<pre><code>services:
+  postgres:
+    image: postgres:16
+    container_name: ccp-multi-ied-multi-plc
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: powerplant
+    ports:
+      - &quot;5432:5432&quot;
+    volumes:
+    - ./postgres-sql:/docker-entrypoint-initdb.d
+
+</code></pre>
+<p>Use of 
+-  volumes:
+      - ./sql:/docker-entrypoint-initdb.d</p>
+<pre><code>- This mounts your host directory ./sql into the container’s /docker-entrypoint-initdb.d directory.
+
+- docker-entrypoint-initdb.d is a special folder: on first startup of the container, MySQL runs all .sql or .sh scripts there to initialize the DB.
+
+- After initialization, new runs don’t automatically re-run scripts unless you remove the container and volume.
+
+❗ This is not where live database data is stored. Live data is in /var/lib/mysql. Since you’re not mounting that, the data lives in a Docker-managed anonymous volume.
+
+So: Changing this bind mount will not remove your MySQL data. It only affects which init scripts would run on container creation.
+</code></pre>
+<h2 id="steps-to-use-postgresql-database-with-matlab">Steps to use PostgreSQL database with MATLAB:</h2>
+<ol>
+<li>Download JDBC driver from PostgreSQL JDBC site (check version of Java on MATLAB &amp; Postgres version)</li>
+<li></li>
+</ol>
 
 
 
