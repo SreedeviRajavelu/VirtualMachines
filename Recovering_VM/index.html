@@ -1053,8 +1053,39 @@ Once everything is fixed, you can switch back to GUI with:</p>
 sudo systemctl isolate graphical.target
 </code></pre>
 <h2 id="checking-space-left-on-vm">Checking space left on VM:</h2>
-<pre><code>↑ Share se into data and signature falled Ubuntu 24.04.2 Clone [HSRG_PLC PPTwin] [Running] W: Failed to fetch http://ports.ubuntu.com/ubuntu-ports/dists/noble-updates/InRelease Error writing to file - write (28: No space left on device) [IP: 185.12 190.36 80] W: Failed to fetch http://ports.ubuntu.com/ubuntu-ports/dists/noble-backports/InRelease Error writing to file write (28: No space left on device) [IP: 185. 5.190.36 80] W: Failed to fetch http://ports.ubuntu.com/ubuntu-ports/dists/noble-security/InRelease Error writing to file - write (28: No space left on device) [IP: 185.1 .190.36 80] W: Some index files failed to download. They have been ignored, or old ones used instead. sreedevi@sreedevi:~$ dpkg -1 'linux-image*' | grep ^ii ii linux-image-6.8.0-71-generic ii linux-image-generic sreedevi@sreedevi :~$ sudo apt clean 6.8.0-71.71 6.8.0-71.71 arm64 arm64 Signed kernel image generic Generic Linux kernel image sreedevi@sreedevi:~$ sudo journalctl -vacuum-time=2d journalctl: invalid option -- 'v' sreedevi@sreedevi :~$ sudo journalctl --vacuum-time=2d Vacuuming done, freed B of archived journals from /var/log/journal/ef 121b3f41774ea893499e6942bb2ab8. Vacuuming done, freed B of archived journals from /var/log/journal. Vacuuming done, freed B of archived journals from /run/log/journal. sreedevi@sreedevi:~$ sudo rm -rf /var/lib/apt/lists/* sreedevi@sreedevi: &quot;$ df -h Filesystem Size Used Avail Use% Mounted on tmpfs 391M 1.3M 389M 1% /run efivarfs 256K 54K 203K 21% /sys/firmware/efi/efivars /dev/ubuntu-vg/ubuntu-lv 16G 15G Ø 100% / tmpfs 2.0G Ө 2.0G 0% /dev/shm tmpfs 5.0M 8.0K 5.0M 1% /run/lock /dev/sda2 2.0G 106M 1.7G 6% /boot /dev/sda1 1.1G 6.4M 1.1G 1% /boot/efi POWER PLANT_TWIN 927G 421G 506G 46% /media/sf_POWER_PLANT_TWIN ubuntu24_shared_folder 927G 421G 506G 46% /media/sf_ubuntu24_shared_folder tmpfs 391M 88K 390M 1% /run/user/1000 sreedevi@sreedevi:~$
+<pre><code>↑ Share se into data and signature falled 
+Ubuntu 24.04.2 Clone [HSRG_PLC PPTwin] [Running] 
+W: Failed to fetch http://ports.ubuntu.com/ubuntu-ports/dists/noble-updates/InRelease 
+Error writing to file - write (28: No space left on device) [IP: 185.12 190.36 80] 
+W: Failed to fetch http://ports.ubuntu.com/ubuntu-ports/dists/noble-backports/InRelease Error writing to file write (28: No space left on device) [IP: 185. 5.190.36 80] 
+W: Failed to fetch http://ports.ubuntu.com/ubuntu-ports/dists/noble-security/InRelease Error writing to file - write (28: No space left on device) [IP: 185.1 .190.36 80] 
+W: Some index files failed to download. They have been ignored, or old ones used instead. 
+sreedevi@sreedevi:~$ dpkg -1 'linux-image*' | grep ^ii ii 
+linux-image-6.8.0-71-generic ii  6.8.0-71.71 arm64 Signed kernel image generic
+linux-image-generic 6.8.0-71.71 arm64 Generic Linux kernel image
+sreedevi@sreedevi :~$ sudo apt clean      
+sreedevi@sreedevi:~$ sudo journalctl -vacuum-time=2d 
+journalctl: invalid option -- 'v' 
+sreedevi@sreedevi :~$ sudo journalctl --vacuum-time=2d 
+Vacuuming done, freed B of archived journals from /var/log/journal/ef 121b3f41774ea893499e6942bb2ab8. 
+Vacuuming done, freed B of archived journals from /var/log/journal. 
+Vacuuming done, freed B of archived journals from /run/log/journal. 
+sreedevi@sreedevi:~$ sudo rm -rf /var/lib/apt/lists/* 
+sreedevi@sreedevi: &quot;$ df -h 
+Filesystem Size Used Avail Use% Mounted on 
+tmpfs 391M 1.3M 389M 1% /run 
+efivarfs 256K 54K 203K 21% /sys/firmware/efi/efivars 
+/dev/ubuntu-vg/ubuntu-lv 16G 15G Ø 100% / 
+tmpfs 2.0G Ө 2.0G 0% /dev/shm
+tmpfs 5.0M 8.0K 5.0M 1% /run/lock 
+/dev/sda2 2.0G 106M 1.7G 6% /boot 
+/dev/sda1 1.1G 6.4M 1.1G 1% /boot/efi 
+POWER PLANT_TWIN 927G 421G 506G 46% /media/sf_POWER_PLANT_TWIN 
+ubuntu24_shared_folder 927G 421G 506G 46% /media/sf_ubuntu24_shared_folder 
+tmpfs 391M 88K 390M 1% /run/user/1000 
+sreedevi@sreedevi:~$
 </code></pre>
+<p><img alt="alt text" src="../Screenshot%202025-09-24%20at%201.32.45%E2%80%AFPM.png" /></p>
 <ul>
 <li>Your root filesystem is:
 /dev/ubuntu-vg/ubuntu-lv   16G   15G   0   100%   /
