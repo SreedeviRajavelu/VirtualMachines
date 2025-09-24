@@ -69,10 +69,11 @@ So your root volume is 16 GB and completely full. That’s why apt fails and the
 Your /boot and /boot/efi partitions have space, but they don’t help since all system packages/logs live under /.
 
 
-1. Free some emergency space
+## Free some emergency space
+Just enough so apt and the system can breathe:
 
 ```
-Just enough so apt and the system can breathe:
+
 # Clear apt cache (already done, but run again just in case)
 sudo apt clean
 
@@ -113,6 +114,8 @@ Free PE Size 4089/15.97 GiB
 VG UUID TkZXdq-3dSV-izeB-Ewns-UJJn-1VaN-FLMNwc 
 sreedevi@sreedevi:~$
 ```
+
+![alt text](image-1.png)
 
 This means the volume group `ubuntu-vg` is ~32 GB total, but only 16 GB is allocated to `/` (`/dev/ubuntu-vg/ubuntu-lv`).
 So this means you already have **~16GB free inside the VG ready to use** - you don't even need to resize the VirtualBox disk.
