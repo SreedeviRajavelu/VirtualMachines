@@ -164,5 +164,27 @@ sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
 sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
 ```
 
+```
+sreedevi@sreedevi:~$ sudo lvextend -1 +100%FREE /dev/ubuntu-vg/ubuntu-lv 
+[sudo] password for sreedevi: 
+Size of logical volume ubuntu-vg/ubuntu-lv changed from 15.97 GiB (4089 extents) to <31.95 GiB (8178 extents). 
+Logical volume ubuntu-vg/ubuntu-lv successfully resized. 
+sreedevi@sreedevi :~$ sudo resize2fs /dev/ubuntu-vg/ubuntu-lv resize2fs 1.47.0 (5-Feb-2023) 
+Filesystem at /dev/ubuntu-vg/ubuntu-ly is mounted on ; on-line resizing required old_desc_blocks = 2, new_desc_blocks = 4 
+The filesystem on /dev/ubuntu-vg/ubuntu-lv is now 8374272 (4k) blocks long. 
+sreedevi@sreedevi: df -h 
+Filesystem Size Used Avail Use% Mounted on 
+tmpfs 391M 1.3M 389M 1% /run 
+efivarfs 256K 54K 203K 21% /sys/firmware/efi/efivars 
+/dev/ubuntu-vg/ubuntu-lv 32G 15G 16G 50% / 
+tmpfs 2.0G Ө 2.0G 0% /dev/shm 
+tmpfs 5.0м 8.ок 5.0м 1% /run/lock 
+/dev/sda2 2.0G 106M 1.7G 6% /boot 
+/dev/sda1 1.1G 6.4M 1.1G 1% /boot/efi 
+POWER PLANT_TWIN 927G 422G 506G 46% /media/sf_POWER_PLANT_TWIN 
+ubuntu24_shared_folder 927G 422G 506G 46% /media/sf_ubuntu24_shared_folder 
+tmpfs 391M 88K 390M 1% /run/user/1000 
+sreedevi@sreedevi:~$
+```
 
 
