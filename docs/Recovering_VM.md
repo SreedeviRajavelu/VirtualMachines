@@ -91,7 +91,7 @@ tmpfs 391M 88K 390M 1% /run/user/1000
 sreedevi@sreedevi:~$
 ```
 
-![alt text](<Screenshot 2025-09-24 at 1.32.45 PM.png>)
+
 ![alt text](image-2.png)
 
 
