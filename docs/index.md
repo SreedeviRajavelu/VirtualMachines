@@ -14,6 +14,7 @@ Welcome! Use the sidebar to navigate to different sections of this project.
 
 - [VM-to-VM Communication](VM-to-VM-Communication.md)
 - [Fix Slow Ubuntu VM Boot](Fix_Slow_UbuntuVM_Boot.md)
+- [Recovering VM] (Recovering_VM.md)
 
 ## Tools
 
