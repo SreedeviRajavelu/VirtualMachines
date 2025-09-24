@@ -211,12 +211,12 @@ sudo systemctl set-default multi-user.target
 
 sudo systemctl set-default graphical.target # switching to GUI
 
-```
 
-Prompt from me:
+
+**Prompt from me:**
 After Select Advanced options for Ubuntu → recovery mode. Choose Root – Drop to root shell prompt. the prompt says enter for maintenance and press control D to continue after I pressed control d I see `root@sreedevi` how should I proceed to do these : sudo systemctl disable NetworkManager-wait-online.service sudo systemctl mask NetworkManager-wait-online.service sudo apt update sudo apt install virtualbox-guest-utils virtualbox-guest-x11 virtualbox-guest-dkms sudo dpkg-reconfigure gdm3
 
-```
+
 
 If root filesystem is mounted as read-only :
 `mount -o remount,rw /`
