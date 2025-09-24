@@ -575,6 +575,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#free-some-emergency-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      Free some emergency space
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#check-if-there-is-free-space-in-the-volume-group" class="md-nav__link">
     <span class="md-ellipsis">
       Check if there is free space in the volume group
@@ -947,6 +956,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#free-some-emergency-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      Free some emergency space
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#check-if-there-is-free-space-in-the-volume-group" class="md-nav__link">
     <span class="md-ellipsis">
       Check if there is free space in the volume group
@@ -1038,17 +1056,14 @@ sudo systemctl isolate graphical.target
 <pre><code>↑ Share se into data and signature falled Ubuntu 24.04.2 Clone [HSRG_PLC PPTwin] [Running] W: Failed to fetch http://ports.ubuntu.com/ubuntu-ports/dists/noble-updates/InRelease Error writing to file - write (28: No space left on device) [IP: 185.12 190.36 80] W: Failed to fetch http://ports.ubuntu.com/ubuntu-ports/dists/noble-backports/InRelease Error writing to file write (28: No space left on device) [IP: 185. 5.190.36 80] W: Failed to fetch http://ports.ubuntu.com/ubuntu-ports/dists/noble-security/InRelease Error writing to file - write (28: No space left on device) [IP: 185.1 .190.36 80] W: Some index files failed to download. They have been ignored, or old ones used instead. sreedevi@sreedevi:~$ dpkg -1 'linux-image*' | grep ^ii ii linux-image-6.8.0-71-generic ii linux-image-generic sreedevi@sreedevi :~$ sudo apt clean 6.8.0-71.71 6.8.0-71.71 arm64 arm64 Signed kernel image generic Generic Linux kernel image sreedevi@sreedevi:~$ sudo journalctl -vacuum-time=2d journalctl: invalid option -- 'v' sreedevi@sreedevi :~$ sudo journalctl --vacuum-time=2d Vacuuming done, freed B of archived journals from /var/log/journal/ef 121b3f41774ea893499e6942bb2ab8. Vacuuming done, freed B of archived journals from /var/log/journal. Vacuuming done, freed B of archived journals from /run/log/journal. sreedevi@sreedevi:~$ sudo rm -rf /var/lib/apt/lists/* sreedevi@sreedevi: &quot;$ df -h Filesystem Size Used Avail Use% Mounted on tmpfs 391M 1.3M 389M 1% /run efivarfs 256K 54K 203K 21% /sys/firmware/efi/efivars /dev/ubuntu-vg/ubuntu-lv 16G 15G Ø 100% / tmpfs 2.0G Ө 2.0G 0% /dev/shm tmpfs 5.0M 8.0K 5.0M 1% /run/lock /dev/sda2 2.0G 106M 1.7G 6% /boot /dev/sda1 1.1G 6.4M 1.1G 1% /boot/efi POWER PLANT_TWIN 927G 421G 506G 46% /media/sf_POWER_PLANT_TWIN ubuntu24_shared_folder 927G 421G 506G 46% /media/sf_ubuntu24_shared_folder tmpfs 391M 88K 390M 1% /run/user/1000 sreedevi@sreedevi:~$
 </code></pre>
 <ul>
-<li>
-<p>Your root filesystem is:
+<li>Your root filesystem is:
 /dev/ubuntu-vg/ubuntu-lv   16G   15G   0   100%   /
 So your root volume is 16 GB and completely full. That’s why apt fails and the VM hangs.
-Your /boot and /boot/efi partitions have space, but they don’t help since all system packages/logs live under /.</p>
-</li>
-<li>
-<p>Free some emergency space</p>
-</li>
+Your /boot and /boot/efi partitions have space, but they don’t help since all system packages/logs live under /.</li>
 </ul>
-<pre><code>Just enough so apt and the system can breathe:
+<h2 id="free-some-emergency-space">Free some emergency space</h2>
+<p>Just enough so apt and the system can breathe:</p>
+<pre><code>
 # Clear apt cache (already done, but run again just in case)
 sudo apt clean
 
@@ -1085,6 +1100,7 @@ Free PE Size 4089/15.97 GiB
 VG UUID TkZXdq-3dSV-izeB-Ewns-UJJn-1VaN-FLMNwc 
 sreedevi@sreedevi:~$
 </code></pre>
+<p><img alt="alt text" src="../image-1.png" /></p>
 <p>This means the volume group <code>ubuntu-vg</code> is ~32 GB total, but only 16 GB is allocated to <code>/</code> (<code>/dev/ubuntu-vg/ubuntu-lv</code>).
 So this means you already have <strong>~16GB free inside the VG ready to use</strong> - you don't even need to resize the VirtualBox disk.</p>
 <h2 id="expand-your-root-filesystem">Expand your root filesystem</h2>
