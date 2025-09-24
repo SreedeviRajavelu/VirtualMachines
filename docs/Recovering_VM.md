@@ -92,7 +92,7 @@ sreedevi@sreedevi:~$
 ```
 
 ![alt text](<Screenshot 2025-09-24 at 1.32.45 PM.png>)
-
+![alt text](image-2.png)
 
 
 - Your root filesystem is:
