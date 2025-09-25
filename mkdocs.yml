@@ -24,7 +24,7 @@ nav:
       - Matlab: Matlab.md
       - Wine: Wine.md
       - SQL: SQL.md 
-      - Matlab: Matlab_Data_Sources.md
+      - Matlab Data Sources: Matlab_Data_Sources.md
   - SCADA:
       - ScadaLTS: ScadaLTS.md
   - OS:
