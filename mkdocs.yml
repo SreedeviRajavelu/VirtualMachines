@@ -15,6 +15,7 @@ nav:
       - Communication Inside & Outside Docker: CommunicationBetweenInsideAndOutsideDocker.md
       - Docker Container Interfaces: Docker_Container_Interfaces.md
       - Using tarballs (.tgz): Docker_tgz.md
+      - Docker Compose: Docker_Compose.md
   - Virtualization:
       - VM-to-VM Communication: VM-to-VM-Communication.md
       - Fix Slow Ubuntu VM Boot: Fix_Slow_UbuntuVM_Boot.md

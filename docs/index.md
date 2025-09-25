@@ -9,6 +9,7 @@ Welcome! Use the sidebar to navigate to different sections of this project.
 - [Docker Container Interfaces](Docker_Container_Interfaces.md)
 - [Docker Engine on Ubuntu](DockerEngine_Ubuntu.md)
 - [Using tarballs (.tgz)](Docker_tgz.md)
+- [Docker Compose](Docker_Compose.md)
 
 ## Virtualization
 
