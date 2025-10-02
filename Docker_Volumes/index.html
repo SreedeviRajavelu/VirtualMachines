@@ -1012,18 +1012,21 @@
 
 </code></pre>
 <p>Use of 
--  volumes:
-      - ./sql:/docker-entrypoint-initdb.d</p>
-<pre><code>- This mounts your host directory ./sql into the container’s /docker-entrypoint-initdb.d directory.
-
-- docker-entrypoint-initdb.d is a special folder: on first startup of the container, MySQL runs all .sql or .sh scripts there to initialize the DB.
-
-- After initialization, new runs don’t automatically re-run scripts unless you remove the container and volume.
-
-❗ This is not where live database data is stored. Live data is in /var/lib/mysql. Since you’re not mounting that, the data lives in a Docker-managed anonymous volume.
-
-So: Changing this bind mount will not remove your MySQL data. It only affects which init scripts would run on container creation.
-</code></pre>
+- volumes:
+  - ./sql:/docker-entrypoint-initdb.d</p>
+<ul>
+<li>
+<p>This mounts your host directory ./sql into the container’s /docker-entrypoint-initdb.d directory.</p>
+</li>
+<li>
+<p>docker-entrypoint-initdb.d is a special folder: on first startup of the container, MySQL runs all .sql or .sh scripts there to initialize the DB.</p>
+</li>
+<li>
+<p>After initialization, new runs don’t automatically re-run scripts unless you remove the container and volume.</p>
+</li>
+</ul>
+<p>❗ This is not where live database data is stored. Live data is in /var/lib/mysql. Since you’re not mounting that, the data lives in a Docker-managed anonymous volume.</p>
+<p>So: Changing this bind mount will not remove your MySQL data. It only affects which init scripts would run on container creation.</p>
 <h2 id="content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container-with-persistent-volume">Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)</h2>
 <pre><code>services:
   postgres:
