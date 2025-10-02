@@ -20,8 +20,8 @@ services:
 ```
 
 Use of 
-- volumes:
-  - ./sql:/docker-entrypoint-initdb.d
+**- volumes:**
+  **- ./sql:/docker-entrypoint-initdb.d**
 
 - This mounts your host directory ./sql into the container’s /docker-entrypoint-initdb.d directory.
 
