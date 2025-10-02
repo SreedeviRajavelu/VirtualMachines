@@ -8,19 +8,25 @@
       
       
       
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Docker_Volumes/">
       
       
+        <link rel="prev" href="../Docker_Compose/">
       
-      <link rel="icon" href="/VirtualMachines/assets/images/favicon.png">
+      
+        <link rel="next" href="../VM-to-VM-Communication/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
-        <title>Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+        <title>Docker Volumes - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
       
     
     
-      <link rel="stylesheet" href="/VirtualMachines/assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
       
       
 
@@ -39,7 +45,7 @@
       
     
     
-    <script>__md_scope=new URL("/VirtualMachines/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -57,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -69,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/VirtualMachines/." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-header__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-header__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -89,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Docker Volumes
             
           </span>
         </div>
@@ -179,7 +190,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/VirtualMachines/." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-nav__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-nav__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -209,7 +220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -228,18 +239,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -255,7 +268,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Docker
@@ -269,7 +282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/DockerBuild/" class="md-nav__link">
+      <a href="../DockerBuild/" class="md-nav__link">
         
   
   
@@ -292,7 +305,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/Docker_Networks/" class="md-nav__link">
+      <a href="../Docker_Networks/" class="md-nav__link">
         
   
   
@@ -315,7 +328,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/DockerEngine_Ubuntu/" class="md-nav__link">
+      <a href="../DockerEngine_Ubuntu/" class="md-nav__link">
         
   
   
@@ -338,7 +351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/CommunicationBetweenInsideAndOutsideDocker/" class="md-nav__link">
+      <a href="../CommunicationBetweenInsideAndOutsideDocker/" class="md-nav__link">
         
   
   
@@ -361,7 +374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/Docker_Container_Interfaces/" class="md-nav__link">
+      <a href="../Docker_Container_Interfaces/" class="md-nav__link">
         
   
   
@@ -384,7 +397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/Docker_tgz/" class="md-nav__link">
+      <a href="../Docker_tgz/" class="md-nav__link">
         
   
   
@@ -407,7 +420,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/Docker_Compose/" class="md-nav__link">
+      <a href="../Docker_Compose/" class="md-nav__link">
         
   
   
@@ -427,10 +440,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/VirtualMachines/Docker_Volumes/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Docker Volumes
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -441,6 +474,42 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content of docker-compose.yml file to use postgresql database as docker container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container-with-persistent-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -498,7 +567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/VM-to-VM-Communication/" class="md-nav__link">
+      <a href="../VM-to-VM-Communication/" class="md-nav__link">
         
   
   
@@ -521,7 +590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/Fix_Slow_UbuntuVM_Boot/" class="md-nav__link">
+      <a href="../Fix_Slow_UbuntuVM_Boot/" class="md-nav__link">
         
   
   
@@ -544,7 +613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/Recovering_VM/" class="md-nav__link">
+      <a href="../Recovering_VM/" class="md-nav__link">
         
   
   
@@ -612,7 +681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/SSH/" class="md-nav__link">
+      <a href="../SSH/" class="md-nav__link">
         
   
   
@@ -635,7 +704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/Matlab/" class="md-nav__link">
+      <a href="../Matlab/" class="md-nav__link">
         
   
   
@@ -658,7 +727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/Wine/" class="md-nav__link">
+      <a href="../Wine/" class="md-nav__link">
         
   
   
@@ -681,7 +750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/SQL/" class="md-nav__link">
+      <a href="../SQL/" class="md-nav__link">
         
   
   
@@ -704,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/Matlab_Data_Sources/" class="md-nav__link">
+      <a href="../Matlab_Data_Sources/" class="md-nav__link">
         
   
   
@@ -772,7 +841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/ScadaLTS/" class="md-nav__link">
+      <a href="../ScadaLTS/" class="md-nav__link">
         
   
   
@@ -840,7 +909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/VirtualMachines/Mac/" class="md-nav__link">
+      <a href="../Mac/" class="md-nav__link">
         
   
   
@@ -881,6 +950,32 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content of docker-compose.yml file to use postgresql database as docker container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container-with-persistent-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -891,8 +986,75 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+  
+  
+
+
+  <h1>Docker Volumes</h1>
+
+<h2 id="content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container">Content of docker-compose.yml file to use postgresql database as docker container</h2>
+<p>This version does not persist volume and data will vanish if you remove the container.</p>
+<pre><code>services:
+  postgres:
+    image: postgres:16
+    container_name: ccp-multi-ied-multi-plc
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: powerplant
+    ports:
+      - &quot;5432:5432&quot;
+    volumes:
+    - ./postgres-sql:/docker-entrypoint-initdb.d
+
+</code></pre>
+<p>Use of 
+-  volumes:
+      - ./sql:/docker-entrypoint-initdb.d</p>
+<pre><code>- This mounts your host directory ./sql into the container’s /docker-entrypoint-initdb.d directory.
+
+- docker-entrypoint-initdb.d is a special folder: on first startup of the container, MySQL runs all .sql or .sh scripts there to initialize the DB.
+
+- After initialization, new runs don’t automatically re-run scripts unless you remove the container and volume.
+
+❗ This is not where live database data is stored. Live data is in /var/lib/mysql. Since you’re not mounting that, the data lives in a Docker-managed anonymous volume.
+
+So: Changing this bind mount will not remove your MySQL data. It only affects which init scripts would run on container creation.
+</code></pre>
+<h2 id="content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container-with-persistent-volume">Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)</h2>
+<pre><code>services:
+  postgres:
+    image: postgres:16
+    container_name: ccp-multi-ied-multi-plc-pg
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: powerplant
+    ports:
+      - &quot;5432:5432&quot;
+    volumes:
+      - postgres_data:/var/lib/postgresql/data   # &lt;-- persistent volume for DB data
+      - ./postgres-sql:/docker-entrypoint-initdb.d  # &lt;-- init scripts
+
+volumes:
+  postgres_data:   # &lt;-- named volume definition
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -928,10 +1090,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "/VirtualMachines/", "features": [], "search": "/VirtualMachines/assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="/VirtualMachines/assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   </body>
