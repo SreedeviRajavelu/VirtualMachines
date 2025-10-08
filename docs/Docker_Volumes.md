@@ -118,16 +118,23 @@ volumes:
 ```
 
 Explanation of each line:
+
 1. `-postgres_data:/var/lib/postgresql/data`
+
 - left side (postgres_data) -> a named volume, managed by Docker
+
  - you don't see it as a folder on your host - Docker stores it internally (under /var/lib/docker/volumes/...)
+
 - right side (/var/lib/postgresql/data) -> the main folder inside the container where the PostgreSQL stores all its databases.
 
 This means your PostgreSQL data (tables, records, etc.) is stored in the `postgres_data` volume not inside the temporary cotainer filesystem.
 
 Even if you:
+
 - stop the container (docker compose down)
+
 - rebuild it
+
 - restart it
 
 the data remains intact, because the volume is persistent.
