@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Docker_Container_Interfaces/">
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/PostgreSQL/">
       
       
-        <link rel="prev" href="../CommunicationBetweenInsideAndOutsideDocker/">
+        <link rel="prev" href="../SQL/">
       
       
-        <link rel="next" href="../Docker_tgz/">
+        <link rel="next" href="../Matlab_Data_Sources/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Docker Container Interfaces - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+        <title>PostgreSQL - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#docker-container-interfaces" class="md-skip">
+        <a href="#using-postgresql-db-from-docker-composeyml" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Docker Container Interfaces
+              PostgreSQL
             
           </span>
         </div>
@@ -239,20 +239,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -268,7 +266,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Docker
@@ -371,30 +369,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Docker Container Interfaces
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../Docker_Container_Interfaces/" class="md-nav__link">
         
   
   
@@ -405,75 +383,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#docker-container-interfaces" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Container Interfaces
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Docker Container Interfaces">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-eth0-1001624" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. eth0 : 10.0.1.6/24
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-eth1-17224101124" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. eth1 : 172.24.10.11/24
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#which-ip-can-you-use-from-the-host-machine" class="md-nav__link">
-    <span class="md-ellipsis">
-      Which IP can you use from the host machine?
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -673,18 +582,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -700,7 +611,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Tools
@@ -803,10 +714,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../PostgreSQL/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -817,6 +748,33 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-postgresql-db-from-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Postgresql DB from docker-compose.yml
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1013,53 +971,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#docker-container-interfaces" class="md-nav__link">
+  <a href="#using-postgresql-db-from-docker-composeyml" class="md-nav__link">
     <span class="md-ellipsis">
-      Docker Container Interfaces
+      Using Postgresql DB from docker-compose.yml
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Docker Container Interfaces">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-eth0-1001624" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. eth0 : 10.0.1.6/24
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-eth1-17224101124" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. eth1 : 172.24.10.11/24
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#which-ip-can-you-use-from-the-host-machine" class="md-nav__link">
-    <span class="md-ellipsis">
-      Which IP can you use from the host machine?
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1082,53 +998,44 @@
   
 
 
-  <h1>Docker Container Interfaces</h1>
+  <h1>PostgreSQL</h1>
 
-<h2 id="docker-container-interfaces">Docker Container Interfaces</h2>
-<ul>
-<li><code>ip a</code> inside the docker container of an IED after <code>docker exec -it ds1cb1 bash</code>:</li>
-</ul>
-<p><img alt="alt text" src="../image.png" /></p>
-<p>Different use cases of the 2 network interfaces:</p>
-<h3 id="1-eth0-1001624">1. <strong><code>eth0 : 10.0.1.6/24</code></strong></h3>
-<p>Default interface created when the container is attached to a Docker network (bridge, overlay, or custom)</p>
-<p><strong>Use case:</strong></p>
-<ul>
-<li>Used for container-to-container communication inside the same Docker network</li>
-<li>Other containers on the same network (subnet <code>10.0.1.0/24</code>) can reach this container via <code>10.0.1.6</code></li>
-<li>Not directly routable from the host machine unless you expose ports (via <code>-p host_port:container_port</code>)</li>
-</ul>
-<p><strong>Example:</strong></p>
-<ul>
-<li>If you have another container on the same Docker network, it can <code>ping 10.0.1.6</code> or connect directly to its services.</li>
-</ul>
-<h3 id="2-eth1-17224101124">2. <strong><code>eth1 : 172.24.10.11/24</code></strong></h3>
-<p>A second interface — likely because you attached this container to another Docker network (such as with <code>--network</code> flag or via Docker Compose multiple networks)</p>
-<p><strong>Use case:</strong></p>
-<ul>
-<li>Provides connectivity to containers/services on the <code>172.24.10.0/24</code> subnet</li>
-<li>Might be used for external integration (such as simulating a "backend network" while <code>eth0</code> handles a "frontend network")</li>
-<li>Useful in multi-network setups, where a container acts as a bridge between 2 networks</li>
-</ul>
-<p><strong>Example:</strong></p>
-<ul>
-<li>If you are running a database container on the <code>172.24.10.0/24</code> network, this container can talk to it via <code>172.24.10.x</code></li>
-</ul>
-<h3 id="which-ip-can-you-use-from-the-host-machine">Which IP can you use from the host machine?</h3>
-<ul>
-<li>Normally, you don't use these internal container IPs from the host.</li>
-<li>Instead:</li>
-<li>Use localhost (127.0.0.1) on the host with port mappings (-p 8080:80)</li>
-<li>If using <strong>macvlan/host networks</strong>, the container may be directly reachable on one of these IPs (<code>10.0.1.6</code> or <code>172.24.10.11</code>) from the host or even other machines on the LAN.</li>
-</ul>
-<h3 id="summary">Summary:</h3>
-<ul>
-<li><code>eth0 (10.0.1.6)</code> : main Docker network, container-to-container communication.</li>
-<li><code>eth1 (172.24.10.0)</code>: secondary Docker network, used if container needs to talk to another isolated group of services.</li>
-<li>From the host, you usually connect via <code>localhost</code>+ published ports, unless you intentionally configured a special network (macvlan, host, overlay).</li>
-</ul>
-<p>To check if these IPs are reachable directly from host or internal-only :</p>
-<p>...to be continued...</p>
+<h2 id="using-postgresql-db-from-docker-composeyml">Using Postgresql DB from docker-compose.yml</h2>
+<pre><code>services:
+  postgres:
+    image: postgres:16
+    container_name: ccp-multi-ied-multi-plc-pg
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: powerplant
+    ports:
+      - &quot;5432:5432&quot;
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # persistent volume for DB data
+      - ./postgres-sql:/docker-entrypoint-initdb.d # init scripts
+
+volumes:
+  postgres_data: # named volume definition
+</code></pre>
+<p>Got it ✅ — you’ve already defined your PostgreSQL service with user root, password root, and database powerplant.</p>
+<p>Once you get a bash shell inside the container, you can access PostgreSQL using the psql client. Here’s how:</p>
+<ol>
+<li>Get into the container’s shell
+<code>docker exec -it ccp-multi-ied-multi-plc-pg bash</code></li>
+</ol>
+<p>To enter PostgreSQL:</p>
+<p><code>psql -U root -d powerplant</code></p>
+<p>will prompt for a password -&gt; type <code>root</code> based on docker-compose.yml used</p>
+<p>Once insde psql, you will see something like:</p>
+<p><code>powerplant=#</code></p>
+<p>Now you can run SQL commands:</p>
+<pre><code>\l           -- list databases
+\c powerplant -- connect to powerplant DB
+\dt          -- list tables
+SELECT * FROM ref;
+SELECT * FROM ccp_values;
+</code></pre>
 
 
 
