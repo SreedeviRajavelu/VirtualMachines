@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container" class="md-skip">
+        <a href="#what-is-a-volume-in-docker" class="md-skip">
           Skip to content
         </a>
       
@@ -489,6 +489,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-is-a-volume-in-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Volume in Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container" class="md-nav__link">
     <span class="md-ellipsis">
       Content of docker-compose.yml file to use postgresql database as docker container
@@ -503,6 +512,21 @@
       Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-of-volumes-inside-postgresql-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use of Volumes inside PostgreSQL docker-compose.yml
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -957,6 +981,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-is-a-volume-in-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Volume in Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container" class="md-nav__link">
     <span class="md-ellipsis">
       Content of docker-compose.yml file to use postgresql database as docker container
@@ -971,6 +1004,21 @@
       Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-of-volumes-inside-postgresql-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use of Volumes inside PostgreSQL docker-compose.yml
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -995,6 +1043,40 @@
 
   <h1>Docker Volumes</h1>
 
+<h2 id="what-is-a-volume-in-docker">What is a Volume in Docker</h2>
+<p>Think of Docker container as a small isolated computer - when you stop or delete it, everything inside disappears (its 'disk' is temporary).</p>
+<p>A Docker volume is like pluggin in an external hard drive or shared folder to that container.</p>
+<p>It lets you:</p>
+<ol>
+<li><strong>Keep data</strong> even after container is stopped or removed.</li>
+<li><strong>Share files</strong> between real machine (the host) and the container.</li>
+</ol>
+<p>There are 2 main types of volume mounts:</p>
+<ul>
+<li>Bind mount (links a folder from your host machine to the container)</li>
+<li>Named volume (managed entirely by Docker - stored somewhere under <code>/var/lib/docker/volumes</code>)</li>
+</ul>
+<p>Explanation for use of volumes:</p>
+<ul>
+<li>Left side (<code>./sql</code>) -&gt; a folder on your computer at the same level as your docker-compose.yml file</li>
+<li>Right side (<code>/docker-entrypoint-initdb.d</code>) -&gt; a special folder <em>inside the container</em> that MySQL checks when it first starts.</li>
+</ul>
+<p>When MySQL starts for the first time, it looks in <code>/docker-entrypoint-initdb.d</code> and automatically runs any <code>.sql</code> files it finds there - this is how it initializes your database.</p>
+<p>When Docker starts the MySQL container, it copies that folder into the container.</p>
+<p>MySQL executes your CCP_data.sql automatically - creating the tables, inserting initial data, etc.</p>
+<p>This mount does not store your database data (the rows &amp; tables you later insert). It only gives MySQL initialization scripts.</p>
+<p>Once MySQL is running, the database data is stored inside the container's temporary filesystem. If you delete the container, the data is lost.</p>
+<p>This is called a <strong>bind mount</strong> (it directly links your folder <code>./sql</code> from the host to the continer).</p>
+<p>Question:  does the special folder <strong>docker-entrypoint-initdb.d</strong> exist in every docker container ? if not where does it come from ?</p>
+<p>No, the folder <strong>/docker-entrypoint-initdb.d</strong> does not exist in every Docker container.
+It exists only in <strong>certain official</strong> database images (like MySQL, PostgreSQL, MongoDB, etc.) because the image creator chose to include it in the image’s startup logic. </p>
+<p>Each image defines <strong>its own conventions</strong> about where to put configuration or initialization files.</p>
+<p>So when you use:</p>
+<pre><code>    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+</code></pre>
+<p>you are not telling Docker anything special - you are telling the MySQL container:
+When you run your startup script, here is the folder where you can find initialization files.</p>
 <h2 id="content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container">Content of docker-compose.yml file to use postgresql database as docker container</h2>
 <p>This version does not persist volume and data will vanish if you remove the container.</p>
 <pre><code>services:
@@ -1045,6 +1127,46 @@
 volumes:
   postgres_data:   # &lt;-- named volume definition
 </code></pre>
+<h3 id="use-of-volumes-inside-postgresql-docker-composeyml">Use of Volumes inside PostgreSQL docker-compose.yml</h3>
+<pre><code>volumes:
+- postgres_data:/var/lib/postgresql/data # persistent volume for DB data
+- ./postgres-sql:/docker-entrypoint-initdb.d # init scripts
+
+volumes:
+  postgres_data: # named volume definition 
+</code></pre>
+<p>Explanation of each line:
+1. <code>-postgres_data:/var/lib/postgresql/data</code>
+- left side (postgres_data) -&gt; a named volume, managed by Docker
+ - you don't see it as a folder on your host - Docker stores it internally (under /var/lib/docker/volumes/...)
+- right side (/var/lib/postgresql/data) -&gt; the main folder inside the container where the PostgreSQL stores all its databases.</p>
+<p>This means your PostgreSQL data (tables, records, etc.) is stored in the <code>postgres_data</code> volume not inside the temporary cotainer filesystem.</p>
+<p>Even if you:
+- stop the container (docker compose down)
+- rebuild it
+- restart it</p>
+<p>the data remains intact, because the volume is persistent.</p>
+<p>If you ever want to delete the data, you explicitly run:
+<code>docker compose down -v</code></p>
+<ol>
+<li>
+<p><code>- postgres-sql:/docker-entrypoint-initdb.d</code></p>
+</li>
+<li>
+<p>it mounts your host folder <code>postgres-sql/</code> (next to your <code>docker-compose.yml</code>) into the container's <code>/docker-entrypoint-initdb.d</code> folder</p>
+</li>
+<li>
+<p>PostgreSQL automatically runs any <code>.sql</code> files there the first time the database is initialized (before any data exists).</p>
+</li>
+</ol>
+<p>So if you have <code>postgres-sql/CCP_data.sql</code>, it will create your tables and insert the initial values when the container is started for the first time.</p>
+<ol>
+<li>section at the bottom:</li>
+</ol>
+<pre><code>volumes:
+  postgres_data:
+</code></pre>
+<p>This <strong>declares</strong> the named volume used above, so Docker knows it should create and manage it.</p>
 
 
 
