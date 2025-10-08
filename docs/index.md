@@ -24,6 +24,7 @@ Welcome! Use the sidebar to navigate to different sections of this project.
 - [Matlab Setup](Matlab.md)
 - [Wine on Linux](Wine.md)
 - [SQL](SQL.md)
+- [PostgreSQL] (PostgreSQL.md)
 - [Matlab Data Sources](Matlab_Data_Sources.md)
 
 ## SCADA
