@@ -5,6 +5,7 @@ Welcome! Use the sidebar to navigate to different sections of this project.
 
 - [Docker Build](DockerBuild.md)
 - [Docker Networking](Docker_Networks.md)
+- [Docker Macvlan Network](Docker_Macvlan_Network.md)
 - [Communication Between Inside & Outside Docker](CommunicationBetweenInsideAndOutsideDocker.md)
 - [Docker Container Interfaces](Docker_Container_Interfaces.md)
 - [Docker Engine on Ubuntu](DockerEngine_Ubuntu.md)

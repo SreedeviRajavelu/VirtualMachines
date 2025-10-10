@@ -1036,6 +1036,66 @@ volumes:
 SELECT * FROM ref;
 SELECT * FROM ccp_values;
 </code></pre>
+<p>💡 Optional tips and customizations
+1️⃣ Disable the pager temporarily</p>
+<p>If you just want to see everything inline for one session:</p>
+<p>\pset pager off</p>
+<p><img alt="alt text" src="../image-3.png" /></p>
+<ol>
+<li>run postgresql db as a docker container :
+inside ccp_multi_IED_multi_plc_database_pg folder :
+docker compose up -d</li>
+<li>go into postgresql db :
+docker exec -it ccp-multi-ied-multi-plc-pg bash
+psql -U root -d powerplant
+password: root
+to show tables : \dt
+SELECT * FROM ccp_values;</li>
+<li>figure out how to connect to matlab using JDBC data source -&gt; configure JDBC data source ...connector for postgresql (driver) </li>
+</ol>
+<p>data source name : Postgres_CCP
+database name : powerplant
+server: localhost
+port number : 5432 </p>
+<p>currently on postgres: 16 and java 8+ </p>
+<p>👉 So you should use the JDBC 4.2 driver (version 42.7.8, latest stable). That means: postgresql-42.7.8.jar is the right driver for you.
+check what the xsteam is for ... and whether it needs to be changed
+try running with the postgresql db -&gt; what is the next part that needs to be connected
+check whether IED scripts need to change part at establish_connection() ... conn = mysqlconnector.connect( ....</p>
+<p>XSteam.m , XSteamUS.m , license.txt , X Steam for Matlab.pdf </p>
+<p>previously for a JDBC data source on matlab that used mysql database , on the HOME tab, I had done these: I selected 'Set Path' , 'Add Folder' and then selected xsteam folder  which contained these 4 files , will it make sense to add this same path to the same folder after I changed database to postgresql but im using it for the same functionality ? what is the xsteam folder for and does any of the files in it need to be modified ?</p>
+<p>XSteam folder and files belong to an independent MATLAB library called XSteam, used to calculate thermodynamic properties of water and steam (e.g. enthalpy, entropy, temperature, pressure-volume relationships, steam quality etc. )</p>
+<ol>
+<li>in stored_procedure_pg_GT.sql -&gt; timestamp was changed to ts as timestamp is a reserved keyword in postgresql</li>
+</ol>
+<p>need to check if it affects anything in the IEDs or PLCs for GT</p>
+<p>check the changes needed for the IED files</p>
+<p>Since you’ve switched from MySQL to PostgreSQL, you can’t use mysql.connector anymore. You need to use a PostgreSQL driver, like psycopg2 or psycopg.
+Here’s how you can modify your function:</p>
+<pre><code>import psycopg2  # PostgreSQL driver
+
+def establish_connection():
+    conn = psycopg2.connect(
+        host=&quot;10.34.11.15&quot;,        # your PostgreSQL host
+        port=5432,                  # default PostgreSQL port
+        user=&quot;root&quot;,                # your PostgreSQL username
+        password=&quot;root&quot;,            # your PostgreSQL password
+        database=&quot;powerplant&quot;       # your PostgreSQL database name
+    )
+    return conn
+</code></pre>
+<p>Key Changes:</p>
+<ol>
+<li>Driver: Use psycopg2 instead of mysql.connector.</li>
+<li>Port: PostgreSQL default is 5432 (MySQL default is 3306).</li>
+<li>SQL syntax: Some queries may need slight changes if they use MySQL-specific syntax (e.g., backticks <code>table</code> vs. double quotes "table" in PostgreSQL), but most simple SELECT statements are fine.</li>
+<li>Stored procedures/functions:</li>
+</ol>
+<p>In PostgreSQL, your stored procedures are functions, so you’ll call them differently:</p>
+<pre><code>cur = conn.cursor()
+cur.execute(&quot;SELECT * FROM get_gt_ied_data();&quot;)  # note the parentheses
+rows = cur.fetchall()
+</code></pre>
 
 
 
