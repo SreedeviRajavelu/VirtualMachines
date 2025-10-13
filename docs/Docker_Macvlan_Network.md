@@ -70,7 +70,11 @@ These are reserved for internal networks only (they are not routable on the publ
 
 
 ubuntu@pgt:~$ ip route
+
 default via 192.168.30.1 dev enp0s3 proto static 
+
 172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+
 192.168.30.0/24 dev enp0s3 proto kernel scope link src 192.168.30.60 
+
 ubuntu@pgt:~$ 

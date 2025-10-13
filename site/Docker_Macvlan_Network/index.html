@@ -1085,6 +1085,40 @@ ubuntu@pgt:~$
 <p>lo — loopback (ignore)</p>
 <p>docker0 — Docker’s internal bridge (not physical, so not usable for macvlan)</p>
 <p>So yes, you should use enp0s3 for your macvlan setup.</p>
+<p><img alt="alt text" src="../image-4.png" /></p>
+<p>There are three private IPv4 address ranges defined by RFC 1918.
+These are reserved for internal networks only (they are not routable on the public Internet).</p>
+<table>
+<thead>
+<tr>
+<th>Private Range</th>
+<th>CIDR</th>
+<th>Typical Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>10.0.0.0</code> – <code>10.255.255.255</code></td>
+<td><code>/8</code></td>
+<td>Large enterprise LANs</td>
+</tr>
+<tr>
+<td><code>172.16.0.0</code> – <code>172.31.255.255</code></td>
+<td><code>/12</code></td>
+<td>Corporate or internal subnets</td>
+</tr>
+<tr>
+<td><code>192.168.0.0</code> – <code>192.168.255.255</code></td>
+<td><code>/16</code></td>
+<td>Home, office, and VM networks</td>
+</tr>
+</tbody>
+</table>
+<p>ubuntu@pgt:~$ ip route
+default via 192.168.30.1 dev enp0s3 proto static 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+192.168.30.0/24 dev enp0s3 proto kernel scope link src 192.168.30.60 
+ubuntu@pgt:~$ </p>
 
 
 
