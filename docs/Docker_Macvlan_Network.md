@@ -38,13 +38,21 @@ ubuntu@pgt:~$
 ```
 
 From your ip a output:
+
 2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP>
+
     inet 192.168.30.60/24
+
 ✅ enp0s3 is UP, has a valid IPv4 (192.168.30.60/24), and is your main interface connected to the external network.
+
 That makes enp0s3 the correct interface to use for a macvlan network.
+
 The others:
+
 lo — loopback (ignore)
+
 docker0 — Docker’s internal bridge (not physical, so not usable for macvlan)
+
 So yes, you should use enp0s3 for your macvlan setup.
 
 
