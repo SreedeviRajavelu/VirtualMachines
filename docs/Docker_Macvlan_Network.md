@@ -57,3 +57,20 @@ So yes, you should use enp0s3 for your macvlan setup.
 
 
 
+![alt text](image-4.png)
+
+There are three private IPv4 address ranges defined by RFC 1918.
+These are reserved for internal networks only (they are not routable on the public Internet).
+
+| Private Range                     | CIDR  | Typical Use                   |
+| --------------------------------- | ----- | ----------------------------- |
+| `10.0.0.0` – `10.255.255.255`     | `/8`  | Large enterprise LANs         |
+| `172.16.0.0` – `172.31.255.255`   | `/12` | Corporate or internal subnets |
+| `192.168.0.0` – `192.168.255.255` | `/16` | Home, office, and VM networks |
+
+
+ubuntu@pgt:~$ ip route
+default via 192.168.30.1 dev enp0s3 proto static 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+192.168.30.0/24 dev enp0s3 proto kernel scope link src 192.168.30.60 
+ubuntu@pgt:~$ 
