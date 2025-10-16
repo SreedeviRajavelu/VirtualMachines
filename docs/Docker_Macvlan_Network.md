@@ -176,13 +176,108 @@ Why is it needed:
 
 - By creating `macvlan0`, your **VM becomes reachable** to and from containers in that macvlan network.
 
+2. `sudo ip addr add 192.168.30.254/24 dev macvlan0`
 
+- Assigns an IP address (192.168.30.254) to the new `macvlan0` interface.
 
+- The `/24` subnet mask means it is part of the same 192.168.30.x network as your VM (`192.168.30.254`) and containers (like `192.168.30.201`).
 
+- it acts as the gateway for your VM to communicate with containers
 
+- without an IP, the VM can't send packets directly through macvlan0
+
+3. `sudo ip link set macvlan0 up`
+
+- brings the macvlan0 interface online (equivalent to 'turning it on')
+
+- by default, new interfaces are down
+
+- this command activates it so it can actually pass network traffic
+
+After these steps: 
+
+VM can now `ping` and access containers on the plc-macvlan network e.g. 192.168.30.201
+
+`ping -I macvlan0 192.168.30.201`
 
 
 To persist the macvlan interface created above:
+
+By default, `ip link add` changes are temporary and vanish after reboot.
+
+To persist it across reboots, choose one of these methods:
+
+Option 1: create a startup script + systemd service 
+
+Step 1:
+
+1. create the script:
+
+`sudo nano /usr/local/sbin/setup-macvlan.sh`
+
+Paste:
+
+```
+#!/bin/bash
+ip link add macvlan0 link enp0s3 type macvlan mode bridge
+ip addr add 192.168.30.254/24 dev macvlan0
+ip link set macvlan0 up
+```
+
+2. Make it executable:
+
+`sudo chmod +x /usr/local/sbin/setup-macvlan.sh`
+
+
+Step 2:
+
+1. Create the systemd service file
+
+`sudo nano /etc/systemd/system/setup-macvlan.service`
+
+2. Paste this:
+
+```
+[Unit]
+Description=Setup macvlan0 network interface
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/setup-macvlan.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Step 3: Reload and enable the service
+
+`sudo systemctl daemon-reload`
+
+Enable it to run automatically at reboot
+
+`sudo systemctl enable setup-macvlan.service`
+
+Test it immediately without rebooting:
+
+`sudo systemctl start setup-macvlan.service`
+
+Step 4: verify it worked 
+
+Check if the interface is up:
+`ip addr show macvlan0`
+
+And verify service status:
+`sudo systemctl status setup-macvlan.service`
+
+## To make docker container reachable from VM's default interface :
+ 
+```
+sudo ip link add macvlan-host link enp0s3 type macvlan mode bridge
+sudo ip addr add 192.168.30.250/24 dev macvlan-host
+sudo ip link set macvlan-host up
+```
 
 
 
@@ -212,3 +307,106 @@ sudo ip addr add 192.168.30.250/24 dev macvlan-host
 sudo ip link set macvlan-host up
 Then ping:
 ping 192.168.30.201
+
+
+
+TROUBLESHOOTING :
+
+```
+ping -I macvlan0 192.168.30.201   # works
+ping 192.168.30.201               # fails
+```
+
+1️⃣ What’s wrong currently
+From docker inspect plc-macvlan:
+"Subnet": "192.168.30.0/24",
+"Gateway": "192.168.30.1",
+"Options": { "parent": "enp0s3" }
+Your macvlan network for containers is on the same subnet as your VM’s default interface (192.168.30.0/24).
+Your VM’s IP is 192.168.30.60.
+Your containers have IPs like 192.168.30.201.
+Linux cannot send packets from the parent interface (enp0s3) to macvlan child interfaces on the same subnet. This is a known limitation of macvlan:
+Host ↔ Macvlan containers on the same L2 subnet is blocked unless you use a separate “macvlan-host” interface with a different subnet or routing.
+
+2️⃣ What you need to change
+Solution: put your macvlan containers on a different subnet, e.g., 192.168.40.0/24. Then:
+Use a “host macvlan interface” (macvlan-host) on the VM in the same subnet, e.g., 192.168.40.254.
+Enable IP forwarding + iptables NAT to allow the VM and host to reach the container network.
+
+
+
+I will have 4 different docker containers for 4 plcs on the ubuntu vm hence using the same url and the same ssh method of accessing every plc will not make sense, how can I use the unique ip address of each plc container to access the browser
+
+http://localhost:8080/dashboard
+
+ssh -L 8080:192.168.40.201:8080 ubuntu@192.168.30.60
+
+
+Perfect — that’s exactly the right way to think about this.
+Since you’ll be running 4 PLC containers, each with a unique IP (e.g., 192.168.40.201, 192.168.40.202, etc.) on the macvlan network, you want to be able to access each PLC’s web interface directly by its IP instead of tunneling everything to localhost:8080.
+Let’s go step by step 👇
+🧠 Why the problem happens
+The reason you can’t currently access 192.168.40.x IPs from your Remote Desktop host (or from your own PC) is that macvlan networks isolate traffic from the parent host interface.
+That means:
+The Ubuntu VM can talk to the containers ✅
+But the Remote Desktop host (the VM’s hypervisor host) cannot ❌
+Nor can your own machine (accessing via Remote Desktop or SSH) ❌
+So, even though the containers have unique IPs, those IPs exist only inside the VM’s internal macvlan network.
+
+🧩 To fix this — you have two design options:
+Option 1: Add a second adapter (NAT or Host-only) + iptables forwarding
+This approach lets you access each PLC by its unique IP directly — without using SSH tunneling or localhost.
+Step 1: Add another network adapter to your Ubuntu VM
+In your VM settings (in VirtualBox, VMware, etc.):
+Keep the Bridged Adapter (this is your current enp0s3).
+Add a second adapter:
+Type: NAT (or Host-only)
+Name: automatically created, e.g. enp0s8 in Ubuntu.
+This will give your VM a second IP (say, 10.0.2.15 for NAT or 192.168.56.101 for host-only).
+Step 2: Enable IP forwarding
+Inside the Ubuntu VM:
+sudo sysctl -w net.ipv4.ip_forward=1
+
+To persist it:
+echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+Step 3: Forward each PLC port range
+Let’s say you have these PLC containers:
+PLC	Container IP	Web Port	External Port
+PLC1	192.168.40.201	8080	8081
+PLC2	192.168.40.202	8080	8082
+PLC3	192.168.40.203	8080	8083
+PLC4	192.168.40.204	8080	8084
+
+Add forwarding rules:
+sudo iptables -t nat -A PREROUTING -p tcp -d <VM_IP> --dport 8081 -j DNAT --to-destination 192.168.40.201:8080
+sudo iptables -t nat -A PREROUTING -p tcp -d <VM_IP> --dport 8082 -j DNAT --to-destination 192.168.40.202:8080
+sudo iptables -t nat -A PREROUTING -p tcp -d <VM_IP> --dport 8083 -j DNAT --to-destination 192.168.40.203:8080
+sudo iptables -t nat -A PREROUTING -p tcp -d <VM_IP> --dport 8084 -j DNAT --to-destination 192.168.40.204:8080
+
+sudo iptables -t nat -A POSTROUTING -j MASQUERADE
+Replace <VM_IP> with the Ubuntu VM’s default bridged IP (the one reachable from your Remote Desktop).
+Step 4: Access from Remote Desktop or your own PC
+Now you can open, from Remote Desktop or your own machine:
+http://<VM_IP>:8081/login → PLC1
+http://<VM_IP>:8082/login → PLC2
+http://<VM_IP>:8083/login → PLC3
+http://<VM_IP>:8084/login → PLC4
+✅ Each one maps uniquely to the right container.
+To persist the iptables rules:
+sudo apt install iptables-persistent
+sudo netfilter-persistent save
+Option 2: Bridge the macvlan directly to the Remote Desktop network
+This is more complex but allows direct IP access (e.g., you could ping 192.168.40.201 directly from your Remote Desktop host).
+However:
+You must ensure the Remote Desktop’s LAN supports the 192.168.40.0/24 subnet.
+The Remote Desktop’s physical adapter must allow macvlan bridge mode.
+If multiple VMs use the same network, you may have IP conflicts.
+If your VM is on a corporate or managed network, this method is not recommended — Option 1 (NAT + iptables) is safer and works everywhere.
+Summary
+Goal	Recommended Solution
+Access PLC browser from Remote Desktop	Use iptables port forwarding from VM IP to container IP
+Access PLC browser from your own host PC	Use same forwarding — just access VM’s bridged IP
+Keep separate PLC dashboards	Assign unique external ports (8081–8084)
+Keep setup persistent	Use iptables-persistent or a startup script
+Would you like me to give you the exact command sequence and a ready-to-use startup script that automatically sets up this forwarding for all 4 PLCs whenever the VM boots?

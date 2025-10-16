@@ -30,6 +30,7 @@ nav:
       - PostgreSQL: PostgreSQL.md
       - Matlab Data Sources: Matlab_Data_Sources.md
       - Remote Port Fowarding SSH: Remote_PortForwarding_SSH.md
+      - NAT Adapter Iptables Fowarding: NAT_Adapter_Iptables_Forwarding.md
   - SCADA:
       - ScadaLTS: ScadaLTS.md
   - OS:
