@@ -1,3 +1,5 @@
+### How do you know that enp0s3 is the bridged adapter?
+
 Excellent question — and one that a lot of people get tripped up on when mixing **VirtualBox/VMware networking modes** with **Docker networking**.
 
 Let’s go step by step to make it crystal clear **why we can conclude that `enp0s3` is the interface tied to the bridged adapter** in your Ubuntu VM setup.

@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Matlab_Data_Sources/">
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Bridged_Adapter/">
       
       
-        <link rel="prev" href="../PostgreSQL/">
+        <link rel="prev" href="../NAT_Adapter_Iptables_Forwarding/">
       
       
-        <link rel="next" href="../Remote_PortForwarding_SSH/">
+        <link rel="next" href="../ScadaLTS/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Matlab Data Sources - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+        <title>Bridged Adapter - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#matlab-data-sources-sql-vs-postgresql" class="md-skip">
+        <a href="#step-1-how-virtualbox-or-other-hypervisors-name-interfaces" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Matlab Data Sources
+              Bridged Adapter
             
           </span>
         </div>
@@ -760,30 +760,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Matlab Data Sources
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../Matlab_Data_Sources/" class="md-nav__link">
         
   
   
@@ -794,84 +774,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#matlab-data-sources-sql-vs-postgresql" class="md-nav__link">
-    <span class="md-ellipsis">
-      Matlab Data Sources - SQL vs PostgreSQL
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Matlab Data Sources - SQL vs PostgreSQL">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#postgresql-jdbc-for-macos" class="md-nav__link">
-    <span class="md-ellipsis">
-      PostgreSQL JDBC for macOS:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#postgresql-jdbc-for-windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      PostgreSQL JDBC for Windows:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      Content of docker-compose.yml file to use postgresql database as docker container
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container-with-persistent-volume" class="md-nav__link">
-    <span class="md-ellipsis">
-      Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#steps-to-use-postgresql-database-with-matlab" class="md-nav__link">
-    <span class="md-ellipsis">
-      Steps to use PostgreSQL database with MATLAB:
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -927,10 +829,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../Bridged_Adapter/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Bridged Adapter
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -941,6 +863,78 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-how-virtualbox-or-other-hypervisors-name-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 1. How VirtualBox (or other hypervisors) name interfaces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-confirming-with-your-vms-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 2. Confirming with your VM’s IP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-how-you-used-it-in-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 3. How you used it in Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-how-you-verified-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 4. How you verified it works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 TL;DR
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1114,60 +1108,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#matlab-data-sources-sql-vs-postgresql" class="md-nav__link">
+  <a href="#step-1-how-virtualbox-or-other-hypervisors-name-interfaces" class="md-nav__link">
     <span class="md-ellipsis">
-      Matlab Data Sources - SQL vs PostgreSQL
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Matlab Data Sources - SQL vs PostgreSQL">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#postgresql-jdbc-for-macos" class="md-nav__link">
-    <span class="md-ellipsis">
-      PostgreSQL JDBC for macOS:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#postgresql-jdbc-for-windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      PostgreSQL JDBC for Windows:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      Content of docker-compose.yml file to use postgresql database as docker container
+      🧩 Step 1. How VirtualBox (or other hypervisors) name interfaces
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container-with-persistent-volume" class="md-nav__link">
+  <a href="#step-2-confirming-with-your-vms-ip" class="md-nav__link">
     <span class="md-ellipsis">
-      Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)
+      🧩 Step 2. Confirming with your VM’s IP
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#steps-to-use-postgresql-database-with-matlab" class="md-nav__link">
+  <a href="#step-3-how-you-used-it-in-docker" class="md-nav__link">
     <span class="md-ellipsis">
-      Steps to use PostgreSQL database with MATLAB:
+      🧩 Step 3. How you used it in Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-how-you-verified-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 4. How you verified it works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 TL;DR
     </span>
   </a>
   
@@ -1192,102 +1180,106 @@
   
 
 
-  <h1>Matlab Data Sources</h1>
+  <h1>Bridged Adapter</h1>
 
-<h2 id="matlab-data-sources-sql-vs-postgresql">Matlab Data Sources - SQL vs PostgreSQL</h2>
-<h4 id="postgresql-jdbc-for-macos">PostgreSQL JDBC for macOS:</h4>
-<p>https://ww2.mathworks.cn/help/database/ug/postgresql-jdbc-for-macos.html</p>
-<h4 id="postgresql-jdbc-for-windows">PostgreSQL JDBC for Windows:</h4>
-<p>https://ww2.mathworks.cn/help/database/ug/postgresql-jdbc-windows.html</p>
-<p><strong>I have configured a JDBC data source on matlab using mysql-connector-j-9.3.0 as the driver , and connecting to a dockerized version of a mysql database, how can I change this to postgresql database instead with minimal changes?</strong></p>
-<ol>
-<li>Replace JDBC Driver
-MySQL and PostgreSQL require different JDBC drivers:
-Current (MySQL): mysql-connector-j-9.3.0.jar
-Required (Postgres): postgresql-<version>.jar (latest is 42.x)
-👉 Download the .jar and place it in the same folder where MATLAB can access JDBC drivers (often under matlabroot/toolbox/local or a custom path you’ve set).</li>
-</ol>
-<p><strong>Link to download JDBC Drivers</strong></p>
-<p>https://ww2.mathworks.cn/en/products/database/driver-installation.html</p>
+<p>Excellent question — and one that a lot of people get tripped up on when mixing <strong>VirtualBox/VMware networking modes</strong> with <strong>Docker networking</strong>.</p>
+<p>Let’s go step by step to make it crystal clear <strong>why we can conclude that <code>enp0s3</code> is the interface tied to the bridged adapter</strong> in your Ubuntu VM setup.</p>
+<hr />
+<h3 id="step-1-how-virtualbox-or-other-hypervisors-name-interfaces">🧩 Step 1. How VirtualBox (or other hypervisors) name interfaces</h3>
+<p>When you create a <strong>VM in VirtualBox</strong>, each “Adapter” (NAT, Bridged, Host-only, etc.) is exposed inside the guest OS (Ubuntu) as a <strong>network interface</strong> — typically named:</p>
+<pre><code>enp0s3, enp0s8, enp0s9, etc.
+</code></pre>
+<p>The <strong>first adapter</strong> (Adapter 1) almost always appears as <strong><code>enp0s3</code></strong> inside the VM.
+So if Adapter 1 in VirtualBox is configured as <strong>Bridged Adapter</strong>, <code>enp0s3</code> is the bridged interface.</p>
+<hr />
+<h3 id="step-2-confirming-with-your-vms-ip">🧩 Step 2. Confirming with your VM’s IP</h3>
+<p>You ran:</p>
+<pre><code class="language-bash">ip addr show enp0s3
+</code></pre>
+<p>and got:</p>
+<pre><code>inet 192.168.30.60/24 brd 192.168.30.255 scope global enp0s3
+</code></pre>
+<p>Your <strong>Remote Desktop network</strong> and <strong>host network</strong> are also on the <code>192.168.30.0/24</code> subnet.
+➡️ That means <code>enp0s3</code> is <strong>connected to the same LAN as your host and remote desktop</strong> — typical of a <strong>Bridged Adapter</strong> connection.</p>
+<p>If it were a <strong>NAT adapter</strong>, you’d see a <strong>different subnet</strong>, like <code>10.0.2.x</code> (the default NAT range VirtualBox uses).</p>
+<p>✅ <strong>Therefore:</strong> The fact that <code>enp0s3</code> has <code>192.168.30.60</code> — a LAN IP — means it’s bridged to your physical network card.</p>
+<hr />
+<h3 id="step-3-how-you-used-it-in-docker">🧩 Step 3. How you used it in Docker</h3>
+<p>You created the Docker macvlan using:</p>
+<pre><code class="language-bash">docker network create -d macvlan \
+  --subnet=192.168.40.0/24 \
+  --gateway=192.168.40.1 \
+  -o parent=enp0s3 \
+  plc-macvlan-40
+</code></pre>
+<p>The <code>-o parent=enp0s3</code> tells Docker:</p>
+<blockquote>
+<p>“Attach this macvlan network to the same Layer 2 segment as <code>enp0s3</code>.”</p>
+</blockquote>
+<p>Since <code>enp0s3</code> is your bridged adapter to the real network, each container’s IP (e.g., <code>192.168.40.201</code>) appears as a <strong>separate device</strong> on that LAN (from the VM’s perspective).</p>
+<hr />
+<h3 id="step-4-how-you-verified-it-works">🧩 Step 4. How you verified it works</h3>
+<p>You were able to access PLC containers from outside (your host):</p>
+<pre><code>http://192.168.30.60:8081/dashboard
+</code></pre>
+<p>That’s only possible because:</p>
 <ul>
-<li>choose PostgreSQL JDBC driver</li>
+<li><code>enp0s3</code> connects your Ubuntu VM directly to the <strong>same physical network</strong> as your host and remote desktop (bridged).</li>
+<li>iptables DNAT forwards traffic from <code>192.168.30.60</code> (on enp0s3) → PLC containers (on macvlan).</li>
 </ul>
-<p>✅ Which JDBC Driver to Use
-F
-rom the PostgreSQL JDBC site:</p>
-<p>You are on Postgres 16 → supported by all recent drivers.</p>
-<p>You are likely running Java 8+ (MATLAB since R2020a bundles Java 8, and newer releases may bundle Java 11).</p>
-<p>👉 So you should use the JDBC 4.2 driver (version 42.7.8, latest stable).
-That means:
-<code>postgresql-42.7.8.jar</code>
-is the right driver for you.</p>
-<ul>
-<li>
-<p>check version of Java on Matlab</p>
-</li>
-<li>
-<p>check version of PostgreSQL used as JDBC data source</p>
-</li>
-</ul>
-<p>🔍 Things to Check Before Connecting</p>
-<p>Java Version in MATLAB</p>
-<p>In MATLAB, check which JVM it’s using:</p>
-<p>version -java</p>
-<p>If it shows <code>Java 8 or higher</code>, you’re good with <code>postgresql-42.7.8.jar</code>.
-If it shows Java 7 → use postgresql-42.2.29.jar.
-If Java 6 (unlikely unless MATLAB is very old) → use postgresql-42.2.27.jar.</p>
-<h2 id="content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container">Content of docker-compose.yml file to use postgresql database as docker container</h2>
-<p>This version does not persist volume and data will vanish if you remove the container.</p>
-<pre><code>services:
-  postgres:
-    image: postgres:16
-    container_name: ccp-multi-ied-multi-plc
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: powerplant
-    ports:
-      - &quot;5432:5432&quot;
-    volumes:
-    - ./postgres-sql:/docker-entrypoint-initdb.d
-
-</code></pre>
-<p>Use of 
--  volumes:
-      - ./sql:/docker-entrypoint-initdb.d</p>
-<pre><code>- This mounts your host directory ./sql into the container’s /docker-entrypoint-initdb.d directory.
-
-- docker-entrypoint-initdb.d is a special folder: on first startup of the container, MySQL runs all .sql or .sh scripts there to initialize the DB.
-
-- After initialization, new runs don’t automatically re-run scripts unless you remove the container and volume.
-
-❗ This is not where live database data is stored. Live data is in /var/lib/mysql. Since you’re not mounting that, the data lives in a Docker-managed anonymous volume.
-
-So: Changing this bind mount will not remove your MySQL data. It only affects which init scripts would run on container creation.
-</code></pre>
-<h2 id="content-of-docker-composeyml-file-to-use-postgresql-database-as-docker-container-with-persistent-volume">Content of docker-compose.yml file to use postgresql database as docker container (with persistent volume)</h2>
-<pre><code>services:
-  postgres:
-    image: postgres:16
-    container_name: ccp-multi-ied-multi-plc-pg
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: powerplant
-    ports:
-      - &quot;5432:5432&quot;
-    volumes:
-      - postgres_data:/var/lib/postgresql/data   # &lt;-- persistent volume for DB data
-      - ./postgres-sql:/docker-entrypoint-initdb.d  # &lt;-- init scripts
-
-volumes:
-  postgres_data:   # &lt;-- named volume definition
-</code></pre>
-<h2 id="steps-to-use-postgresql-database-with-matlab">Steps to use PostgreSQL database with MATLAB:</h2>
+<p>If <code>enp0s3</code> were a NAT adapter, your host could not reach <code>192.168.30.60:8081</code> directly.</p>
+<hr />
+<h3 id="summary">✅ Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Source</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enp0s3</code></td>
+<td>First network adapter in VirtualBox</td>
+<td>This is the <strong>Bridged Adapter</strong> connected to your LAN</td>
+</tr>
+<tr>
+<td><code>192.168.30.60</code></td>
+<td>IP address assigned to <code>enp0s3</code></td>
+<td>Same subnet as your Remote Desktop and host — confirms it’s bridged</td>
+</tr>
+<tr>
+<td>Docker parent</td>
+<td><code>-o parent=enp0s3</code></td>
+<td>Macvlan attaches to this physical NIC</td>
+</tr>
+<tr>
+<td><code>192.168.40.0/24</code></td>
+<td>macvlan subnet</td>
+<td>Separate subnet for Docker containers</td>
+</tr>
+<tr>
+<td>iptables rules</td>
+<td>Map 8081–8084 to 192.168.40.201–204</td>
+<td>Enable access from LAN to macvlan network via enp0s3</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="tldr">🧠 TL;DR</h3>
+<p>You know <code>enp0s3</code> is the <strong>bridged adapter</strong> because:</p>
 <ol>
-<li>Download JDBC driver from PostgreSQL JDBC site (check version of Java on MATLAB &amp; Postgres version)</li>
-<li></li>
+<li>It’s the first adapter (VirtualBox convention).</li>
+<li>It has an IP in your LAN subnet (<code>192.168.30.x</code>).</li>
+<li>Traffic from your host can reach it directly.</li>
+<li>Your iptables DNAT setup works only because it’s bridged.</li>
 </ol>
+<hr />
+<p>If you want, I can show you exactly how to <strong>verify this conclusively</strong> with a one-liner using:</p>
+<pre><code class="language-bash">ip route show default
+</code></pre>
+<p>Would you like me to include that check?</p>
 
 
 
