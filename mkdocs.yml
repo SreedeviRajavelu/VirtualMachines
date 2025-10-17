@@ -31,6 +31,7 @@ nav:
       - Matlab Data Sources: Matlab_Data_Sources.md
       - Remote Port Fowarding SSH: Remote_PortForwarding_SSH.md
       - NAT Adapter Iptables Fowarding: NAT_Adapter_Iptables_Forwarding.md
+      - Bridged Adapter : Bridged_Adapter.md
   - SCADA:
       - ScadaLTS: ScadaLTS.md
   - OS:
