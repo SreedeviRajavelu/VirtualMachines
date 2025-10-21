@@ -86,3 +86,71 @@ You should see your folder there.
 Would you like me to show you how to copy the folder **in reverse** (from the Ubuntu VM → your Mac) as well?
 
 
+### Question:
+
+Based on the details below, how should I transfer the files from the local folder to the remote VM at  192.168.30.60
+
+path to local folder :
+
+/Users/sreedevirajavelu/Desktop/POWER PLANT TWIN/ccp_multi_IED_multi_plc_database_pg
+
+at remote VM:
+
+ubuntu@pgt:~$ whoami
+
+ubuntu
+
+Perfect 👍 You’ve already got all the info needed.
+Here’s exactly how to transfer your local folder to your **remote Ubuntu VM** at `192.168.30.60`.
+
+---
+
+### ✅ **Command to use (from your local host terminal):**
+
+```bash
+scp -r "/Users/sreedevirajavelu/Desktop/POWER PLANT TWIN/ccp_multi_IED_multi_plc_database_pg" ubuntu@192.168.30.60:/home/ubuntu/
+```
+
+---
+
+### 🧠 **Explanation:**
+
+* `scp` → Secure copy over SSH
+* `-r` → Recursively copy directories and their contents
+* `"..."` → Quotes around the path because your folder name contains spaces (`POWER PLANT TWIN`)
+* `ubuntu@192.168.30.60` → Username and target host
+* `/home/ubuntu/` → Destination path on the VM (your home directory)
+
+---
+
+### 🛠 **To verify after copying:**
+
+Once the command completes, SSH into your VM (if you aren’t already) and run:
+
+```bash
+ls /home/ubuntu/
+```
+
+You should see:
+
+```
+ccp_multi_IED_multi_plc_database_pg
+```
+
+---
+
+### ⚠️ **If you’re connected via VPN:**
+
+Make sure your VPN tunnel allows SSH/SCP traffic to `192.168.30.60`.
+If `scp` hangs or times out, you can test connectivity first:
+
+```bash
+ssh ubuntu@192.168.30.60
+```
+
+If SSH works, `scp` will work too.
+
+---
+
+Would you like to copy it to a **specific directory** inside the VM (e.g., `/opt/projects/` or `/srv/plc/`) instead of your home folder? I can adjust the command accordingly.
+
