@@ -1,0 +1,2009 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Matlab_Docker/">
+      
+      
+        <link rel="prev" href="../Matlab/">
+      
+      
+        <link rel="next" href="../Wine/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Matlab Docker - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-requirements-to-run-matlab-docker-container" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-header__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sree Devi’s Documentation on Virtual Machines, Docker & Networking
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Matlab Docker
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SreedeviRajavelu/VirtualMachines" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-nav__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sree Devi’s Documentation on Virtual Machines, Docker & Networking
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SreedeviRajavelu/VirtualMachines" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker, Virtual Machines & Networks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DockerBuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Build
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Networking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Macvlan_Network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Macvlan Network
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DockerEngine_Ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Engine on Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CommunicationBetweenInsideAndOutsideDocker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Communication Inside & Outside Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Container_Interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Container Interfaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_tgz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using tarballs (.tgz)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Volumes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Volumes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Virtualization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Virtualization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VM-to-VM-Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM-to-VM Communication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fix_Slow_UbuntuVM_Boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fix Slow Ubuntu VM Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Recovering_VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Recovering VM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Matlab Docker
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab Docker
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-requirements-to-run-matlab-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 1. Requirements to Run MATLAB Docker Container
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 1. Requirements to Run MATLAB Docker Container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#software-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Software Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ License Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-check-if-your-license-meets-the-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 How to Check if Your License Meets the Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-steps-to-run-the-matlab-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ 2. Steps to Run the MATLAB Docker Container
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ 2. Steps to Run the MATLAB Docker Container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-run-matlab-in-browser-mode-simpler-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Option 1: Run MATLAB in Browser Mode (Simpler, Recommended)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧭 Option 1: Run MATLAB in Browser Mode (Simpler, Recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh-port-forwarding-from-local-remote" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛜 SSH Port Forwarding (from Local → Remote)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-run-matlab-in-vnc-mode-for-full-desktop-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Option 2: Run MATLAB in VNC Mode (for full desktop access)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-accessing-and-using-matlab-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧰 3. Accessing and Using MATLAB Container
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧰 3. Accessing and Using MATLAB Container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-simulation-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      🗂 Add Simulation Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-data-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Configure Data Source
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      ▶️ Run Simulation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-access-options-from-your-local-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌐 4. Access Options from Your Local Machine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-setup-for-your-case-remote-ubuntu-vm-over-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Best Setup for Your Case (Remote Ubuntu VM over VPN)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Best Setup for Your Case (Remote Ubuntu VM over VPN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#question-i-need-to-install-the-database-toolbox-so-will-it-be-better-to-use-the-browser-or-vnc-option-to-run-and-access-the-matlab-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question: I need to install the database toolbox, so will it be better to use the browser or vnc option to run and access the matlab docker container
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-key-difference-between-browser-and-vnc-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 1. Key Difference Between Browser and VNC Modes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-to-run-matlab-in-vnc-mode-recommended-for-installing-toolboxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧰 2. How to Run MATLAB in VNC Mode (Recommended for Installing Toolboxes)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧰 2. How to Run MATLAB in VNC Mode (Recommended for Installing Toolboxes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explanation:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-to-access-matlab-gui-from-your-local-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌐 3. How to Access MATLAB GUI from Your Local Machine
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌐 3. How to Access MATLAB GUI from Your Local Machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-use-browser-to-access-via-port-6080-simplest" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Option 1: Use Browser to Access via Port 6080 (Simplest)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-use-a-vnc-client-tigervnc-realvnc-etc" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧑‍💻 Option 2: Use a VNC Client (TigerVNC, RealVNC, etc.)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-keep-the-container-persistent" class="md-nav__link">
+    <span class="md-ellipsis">
+      💾 4. Keep the Container Persistent
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Wine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab_Data_Sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab Data Sources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Remote_PortForwarding_SSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remote Port Fowarding SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NAT_Adapter_Iptables_Forwarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NAT Adapter Iptables Fowarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Bridged_Adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bridged Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File_Transfer_Host_To_Remote/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    File Transfer Host To Remote
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Systemctl_Systemd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Systemctl Systemd
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    SCADA
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            SCADA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ScadaLTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ScadaLTS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mac Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-requirements-to-run-matlab-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 1. Requirements to Run MATLAB Docker Container
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 1. Requirements to Run MATLAB Docker Container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#software-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Software Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ License Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-check-if-your-license-meets-the-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 How to Check if Your License Meets the Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-steps-to-run-the-matlab-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ 2. Steps to Run the MATLAB Docker Container
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ 2. Steps to Run the MATLAB Docker Container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-run-matlab-in-browser-mode-simpler-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Option 1: Run MATLAB in Browser Mode (Simpler, Recommended)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧭 Option 1: Run MATLAB in Browser Mode (Simpler, Recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh-port-forwarding-from-local-remote" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛜 SSH Port Forwarding (from Local → Remote)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-run-matlab-in-vnc-mode-for-full-desktop-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Option 2: Run MATLAB in VNC Mode (for full desktop access)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-accessing-and-using-matlab-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧰 3. Accessing and Using MATLAB Container
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧰 3. Accessing and Using MATLAB Container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-simulation-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      🗂 Add Simulation Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-data-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Configure Data Source
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      ▶️ Run Simulation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-access-options-from-your-local-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌐 4. Access Options from Your Local Machine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-setup-for-your-case-remote-ubuntu-vm-over-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Best Setup for Your Case (Remote Ubuntu VM over VPN)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Best Setup for Your Case (Remote Ubuntu VM over VPN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#question-i-need-to-install-the-database-toolbox-so-will-it-be-better-to-use-the-browser-or-vnc-option-to-run-and-access-the-matlab-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question: I need to install the database toolbox, so will it be better to use the browser or vnc option to run and access the matlab docker container
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-key-difference-between-browser-and-vnc-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 1. Key Difference Between Browser and VNC Modes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-to-run-matlab-in-vnc-mode-recommended-for-installing-toolboxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧰 2. How to Run MATLAB in VNC Mode (Recommended for Installing Toolboxes)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧰 2. How to Run MATLAB in VNC Mode (Recommended for Installing Toolboxes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explanation:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-to-access-matlab-gui-from-your-local-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌐 3. How to Access MATLAB GUI from Your Local Machine
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌐 3. How to Access MATLAB GUI from Your Local Machine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-use-browser-to-access-via-port-6080-simplest" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Option 1: Use Browser to Access via Port 6080 (Simplest)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-use-a-vnc-client-tigervnc-realvnc-etc" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧑‍💻 Option 2: Use a VNC Client (TigerVNC, RealVNC, etc.)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-keep-the-container-persistent" class="md-nav__link">
+    <span class="md-ellipsis">
+      💾 4. Keep the Container Persistent
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Matlab Docker</h1>
+
+<p>Summarise steps to run the matlab docker container, requirements to run the matlab docker container and how I can check that my license fulfils the requirements. After running the docker container, how can i access the matlab docker container to add simulation files, configure data source, run simulation? Note that I will be running on a remote ubuntu vm that i have ssh-ed into using VPN tunnel and i can only view the browser on my local machine so what options do i have to access and use the matlab docker container and which is best ?</p>
+<p>Here’s a <strong>complete, structured summary</strong> of what you need to know and do to run and access a <strong>MATLAB Docker container</strong> — tailored to your setup (remote Ubuntu VM accessed via SSH and VPN, with browser access only on your local machine).</p>
+<hr />
+<h2 id="1-requirements-to-run-matlab-docker-container">🧩 1. Requirements to Run MATLAB Docker Container</h2>
+<h3 id="software-requirements">✅ Software Requirements</h3>
+<ul>
+<li>
+<p><strong>Docker installed</strong> on your <strong>remote Ubuntu VM</strong>.</p>
+</li>
+<li>
+<p>Check: <code>docker --version</code></p>
+</li>
+<li>
+<p>If missing:</p>
+<p><code>bash
+sudo apt update
+sudo apt install docker.io -y
+sudo systemctl enable docker
+sudo systemctl start docker</code></p>
+</li>
+<li>
+<p><strong>MATLAB container image</strong> from Docker Hub:</p>
+</li>
+</ul>
+<p><code>bash
+  docker pull mathworks/matlab:r2025a   # version I used on Macbook</code></p>
+<hr />
+<h3 id="license-requirements">✅ License Requirements</h3>
+<p>Your MATLAB license must:</p>
+<ol>
+<li><strong>Be valid</strong> for all MathWorks products you want to use.</li>
+<li><strong>Be linked</strong> to your MathWorks account.</li>
+<li><strong>Be configured for cloud use</strong>.</li>
+</ol>
+<p>License types that already support cloud use:</p>
+<ul>
+<li><strong>Individual</strong> license ✅</li>
+<li><strong>Campus-Wide</strong> license ✅</li>
+</ul>
+<p>For <strong>Concurrent (Network) licenses</strong>:</p>
+<ul>
+<li>You need to specify the license server:</li>
+</ul>
+<p><code>bash
+  -e MLM_LICENSE_FILE=27000@MyLicenseServer</code></p>
+<hr />
+<h3 id="how-to-check-if-your-license-meets-the-requirements">🔍 How to Check if Your License Meets the Requirements</h3>
+<ol>
+<li>Go to your <a href="https://www.mathworks.com/mwaccount/">MathWorks Account page</a>.</li>
+<li>
+<p>Under <strong>Licenses → Manage Licenses</strong>, check:</p>
+</li>
+<li>
+<p><strong>License type</strong> (Individual, Campus-Wide, or Concurrent).</p>
+</li>
+<li>If <strong>Concurrent</strong>, note down the <strong>license server details</strong> (port and DNS address).</li>
+<li>Confirm with your <strong>license administrator</strong> or MathWorks support if it is <strong>enabled for cloud use</strong>.</li>
+</ol>
+<hr />
+<h2 id="2-steps-to-run-the-matlab-docker-container">⚙️ 2. Steps to Run the MATLAB Docker Container</h2>
+<h3 id="option-1-run-matlab-in-browser-mode-simpler-recommended">🧭 Option 1: Run MATLAB in <strong>Browser Mode</strong> (Simpler, Recommended)</h3>
+<p>Run this on your <strong>remote Ubuntu VM</strong>:</p>
+<pre><code class="language-bash">docker run -it --rm -p 8888:8888 --shm-size=512M mathworks/matlab:r2024b -browser
+</code></pre>
+<ul>
+<li><code>-p 8888:8888</code> → exposes port for browser connection</li>
+<li><code>--shm-size=512M</code> → required for MATLAB GUI stability</li>
+<li><code>-browser</code> → enables web-based MATLAB interface</li>
+</ul>
+<p>After running, Docker will print a <strong>URL</strong> like:</p>
+<pre><code>http://localhost:8888/?token=abcd1234
+</code></pre>
+<p>Since your browser is <strong>on your local machine</strong>, you must <strong>forward this port</strong> through SSH.</p>
+<h4 id="ssh-port-forwarding-from-local-remote">🛜 SSH Port Forwarding (from Local → Remote)</h4>
+<p>Run this <strong>on your local machine</strong> (not inside SSH):</p>
+<pre><code class="language-bash">ssh -L 8888:localhost:8888 username@remote_vm_ip
+</code></pre>
+<p>Then open in your <strong>local browser</strong>:</p>
+<pre><code>http://localhost:8888
+</code></pre>
+<p>Login with your MathWorks credentials when prompted.</p>
+<hr />
+<h3 id="option-2-run-matlab-in-vnc-mode-for-full-desktop-access">🧭 Option 2: Run MATLAB in <strong>VNC Mode</strong> (for full desktop access)</h3>
+<p>Run this on your <strong>remote Ubuntu VM</strong>:</p>
+<pre><code class="language-bash">docker run --init -it --rm -p 5901:5901 -p 6080:6080 --shm-size=512M mathworks/matlab:r2024b -vnc
+</code></pre>
+<p>Then:</p>
+<ul>
+<li>Via VNC client: connect to <code>remote_vm_ip:5901</code> (password: <code>matlab</code>)</li>
+<li>OR via browser (no VNC client): open</li>
+</ul>
+<p><code>http://localhost:6080</code></p>
+<p>→ use SSH port forwarding:</p>
+<p><code>bash
+  ssh -L 6080:localhost:6080 username@remote_vm_ip</code></p>
+<hr />
+<h2 id="3-accessing-and-using-matlab-container">🧰 3. Accessing and Using MATLAB Container</h2>
+<p>Once the container is running:</p>
+<h3 id="add-simulation-files">🗂 Add Simulation Files</h3>
+<p>Option 1: <strong>Mount a directory</strong> from your remote VM into the container:</p>
+<pre><code class="language-bash">docker run -it --rm \
+  -p 8888:8888 \
+  -v /path/to/your/files:/home/matlab/projects \
+  --shm-size=512M mathworks/matlab:r2024b -browser
+</code></pre>
+<p>Inside MATLAB, access your files under <code>/home/matlab/projects</code>.</p>
+<p>Option 2: <strong>Copy files into container (temporary)</strong></p>
+<pre><code class="language-bash">docker cp localfile.m container_id:/home/matlab/
+</code></pre>
+<hr />
+<h3 id="configure-data-source">⚙️ Configure Data Source</h3>
+<p>If your simulation depends on external data:</p>
+<ul>
+<li>Mount the data directory the same way using <code>-v</code>.</li>
+<li>If using a database or sensor stream, ensure the container has network access (use <code>--network host</code> if necessary).</li>
+</ul>
+<hr />
+<h3 id="run-simulation">▶️ Run Simulation</h3>
+<p>Once inside MATLAB (browser or VNC):</p>
+<ul>
+<li>Open <code>.slx</code> or <code>.m</code> files from your mounted directory.</li>
+<li>Run simulations normally using the GUI or MATLAB command line.</li>
+</ul>
+<hr />
+<h2 id="4-access-options-from-your-local-machine">🌐 4. Access Options from Your Local Machine</h2>
+<table>
+<thead>
+<tr>
+<th>Access Method</th>
+<th>Description</th>
+<th>Pros</th>
+<th>Cons</th>
+<th>Recommended When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Browser Mode</strong> (<code>-browser</code>)</td>
+<td>Use MATLAB Web interface through port 8888</td>
+<td>Easiest, lightweight, no VNC setup</td>
+<td>Slightly limited desktop features</td>
+<td>✅ Best for general use</td>
+</tr>
+<tr>
+<td><strong>VNC Mode</strong> (<code>-vnc</code>)</td>
+<td>Full MATLAB desktop via port 6080 or 5901</td>
+<td>Supports toolboxes/add-ons GUI</td>
+<td>Slightly slower over VPN</td>
+<td>When full GUI features needed</td>
+</tr>
+<tr>
+<td><strong>Batch Mode</strong> (no GUI)</td>
+<td>Run scripts or simulations directly</td>
+<td>Fastest, low resource use</td>
+<td>No graphical interface</td>
+<td>Automated simulations</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="best-setup-for-your-case-remote-ubuntu-vm-over-vpn">✅ Best Setup for Your Case (Remote Ubuntu VM over VPN)</h2>
+<p>Given that:</p>
+<ul>
+<li>You SSH into the VM.</li>
+<li>You can only use your <strong>local browser</strong> (not remote desktop).</li>
+</ul>
+<p>👉 <strong>Recommended Setup:</strong></p>
+<ol>
+<li>Use <strong>Browser Mode (<code>-browser</code>)</strong>.</li>
+<li>Use <strong>SSH port forwarding</strong> to map <code>8888</code> from remote to local.</li>
+<li>Mount your project directory via <code>-v</code>.</li>
+<li>Access MATLAB via <code>http://localhost:8888</code> in your local browser.</li>
+</ol>
+<p>Example final command:</p>
+<pre><code class="language-bash">ssh -L 8888:localhost:8888 user@remote_vm_ip
+</code></pre>
+<p>Then on the VM:</p>
+<pre><code class="language-bash">docker run -it --rm \
+  -p 8888:8888 \
+  -v ~/matlab_projects:/home/matlab/projects \
+  --shm-size=512M mathworks/matlab:r2024b -browser
+</code></pre>
+<p>Access locally via:
+👉 <code>http://localhost:8888</code></p>
+<hr />
+<p>Would you like me to include steps for <strong>saving MATLAB session data and simulations</strong> persistently (so it’s not lost when the container stops)?</p>
+<h3 id="question-i-need-to-install-the-database-toolbox-so-will-it-be-better-to-use-the-browser-or-vnc-option-to-run-and-access-the-matlab-docker-container">Question: I need to install the database toolbox, so will it be better to use the browser or vnc option to run and access the matlab docker container</h3>
+<p>Excellent question — and you’re absolutely right to pause and think about this before running the container.</p>
+<p>When you need to <strong>install toolboxes like the Database Toolbox</strong>, the <strong>VNC mode</strong> is the better and more reliable option.</p>
+<p>Let’s break down <em>why</em> and <em>how</em> 👇</p>
+<hr />
+<h2 id="1-key-difference-between-browser-and-vnc-modes">🧩 1. Key Difference Between Browser and VNC Modes</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Interface</th>
+<th>Can Install Toolboxes?</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Browser Mode</strong> (<code>-browser</code>)</td>
+<td>MATLAB Web Desktop (lightweight interface)</td>
+<td>❌ <strong>No</strong> – the installer UI and Add-On Explorer are <strong>not supported</strong></td>
+<td>When you just want to run existing MATLAB scripts or simulations</td>
+</tr>
+<tr>
+<td><strong>VNC Mode</strong> (<code>-vnc</code>)</td>
+<td>Full MATLAB Desktop via virtual display</td>
+<td>✅ <strong>Yes</strong> – supports Toolbox installation, updates, Add-On Explorer</td>
+<td>When you need to install or manage MATLAB toolboxes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-how-to-run-matlab-in-vnc-mode-recommended-for-installing-toolboxes">🧰 2. How to Run MATLAB in VNC Mode (Recommended for Installing Toolboxes)</h2>
+<p>Run this on your <strong>remote Ubuntu VM</strong>:</p>
+<pre><code class="language-bash">docker run --init -it --name matlab_container \
+  -p 5901:5901 -p 6080:6080 \
+  --shm-size=512M \
+  mathworks/matlab:r2024b -vnc
+</code></pre>
+<h3 id="explanation">Explanation:</h3>
+<ul>
+<li><code>--init</code> → handles clean process shutdown</li>
+<li><code>-p 5901:5901</code> → for VNC client connection</li>
+<li><code>-p 6080:6080</code> → for browser-based VNC (no separate client needed)</li>
+<li><code>--shm-size=512M</code> → required shared memory</li>
+<li><code>-vnc</code> → launches MATLAB with a full GUI desktop</li>
+</ul>
+<p>Default VNC password: <strong><code>matlab</code></strong></p>
+<hr />
+<h2 id="3-how-to-access-matlab-gui-from-your-local-machine">🌐 3. How to Access MATLAB GUI from Your Local Machine</h2>
+<p>Since you’re on a <strong>remote Ubuntu VM</strong> (accessed via SSH + VPN) and can only view browsers locally:</p>
+<h3 id="option-1-use-browser-to-access-via-port-6080-simplest">✅ Option 1: Use Browser to Access via Port 6080 (Simplest)</h3>
+<ol>
+<li>On your <strong>local machine</strong>, forward the VNC web port:</li>
+</ol>
+<p><code>bash
+   ssh -L 6080:localhost:6080 username@remote_vm_ip</code>
+2. Open in your local browser:</p>
+<p><code>http://localhost:6080</code>
+3. Login with password <code>matlab</code>.
+   You’ll see a full Ubuntu desktop running MATLAB.</p>
+<p>→ From there, open <strong>MATLAB → Home → Add-Ons → Get Add-Ons</strong>, search for <strong>Database Toolbox</strong>, and install.</p>
+<hr />
+<h3 id="option-2-use-a-vnc-client-tigervnc-realvnc-etc">🧑‍💻 Option 2: Use a VNC Client (TigerVNC, RealVNC, etc.)</h3>
+<ol>
+<li>Forward the VNC port:</li>
+</ol>
+<p><code>bash
+   ssh -L 5901:localhost:5901 username@remote_vm_ip</code>
+2. Connect using a VNC viewer to:</p>
+<p><code>localhost:5901</code>
+3. Password: <code>matlab</code></p>
+<p>This gives a smoother experience (less lag, clipboard support).</p>
+<hr />
+<h2 id="4-keep-the-container-persistent">💾 4. Keep the Container Persistent</h2>
+<p>When installing toolboxes, you’ll definitely want to <strong>keep the container persistent</strong> so your installation isn’t lost:</p>
+<pre><code class="language-bash">docker run --init -it --name matlab_container \
+  -p 5901:5901 -p 6080:6080 \
+  -v ~/matlab_projects:/home/matlab/projects \
+  --shm-size=512M \
+  mathworks/matlab:r2024b -vnc
+</code></pre>
+<p>Then after installation:</p>
+<pre><code class="language-bash">docker stop matlab_container      # stop container
+docker start -ai matlab_container # restart with toolboxes intact
+</code></pre>
+<hr />
+<h2 id="summary">🧠 Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Best Mode</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Running scripts/simulations</td>
+<td><strong>Browser</strong></td>
+<td>Lighter, easier to access</td>
+</tr>
+<tr>
+<td>Installing toolboxes / Add-Ons</td>
+<td><strong>VNC</strong></td>
+<td>Full desktop needed</td>
+</tr>
+<tr>
+<td>Updating MATLAB / managing licenses</td>
+<td><strong>VNC</strong></td>
+<td>GUI access required</td>
+</tr>
+<tr>
+<td>Automated jobs / headless execution</td>
+<td><strong>Batch mode</strong></td>
+<td>No GUI needed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>✅ <strong>Recommendation for you</strong>
+Since you need to install the <strong>Database Toolbox</strong>, start MATLAB in <strong>VNC mode</strong> (<code>-vnc</code>) and access it through your local browser (port 6080) or a VNC viewer.
+Once installed, you can later switch back to <strong>browser mode</strong> (<code>-browser</code>) for daily use.</p>
+<hr />
+<p>Would you like me to show the <strong>exact steps to install the Database Toolbox inside the VNC MATLAB container</strong>, including how to make sure the toolbox persists across container restarts?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

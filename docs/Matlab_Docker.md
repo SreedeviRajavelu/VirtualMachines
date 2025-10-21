@@ -14,16 +14,19 @@ Here’s a **complete, structured summary** of what you need to know and do to r
   * Check: `docker --version`
   * If missing:
 
-    ```bash
+    ```
     sudo apt update
+
     sudo apt install docker.io -y
+
     sudo systemctl enable docker
+
     sudo systemctl start docker
     ```
 
 * **MATLAB container image** from Docker Hub:
 
-  ```bash
+  ```
   docker pull mathworks/matlab:r2025a   # version I used on Macbook
   ```
 
@@ -46,7 +49,7 @@ For **Concurrent (Network) licenses**:
 
 * You need to specify the license server:
 
-  ```bash
+  ```
   -e MLM_LICENSE_FILE=27000@MyLicenseServer
   ```
 
@@ -69,8 +72,8 @@ For **Concurrent (Network) licenses**:
 
 Run this on your **remote Ubuntu VM**:
 
-```bash
-docker run -it --rm -p 8888:8888 --shm-size=512M mathworks/matlab:r2024b -browser
+```
+docker run -it --rm -p 8888:8888 --shm-size=512M mathworks/matlab:r2025a -browser
 ```
 
 * `-p 8888:8888` → exposes port for browser connection
@@ -89,7 +92,7 @@ Since your browser is **on your local machine**, you must **forward this port** 
 
 Run this **on your local machine** (not inside SSH):
 
-```bash
+```
 ssh -L 8888:localhost:8888 username@remote_vm_ip
 ```
 
@@ -107,7 +110,7 @@ Login with your MathWorks credentials when prompted.
 
 Run this on your **remote Ubuntu VM**:
 
-```bash
+```
 docker run --init -it --rm -p 5901:5901 -p 6080:6080 --shm-size=512M mathworks/matlab:r2024b -vnc
 ```
 
@@ -122,7 +125,7 @@ Then:
 
   → use SSH port forwarding:
 
-  ```bash
+  ```
   ssh -L 6080:localhost:6080 username@remote_vm_ip
   ```
 
@@ -136,7 +139,7 @@ Once the container is running:
 
 Option 1: **Mount a directory** from your remote VM into the container:
 
-```bash
+```
 docker run -it --rm \
   -p 8888:8888 \
   -v /path/to/your/files:/home/matlab/projects \
@@ -147,7 +150,7 @@ Inside MATLAB, access your files under `/home/matlab/projects`.
 
 Option 2: **Copy files into container (temporary)**
 
-```bash
+```
 docker cp localfile.m container_id:/home/matlab/
 ```
 
@@ -197,13 +200,13 @@ Given that:
 
 Example final command:
 
-```bash
+```
 ssh -L 8888:localhost:8888 user@remote_vm_ip
 ```
 
 Then on the VM:
 
-```bash
+```
 docker run -it --rm \
   -p 8888:8888 \
   -v ~/matlab_projects:/home/matlab/projects \
@@ -241,7 +244,7 @@ Let’s break down *why* and *how* 👇
 
 Run this on your **remote Ubuntu VM**:
 
-```bash
+```
 docker run --init -it --name matlab_container \
   -p 5901:5901 -p 6080:6080 \
   --shm-size=512M \
@@ -268,7 +271,7 @@ Since you’re on a **remote Ubuntu VM** (accessed via SSH + VPN) and can only v
 
 1. On your **local machine**, forward the VNC web port:
 
-   ```bash
+   ```
    ssh -L 6080:localhost:6080 username@remote_vm_ip
    ```
 2. Open in your local browser:
@@ -287,7 +290,7 @@ Since you’re on a **remote Ubuntu VM** (accessed via SSH + VPN) and can only v
 
 1. Forward the VNC port:
 
-   ```bash
+   ```
    ssh -L 5901:localhost:5901 username@remote_vm_ip
    ```
 2. Connect using a VNC viewer to:
@@ -305,7 +308,7 @@ This gives a smoother experience (less lag, clipboard support).
 
 When installing toolboxes, you’ll definitely want to **keep the container persistent** so your installation isn’t lost:
 
-```bash
+```
 docker run --init -it --name matlab_container \
   -p 5901:5901 -p 6080:6080 \
   -v ~/matlab_projects:/home/matlab/projects \
@@ -315,7 +318,7 @@ docker run --init -it --name matlab_container \
 
 Then after installation:
 
-```bash
+```
 docker stop matlab_container      # stop container
 docker start -ai matlab_container # restart with toolboxes intact
 ```
