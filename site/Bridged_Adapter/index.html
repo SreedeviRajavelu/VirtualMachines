@@ -940,6 +940,75 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#on-my-own-host-machine-where-i-access-the-plc-browsers-using-http19216830608081dashboard-i-do-not-see-enp0s3-or-any-interface-that-matches-the-subnet-of-the-vm-on-the-remote-desktop-explain-further-how-my-host-machine-is-able-to-access-the-ubuntu-vms-ip-and-the-docker-container-running-in-the-ubuntu-vm-when-there-is-no-corresponding-interface-or-correct-me-if-there-is-a-corresponding-interface-to-access-the-1921683060-on-enp0s3-plc-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      On my own host machine where I access the plc browsers using http://192.168.30.60:8081/dashboard , I do not see enp0s3 or any interface that matches the subnet of the VM on the Remote Desktop , explain further how my host machine is able to access the ubuntu vm's ip and the docker container running in the Ubuntu vm when there is no corresponding interface, or correct me if there is a corresponding interface to access the 192.168.30.60 (on enp0s3) → PLC container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-key-is-the-remote-desktop-rdp-network-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 The key is the Remote Desktop (RDP) network path
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 The key is the Remote Desktop (RDP) network path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-actually-happening" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 What’s actually happening
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-you-dont-see-19216830x-in-ifconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧱 Why you don’t see 192.168.30.x in ifconfig
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-access-chain-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 How the access chain actually works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Analogy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Summary
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1179,6 +1248,75 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#on-my-own-host-machine-where-i-access-the-plc-browsers-using-http19216830608081dashboard-i-do-not-see-enp0s3-or-any-interface-that-matches-the-subnet-of-the-vm-on-the-remote-desktop-explain-further-how-my-host-machine-is-able-to-access-the-ubuntu-vms-ip-and-the-docker-container-running-in-the-ubuntu-vm-when-there-is-no-corresponding-interface-or-correct-me-if-there-is-a-corresponding-interface-to-access-the-1921683060-on-enp0s3-plc-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      On my own host machine where I access the plc browsers using http://192.168.30.60:8081/dashboard , I do not see enp0s3 or any interface that matches the subnet of the VM on the Remote Desktop , explain further how my host machine is able to access the ubuntu vm's ip and the docker container running in the Ubuntu vm when there is no corresponding interface, or correct me if there is a corresponding interface to access the 192.168.30.60 (on enp0s3) → PLC container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-key-is-the-remote-desktop-rdp-network-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 The key is the Remote Desktop (RDP) network path
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 The key is the Remote Desktop (RDP) network path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-actually-happening" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 What’s actually happening
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-you-dont-see-19216830x-in-ifconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧱 Why you don’t see 192.168.30.x in ifconfig
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-access-chain-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 How the access chain actually works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Analogy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Summary
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1299,6 +1437,233 @@ So if Adapter 1 in VirtualBox is configured as <strong>Bridged Adapter</strong>,
 <pre><code class="language-bash">ip route show default
 </code></pre>
 <p>Would you like me to include that check?</p>
+<h3 id="on-my-own-host-machine-where-i-access-the-plc-browsers-using-http19216830608081dashboard-i-do-not-see-enp0s3-or-any-interface-that-matches-the-subnet-of-the-vm-on-the-remote-desktop-explain-further-how-my-host-machine-is-able-to-access-the-ubuntu-vms-ip-and-the-docker-container-running-in-the-ubuntu-vm-when-there-is-no-corresponding-interface-or-correct-me-if-there-is-a-corresponding-interface-to-access-the-1921683060-on-enp0s3-plc-container">On my own host machine where I access the plc browsers using http://192.168.30.60:8081/dashboard , I do not see enp0s3 or any interface that matches the subnet of the VM on the Remote Desktop , explain further how my host machine is able to access the ubuntu vm's ip and the docker container running in the Ubuntu vm when there is no corresponding interface, or correct me if there is a corresponding interface to access the 192.168.30.60 (on enp0s3) → PLC container</h3>
+<pre><code>Last login: Fri Oct 17 17:38:12 on ttys032
+sreedevirajavelu@iTrust-9000003511 ~ % ifconfig
+lo0: flags=8049&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; mtu 16384
+    options=1203&lt;RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP&gt;
+    inet 127.0.0.1 netmask 0xff000000
+    inet6 ::1 prefixlen 128 
+    inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1 
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+gif0: flags=8010&lt;POINTOPOINT,MULTICAST&gt; mtu 1280
+stf0: flags=0&lt;&gt; mtu 1280
+anpi0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=400&lt;CHANNEL_IO&gt;
+    ether e6:59:2d:4a:00:b0
+    media: none
+    status: inactive
+anpi1: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=400&lt;CHANNEL_IO&gt;
+    ether e6:59:2d:4a:00:b1
+    media: none
+    status: inactive
+en3: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=400&lt;CHANNEL_IO&gt;
+    ether e6:59:2d:4a:00:90
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+    media: none
+    status: inactive
+en4: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=400&lt;CHANNEL_IO&gt;
+    ether e6:59:2d:4a:00:91
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+    media: none
+    status: inactive
+en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;
+    ether 36:e3:5e:f0:6d:80
+    media: autoselect &lt;full-duplex&gt;
+    status: inactive
+en2: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;
+    ether 36:e3:5e:f0:6d:84
+    media: autoselect &lt;full-duplex&gt;
+    status: inactive
+bridge0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=63&lt;RXCSUM,TXCSUM,TSO4,TSO6&gt;
+    ether 36:e3:5e:f0:6d:80
+    Configuration:
+        id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
+        maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+        root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
+        ipfilter disabled flags 0x0
+    member: en1 flags=3&lt;LEARNING,DISCOVER&gt;
+            ifmaxaddr 0 port 8 priority 0 path cost 0
+    member: en2 flags=3&lt;LEARNING,DISCOVER&gt;
+            ifmaxaddr 0 port 9 priority 0 path cost 0
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+    media: &lt;unknown type&gt;
+    status: inactive
+ap1: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=6460&lt;TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM&gt;
+    ether b6:9a:14:e0:e6:d7
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+    media: autoselect (none)
+    status: inactive
+en0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=6460&lt;TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM&gt;
+    ether 4a:e2:04:eb:3b:e2
+    inet6 fe80::871:f226:16fb:5018%en0 prefixlen 64 secured scopeid 0xb 
+    inet 10.34.11.15 netmask 0xffffe000 broadcast 10.34.31.255
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+    media: autoselect
+    status: active
+awdl0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=6460&lt;TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM&gt;
+    ether 7e:e4:55:0f:aa:48
+    inet6 fe80::7ce4:55ff:fe0f:aa48%awdl0 prefixlen 64 scopeid 0xd 
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+    media: autoselect
+    status: active
+llw0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=400&lt;CHANNEL_IO&gt;
+    ether 7e:e4:55:0f:aa:48
+    inet6 fe80::7ce4:55ff:fe0f:aa48%llw0 prefixlen 64 scopeid 0xe 
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+    media: autoselect (none)
+utun0: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1500
+    inet6 fe80::e4aa:ba08:b55a:fee%utun0 prefixlen 64 scopeid 0xf 
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+utun1: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1380
+    inet6 fe80::6ff9:4e20:6ac1:7bb7%utun1 prefixlen 64 scopeid 0x10 
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+utun2: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 2000
+    inet6 fe80::c335:87af:5360:d8cd%utun2 prefixlen 64 scopeid 0x11 
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+utun3: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1000
+    inet6 fe80::ce81:b1c:bd2c:69e%utun3 prefixlen 64 scopeid 0x12 
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+utun4: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1500
+    inet 200.10.30.154 --&gt; 200.10.30.153 netmask 0xfffffffc
+sreedevirajavelu@iTrust-9000003511 ~ % 
+</code></pre>
+<p>Excellent, detailed observation — and this is one of those subtle but <em>really interesting</em> networking questions where you’re absolutely right to notice:</p>
+<blockquote>
+<p>“Wait, I don’t see any 192.168.30.x interface on my host — so how am I even reaching 192.168.30.60?”</p>
+</blockquote>
+<p>Let’s unpack exactly <strong>why you can access the Ubuntu VM (192.168.30.60)</strong> and its PLC containers even though your host has <em>no visible interface</em> on that subnet.</p>
+<hr />
+<h2 id="the-key-is-the-remote-desktop-rdp-network-path">🧩 The key is the <strong>Remote Desktop (RDP)</strong> network path</h2>
+<p>Here’s the hierarchy you described:</p>
+<pre><code>[Your MacBook or Host Machine]  ← (RDP connection) →  [Remote Desktop: 192.168.30.5]
+       │                                               │
+       │                                               └── (Ubuntu VM: 192.168.30.60)
+       │                                                        ├── (Docker macvlan: 192.168.40.0/24)
+       │                                                        └── iptables DNAT forwarding 8081–8084
+</code></pre>
+<h3 id="whats-actually-happening">🧠 What’s actually happening</h3>
+<p>You’re <strong>not accessing 192.168.30.60 directly from your Mac’s local interface</strong>.
+Instead, your RDP (Remote Desktop Protocol) session to <code>192.168.30.5</code> acts like a <strong>portal</strong> into that internal network (192.168.30.0/24).</p>
+<p>Your Mac likely has:</p>
+<ul>
+<li>An <strong>active VPN</strong> or <strong>corporate tunnel interface</strong> (e.g., <code>utun4</code> showing <code>200.10.30.154</code>)</li>
+<li>That VPN provides routing to internal subnets like <code>192.168.30.0/24</code>.</li>
+</ul>
+<p>So when you go to:</p>
+<pre><code>http://192.168.30.60:8081/dashboard
+</code></pre>
+<p>→ the traffic goes <strong>through your VPN or RDP tunnel</strong>, into the <strong>Remote Desktop network</strong>, and reaches the Ubuntu VM.</p>
+<hr />
+<h2 id="why-you-dont-see-19216830x-in-ifconfig">🧱 Why you don’t see 192.168.30.x in <code>ifconfig</code></h2>
+<p>Your Mac only lists its <strong>local interfaces</strong> — those physically present or logically connected.</p>
+<p>But your connection to <code>192.168.30.60</code> doesn’t require a local interface <em>on that subnet</em> because:</p>
+<ul>
+<li>There’s a <strong>route</strong> (via VPN, RDP tunnel, or NAT) that sends traffic to that subnet indirectly.</li>
+<li>macOS knows: “if I need to reach 192.168.30.60, send packets via my VPN interface (utun4).”</li>
+</ul>
+<p>You can confirm this routing path using:</p>
+<pre><code class="language-bash">netstat -rn | grep 192.168.30
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">route get 192.168.30.60
+</code></pre>
+<p>✅ You’ll likely see something like:</p>
+<pre><code>route to: 192.168.30.60
+destination: 192.168.30.0
+gateway: 200.10.30.153
+interface: utun4
+</code></pre>
+<p>That shows your packets go via <code>utun4</code> — your VPN/tunnel interface — <em>not</em> a local interface like <code>en0</code>.</p>
+<hr />
+<h2 id="how-the-access-chain-actually-works">🔄 How the access chain actually works</h2>
+<p>Let’s trace your connection when you visit
+<code>http://192.168.30.60:8081/dashboard</code>:</p>
+<ol>
+<li><strong>Your browser on the host</strong> → sends TCP packets to 192.168.30.60:8081</li>
+<li><strong>macOS routing</strong> → sees that 192.168.30.0/24 is reachable via <code>utun4</code> (VPN or remote tunnel)</li>
+<li><strong>Traffic enters the remote LAN</strong> (the same network where your Remote Desktop 192.168.30.5 lives)</li>
+<li><strong>VM’s bridged adapter enp0s3 (192.168.30.60)</strong> receives the traffic</li>
+<li><strong>iptables DNAT</strong> in the Ubuntu VM forwards:</li>
+</ol>
+<p><code>192.168.30.60:8081 → 192.168.40.201:8080</code></p>
+<p>and so on for the other PLCs.
+6. <strong>Docker macvlan interface</strong> passes it to the correct PLC container
+7. <strong>Response travels back</strong> → through the same path → appears in your browser.</p>
+<p>So even though your host doesn’t have a <code>192.168.30.x</code> interface, it can still reach it <strong>via a routed or tunneled network</strong>.</p>
+<hr />
+<h2 id="analogy">🧭 Analogy</h2>
+<p>Think of it like this:</p>
+<blockquote>
+<p>You can visit a friend in another city without living there — because the highway (your VPN or RDP network) connects your location to theirs.</p>
+</blockquote>
+<p>Your host’s local “address” (10.x.x.x) doesn’t matter — the route takes care of the connection.</p>
+<hr />
+<h2 id="summary_1">✅ Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Observation</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No 192.168.30.x interface on host</td>
+<td>Host doesn’t need one — routing or VPN handles connectivity</td>
+</tr>
+<tr>
+<td>Can access <code>192.168.30.60:8081</code></td>
+<td>Because traffic goes through VPN or RDP network that knows that subnet</td>
+</tr>
+<tr>
+<td>Ubuntu VM’s <code>enp0s3</code> = 192.168.30.60</td>
+<td>Bridged to the same LAN as the Remote Desktop</td>
+</tr>
+<tr>
+<td>Docker macvlan <code>192.168.40.x</code></td>
+<td>Secondary subnet for PLC containers</td>
+</tr>
+<tr>
+<td>iptables DNAT</td>
+<td>Forwards ports 8081–8084 → specific PLC IPs</td>
+</tr>
+<tr>
+<td>Your host access works</td>
+<td>Due to routed connectivity through VPN or RDP’s internal network</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Would you like me to <strong>diagram this path</strong> visually — showing how the traffic travels from your Mac’s interface (utun4) → Remote Desktop network (192.168.30.0/24) → Ubuntu VM → PLC container?
+It would help make this chain very intuitive.</p>
+<pre><code>Last login: Fri Oct 17 17:39:55 on ttys032
+sreedevirajavelu@iTrust-9000003511 ~ % netstat -rn | grep 192.168.30
+
+192.168.30         200.10.30.153      UGSc                utun4       
+sreedevirajavelu@iTrust-9000003511 ~ % 
+</code></pre>
+<pre><code>sreedevirajavelu@iTrust-9000003511 ~ % route get 192.168.30.60
+
+   route to: 192.168.30.60
+destination: 192.168.30.60
+    gateway: static-tu-200-10-30-153.superredes.net
+  interface: utun4
+      flags: &lt;UP,GATEWAY,HOST,DONE,WASCLONED,IFSCOPE,IFREF&gt;
+ recvpipe  sendpipe  ssthresh  rtt,msec    rttvar  hopcount      mtu     expire
+       0         0         0         0         0         0      1500         0 
+sreedevirajavelu@iTrust-9000003511 ~ % 
+</code></pre>
 
 
 
