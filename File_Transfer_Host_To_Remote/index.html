@@ -969,6 +969,51 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#question_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-to-use-from-your-local-host-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Command to use (from your local host terminal):
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Explanation:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-verify-after-copying" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠 To verify after copying:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-youre-connected-via-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ If you’re connected via VPN:
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1214,6 +1259,51 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#question_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-to-use-from-your-local-host-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Command to use (from your local host terminal):
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Explanation:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-verify-after-copying" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠 To verify after copying:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-youre-connected-via-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ If you’re connected via VPN:
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1294,6 +1384,45 @@ ls -l /home/ubuntu/
 <p>You should see your folder there.</p>
 <hr />
 <p>Would you like me to show you how to copy the folder <strong>in reverse</strong> (from the Ubuntu VM → your Mac) as well?</p>
+<h3 id="question_1">Question:</h3>
+<p>Based on the details below, how should I transfer the files from the local folder to the remote VM at  192.168.30.60</p>
+<p>path to local folder :</p>
+<p>/Users/sreedevirajavelu/Desktop/POWER PLANT TWIN/ccp_multi_IED_multi_plc_database_pg</p>
+<p>at remote VM:</p>
+<p>ubuntu@pgt:~$ whoami</p>
+<p>ubuntu</p>
+<p>Perfect 👍 You’ve already got all the info needed.
+Here’s exactly how to transfer your local folder to your <strong>remote Ubuntu VM</strong> at <code>192.168.30.60</code>.</p>
+<hr />
+<h3 id="command-to-use-from-your-local-host-terminal">✅ <strong>Command to use (from your local host terminal):</strong></h3>
+<pre><code class="language-bash">scp -r &quot;/Users/sreedevirajavelu/Desktop/POWER PLANT TWIN/ccp_multi_IED_multi_plc_database_pg&quot; ubuntu@192.168.30.60:/home/ubuntu/
+</code></pre>
+<hr />
+<h3 id="explanation">🧠 <strong>Explanation:</strong></h3>
+<ul>
+<li><code>scp</code> → Secure copy over SSH</li>
+<li><code>-r</code> → Recursively copy directories and their contents</li>
+<li><code>"..."</code> → Quotes around the path because your folder name contains spaces (<code>POWER PLANT TWIN</code>)</li>
+<li><code>ubuntu@192.168.30.60</code> → Username and target host</li>
+<li><code>/home/ubuntu/</code> → Destination path on the VM (your home directory)</li>
+</ul>
+<hr />
+<h3 id="to-verify-after-copying">🛠 <strong>To verify after copying:</strong></h3>
+<p>Once the command completes, SSH into your VM (if you aren’t already) and run:</p>
+<pre><code class="language-bash">ls /home/ubuntu/
+</code></pre>
+<p>You should see:</p>
+<pre><code>ccp_multi_IED_multi_plc_database_pg
+</code></pre>
+<hr />
+<h3 id="if-youre-connected-via-vpn">⚠️ <strong>If you’re connected via VPN:</strong></h3>
+<p>Make sure your VPN tunnel allows SSH/SCP traffic to <code>192.168.30.60</code>.
+If <code>scp</code> hangs or times out, you can test connectivity first:</p>
+<pre><code class="language-bash">ssh ubuntu@192.168.30.60
+</code></pre>
+<p>If SSH works, <code>scp</code> will work too.</p>
+<hr />
+<p>Would you like to copy it to a <strong>specific directory</strong> inside the VM (e.g., <code>/opt/projects/</code> or <code>/srv/plc/</code>) instead of your home folder? I can adjust the command accordingly.</p>
 
 
 
