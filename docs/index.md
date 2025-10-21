@@ -31,6 +31,7 @@ Welcome! Use the sidebar to navigate to different sections of this project.
 - [NAT_Adapter_Iptables_Forwarding.md](NAT_Adapter_Iptables_Forwarding.md)
 - [Bridged_Adapter](Bridged_Adapter.md)
 - [File Transfer Host To Remote](File_Transfer_Host_To_Remote.md)
+- [Systemctl Systemd](Systemctl_Systemd.md)
 
 ## SCADA
 
