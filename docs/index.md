@@ -23,6 +23,7 @@ Welcome! Use the sidebar to navigate to different sections of this project.
 
 - [SSH Setup](SSH.md)
 - [Matlab Setup](Matlab.md)
+- [Matlab_Docker](Matlab_Docker.md)
 - [Wine on Linux](Wine.md)
 - [SQL](SQL.md)
 - [PostgreSQL] (PostgreSQL.md)

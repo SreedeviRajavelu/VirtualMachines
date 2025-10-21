@@ -792,6 +792,81 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Using Postgresql DB from docker-compose.yml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-disable-the-pager-and-control-display-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Solution — Disable the pager and control display settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Solution — Disable the pager and control display settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-disable-the-pager-so-output-prints-immediately" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Disable the pager (so output prints immediately)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-disable-formatting-for-simpler-plain-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Disable formatting for simpler plain output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-disable-headers-or-footers-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Disable headers or footers (optional)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-make-settings-permanent" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Make settings permanent
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Example session
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1115,6 +1190,81 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Using Postgresql DB from docker-compose.yml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-disable-the-pager-and-control-display-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Solution — Disable the pager and control display settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Solution — Disable the pager and control display settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-disable-the-pager-so-output-prints-immediately" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Disable the pager (so output prints immediately)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-disable-formatting-for-simpler-plain-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Disable formatting for simpler plain output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-disable-headers-or-footers-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Disable headers or footers (optional)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-make-settings-permanent" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Make settings permanent
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Example session
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1234,6 +1384,71 @@ def establish_connection():
 cur.execute(&quot;SELECT * FROM get_gt_ied_data();&quot;)  # note the parentheses
 rows = cur.fetchall()
 </code></pre>
+<p>Excellent — yes, you’re thinking of <strong><code>psql</code>'s display and output behavior settings</strong>, and there <em>is</em> a way to make it show query results, then immediately return to the prompt without odd pauses or output paging.</p>
+<p>Let’s go through this cleanly 👇</p>
+<hr />
+<h3 id="problem">🎯 Problem</h3>
+<p>When you run a command in <code>psql</code>, sometimes:</p>
+<ul>
+<li>It pauses after showing output (especially for long results).</li>
+<li>Or it pipes output through a pager like <code>less</code>, requiring you to press <code>q</code> to get back.</li>
+<li>Or you want it to just print everything directly and go back to the prompt.</li>
+</ul>
+<hr />
+<p>Excellent — yes, you’re thinking of psql's display and output behavior settings, and there is a way to make it show query results, then immediately return to the prompt without odd pauses or output paging.</p>
+<p>Let’s go through this cleanly 👇</p>
+<h3 id="solution-disable-the-pager-and-control-display-settings">✅ Solution — Disable the pager and control display settings</h3>
+<p>You can use these <code>psql</code> internal commands:</p>
+<h4 id="1-disable-the-pager-so-output-prints-immediately">1. <strong>Disable the pager (so output prints immediately)</strong></h4>
+<pre><code class="language-sql">\pset pager off
+</code></pre>
+<p>This ensures query results are shown directly in the terminal, <strong>and you return immediately</strong> to the <code>powerplant=#</code> prompt after the output.</p>
+<p>If you want to <strong>re-enable</strong> it later:</p>
+<pre><code class="language-sql">\pset pager on
+</code></pre>
+<p>You can check its status:</p>
+<pre><code class="language-sql">\pset
+</code></pre>
+<hr />
+<h4 id="2-disable-formatting-for-simpler-plain-output">2. <strong>Disable formatting for simpler plain output</strong></h4>
+<p>If you want more compact output (no table borders or alignment):</p>
+<pre><code class="language-sql">\pset format unaligned
+\pset border 0
+</code></pre>
+<p>Then results will appear like plain text (useful for scripts or logs).</p>
+<p>Restore normal table output with:</p>
+<pre><code class="language-sql">\pset format aligned
+\pset border 1
+</code></pre>
+<hr />
+<h4 id="3-disable-headers-or-footers-optional">3. <strong>Disable headers or footers (optional)</strong></h4>
+<p>If you don’t want to see the <code>(3 rows)</code> line:</p>
+<pre><code class="language-sql">\pset footer off
+</code></pre>
+<p>To bring it back:</p>
+<pre><code class="language-sql">\pset footer on
+</code></pre>
+<hr />
+<h4 id="4-make-settings-permanent">4. <strong>Make settings permanent</strong></h4>
+<p>To persist these preferences, add them to your <code>~/.psqlrc</code> file:</p>
+<pre><code class="language-bash">echo '\pset pager off' &gt;&gt; ~/.psqlrc
+echo '\pset format aligned' &gt;&gt; ~/.psqlrc
+echo '\pset border 1' &gt;&gt; ~/.psqlrc
+</code></pre>
+<p>Then they’ll apply automatically every time you start <code>psql</code>.</p>
+<hr />
+<h3 id="example-session">🧠 Example session</h3>
+<pre><code class="language-bash">psql -U root -d powerplant
+</code></pre>
+<p>Inside <code>psql</code>:</p>
+<pre><code class="language-sql">\pset pager off
+\pset format aligned
+select * from ccp_values limit 5;
+</code></pre>
+<p>➡ Output prints immediately
+➡ Cursor returns cleanly to <code>powerplant=#</code></p>
+<hr />
+<p>Would you like me to suggest an <em>optimal <code>.psqlrc</code> configuration</em> for smooth day-to-day work (no pauses, clean formatting, and instant results)?</p>
 
 
 
