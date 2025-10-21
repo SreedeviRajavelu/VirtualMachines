@@ -1655,18 +1655,18 @@
 </li>
 <li>
 <p>If missing:</p>
-<p><code>bash
-sudo apt update
-sudo apt install docker.io -y
-sudo systemctl enable docker
-sudo systemctl start docker</code></p>
+<p>```
+sudo apt update</p>
+<p>sudo apt install docker.io -y</p>
+<p>sudo systemctl enable docker</p>
+<p>sudo systemctl start docker
+```</p>
 </li>
 <li>
 <p><strong>MATLAB container image</strong> from Docker Hub:</p>
 </li>
 </ul>
-<p><code>bash
-  docker pull mathworks/matlab:r2025a   # version I used on Macbook</code></p>
+<p><code>docker pull mathworks/matlab:r2025a   # version I used on Macbook</code></p>
 <hr />
 <h3 id="license-requirements">✅ License Requirements</h3>
 <p>Your MATLAB license must:</p>
@@ -1684,8 +1684,7 @@ sudo systemctl start docker</code></p>
 <ul>
 <li>You need to specify the license server:</li>
 </ul>
-<p><code>bash
-  -e MLM_LICENSE_FILE=27000@MyLicenseServer</code></p>
+<p><code>-e MLM_LICENSE_FILE=27000@MyLicenseServer</code></p>
 <hr />
 <h3 id="how-to-check-if-your-license-meets-the-requirements">🔍 How to Check if Your License Meets the Requirements</h3>
 <ol>
@@ -1703,7 +1702,7 @@ sudo systemctl start docker</code></p>
 <h2 id="2-steps-to-run-the-matlab-docker-container">⚙️ 2. Steps to Run the MATLAB Docker Container</h2>
 <h3 id="option-1-run-matlab-in-browser-mode-simpler-recommended">🧭 Option 1: Run MATLAB in <strong>Browser Mode</strong> (Simpler, Recommended)</h3>
 <p>Run this on your <strong>remote Ubuntu VM</strong>:</p>
-<pre><code class="language-bash">docker run -it --rm -p 8888:8888 --shm-size=512M mathworks/matlab:r2024b -browser
+<pre><code>docker run -it --rm -p 8888:8888 --shm-size=512M mathworks/matlab:r2025a -browser
 </code></pre>
 <ul>
 <li><code>-p 8888:8888</code> → exposes port for browser connection</li>
@@ -1716,7 +1715,7 @@ sudo systemctl start docker</code></p>
 <p>Since your browser is <strong>on your local machine</strong>, you must <strong>forward this port</strong> through SSH.</p>
 <h4 id="ssh-port-forwarding-from-local-remote">🛜 SSH Port Forwarding (from Local → Remote)</h4>
 <p>Run this <strong>on your local machine</strong> (not inside SSH):</p>
-<pre><code class="language-bash">ssh -L 8888:localhost:8888 username@remote_vm_ip
+<pre><code>ssh -L 8888:localhost:8888 username@remote_vm_ip
 </code></pre>
 <p>Then open in your <strong>local browser</strong>:</p>
 <pre><code>http://localhost:8888
@@ -1725,7 +1724,7 @@ sudo systemctl start docker</code></p>
 <hr />
 <h3 id="option-2-run-matlab-in-vnc-mode-for-full-desktop-access">🧭 Option 2: Run MATLAB in <strong>VNC Mode</strong> (for full desktop access)</h3>
 <p>Run this on your <strong>remote Ubuntu VM</strong>:</p>
-<pre><code class="language-bash">docker run --init -it --rm -p 5901:5901 -p 6080:6080 --shm-size=512M mathworks/matlab:r2024b -vnc
+<pre><code>docker run --init -it --rm -p 5901:5901 -p 6080:6080 --shm-size=512M mathworks/matlab:r2024b -vnc
 </code></pre>
 <p>Then:</p>
 <ul>
@@ -1734,21 +1733,20 @@ sudo systemctl start docker</code></p>
 </ul>
 <p><code>http://localhost:6080</code></p>
 <p>→ use SSH port forwarding:</p>
-<p><code>bash
-  ssh -L 6080:localhost:6080 username@remote_vm_ip</code></p>
+<p><code>ssh -L 6080:localhost:6080 username@remote_vm_ip</code></p>
 <hr />
 <h2 id="3-accessing-and-using-matlab-container">🧰 3. Accessing and Using MATLAB Container</h2>
 <p>Once the container is running:</p>
 <h3 id="add-simulation-files">🗂 Add Simulation Files</h3>
 <p>Option 1: <strong>Mount a directory</strong> from your remote VM into the container:</p>
-<pre><code class="language-bash">docker run -it --rm \
+<pre><code>docker run -it --rm \
   -p 8888:8888 \
   -v /path/to/your/files:/home/matlab/projects \
   --shm-size=512M mathworks/matlab:r2024b -browser
 </code></pre>
 <p>Inside MATLAB, access your files under <code>/home/matlab/projects</code>.</p>
 <p>Option 2: <strong>Copy files into container (temporary)</strong></p>
-<pre><code class="language-bash">docker cp localfile.m container_id:/home/matlab/
+<pre><code>docker cp localfile.m container_id:/home/matlab/
 </code></pre>
 <hr />
 <h3 id="configure-data-source">⚙️ Configure Data Source</h3>
@@ -1815,10 +1813,10 @@ sudo systemctl start docker</code></p>
 <li>Access MATLAB via <code>http://localhost:8888</code> in your local browser.</li>
 </ol>
 <p>Example final command:</p>
-<pre><code class="language-bash">ssh -L 8888:localhost:8888 user@remote_vm_ip
+<pre><code>ssh -L 8888:localhost:8888 user@remote_vm_ip
 </code></pre>
 <p>Then on the VM:</p>
-<pre><code class="language-bash">docker run -it --rm \
+<pre><code>docker run -it --rm \
   -p 8888:8888 \
   -v ~/matlab_projects:/home/matlab/projects \
   --shm-size=512M mathworks/matlab:r2024b -browser
@@ -1860,7 +1858,7 @@ sudo systemctl start docker</code></p>
 <hr />
 <h2 id="2-how-to-run-matlab-in-vnc-mode-recommended-for-installing-toolboxes">🧰 2. How to Run MATLAB in VNC Mode (Recommended for Installing Toolboxes)</h2>
 <p>Run this on your <strong>remote Ubuntu VM</strong>:</p>
-<pre><code class="language-bash">docker run --init -it --name matlab_container \
+<pre><code>docker run --init -it --name matlab_container \
   -p 5901:5901 -p 6080:6080 \
   --shm-size=512M \
   mathworks/matlab:r2024b -vnc
@@ -1881,8 +1879,7 @@ sudo systemctl start docker</code></p>
 <ol>
 <li>On your <strong>local machine</strong>, forward the VNC web port:</li>
 </ol>
-<p><code>bash
-   ssh -L 6080:localhost:6080 username@remote_vm_ip</code>
+<p><code>ssh -L 6080:localhost:6080 username@remote_vm_ip</code>
 2. Open in your local browser:</p>
 <p><code>http://localhost:6080</code>
 3. Login with password <code>matlab</code>.
@@ -1893,8 +1890,7 @@ sudo systemctl start docker</code></p>
 <ol>
 <li>Forward the VNC port:</li>
 </ol>
-<p><code>bash
-   ssh -L 5901:localhost:5901 username@remote_vm_ip</code>
+<p><code>ssh -L 5901:localhost:5901 username@remote_vm_ip</code>
 2. Connect using a VNC viewer to:</p>
 <p><code>localhost:5901</code>
 3. Password: <code>matlab</code></p>
@@ -1902,14 +1898,14 @@ sudo systemctl start docker</code></p>
 <hr />
 <h2 id="4-keep-the-container-persistent">💾 4. Keep the Container Persistent</h2>
 <p>When installing toolboxes, you’ll definitely want to <strong>keep the container persistent</strong> so your installation isn’t lost:</p>
-<pre><code class="language-bash">docker run --init -it --name matlab_container \
+<pre><code>docker run --init -it --name matlab_container \
   -p 5901:5901 -p 6080:6080 \
   -v ~/matlab_projects:/home/matlab/projects \
   --shm-size=512M \
   mathworks/matlab:r2024b -vnc
 </code></pre>
 <p>Then after installation:</p>
-<pre><code class="language-bash">docker stop matlab_container      # stop container
+<pre><code>docker stop matlab_container      # stop container
 docker start -ai matlab_container # restart with toolboxes intact
 </code></pre>
 <hr />
