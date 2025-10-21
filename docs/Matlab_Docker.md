@@ -274,11 +274,13 @@ Since you’re on a **remote Ubuntu VM** (accessed via SSH + VPN) and can only v
    ```
    ssh -L 6080:localhost:6080 username@remote_vm_ip
    ```
+
 2. Open in your local browser:
 
    ```
    http://localhost:6080
    ```
+
 3. Login with password `matlab`.
    You’ll see a full Ubuntu desktop running MATLAB.
 
@@ -309,11 +311,7 @@ This gives a smoother experience (less lag, clipboard support).
 When installing toolboxes, you’ll definitely want to **keep the container persistent** so your installation isn’t lost:
 
 ```
-docker run --init -it --name matlab_container \
-  -p 5901:5901 -p 6080:6080 \
-  -v ~/matlab_projects:/home/matlab/projects \
-  --shm-size=512M \
-  mathworks/matlab:r2024b -vnc
+docker run --init -it --name matlab_container -p 5901:5901 -p 6080:6080 -v ~/matlab_projects:/home/matlab/projects --shm-size=512M mathworks/matlab:r2025a -vnc
 ```
 
 Then after installation:
