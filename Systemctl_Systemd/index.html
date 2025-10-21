@@ -1446,6 +1446,57 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#after-sudo-netplan-apply-in-the-above-steps-still-got-error-in-dns-name-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      After sudo netplan apply in the above steps, still got error in DNS name resolution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="After sudo netplan apply in the above steps, still got error in DNS name resolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-confirm-what-etcresolvconf-points-to" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 1: Confirm what /etc/resolv.conf points to
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-point-resolvconf-to-the-real-dns-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧰 Step 2: Point resolv.conf to the real DNS configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-make-sure-this-survives-reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 3: Make sure this survives reboot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-optional-verification-after-reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 4: Optional verification after reboot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2150,6 +2201,57 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#after-sudo-netplan-apply-in-the-above-steps-still-got-error-in-dns-name-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      After sudo netplan apply in the above steps, still got error in DNS name resolution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="After sudo netplan apply in the above steps, still got error in DNS name resolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-confirm-what-etcresolvconf-points-to" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 1: Confirm what /etc/resolv.conf points to
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-point-resolvconf-to-the-real-dns-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧰 Step 2: Point resolv.conf to the real DNS configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-make-sure-this-survives-reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 3: Make sure this survives reboot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-optional-verification-after-reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 4: Optional verification after reboot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2639,6 +2741,77 @@ cat /etc/netplan/01-netcfg.yaml
 </table>
 <hr />
 <p>Would you like me to show a <strong>minimal “copy-paste-ready” version</strong> of all commands you can run in sequence (no explanations, just working setup)?</p>
+<h2 id="after-sudo-netplan-apply-in-the-above-steps-still-got-error-in-dns-name-resolution">After sudo netplan apply in the above steps, still got error in DNS name resolution</h2>
+<p>After doing sudo netplan apply, below is the output I get , why do I still get failure in name resolution and how to resolve</p>
+<pre><code>ubuntu@pgt:~$ ping -c 3 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=2.22 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=115 time=2.30 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=115 time=2.43 ms
+
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 2.224/2.316/2.425/0.082 ms
+ubuntu@pgt:~$ ping -c 3 google.com
+ping: google.com: Temporary failure in name resolution
+ubuntu@pgt:~$ 
+</code></pre>
+<p>Good observation — this tells us <strong>exactly what’s working and what’s not</strong> 👇</p>
+<ul>
+<li>✅ <code>ping 8.8.8.8</code> works → <strong>your network routing and internet connectivity are fine.</strong></li>
+<li>❌ <code>ping google.com</code> fails → <strong>your DNS resolution is broken.</strong></li>
+</ul>
+<p>Let’s go step-by-step to fix and persist it properly.</p>
+<hr />
+<h3 id="step-1-confirm-what-etcresolvconf-points-to">🧩 Step 1: Confirm what <code>/etc/resolv.conf</code> points to</h3>
+<p>Run:</p>
+<pre><code class="language-bash">ls -l /etc/resolv.conf
+cat /etc/resolv.conf
+</code></pre>
+<p>You will almost certainly see this:</p>
+<pre><code>/etc/resolv.conf -&gt; ../run/systemd/resolve/stub-resolv.conf
+nameserver 127.0.0.53
+</code></pre>
+<p>That means DNS queries are still going through the <strong>systemd-resolved stub</strong> (<code>127.0.0.53</code>), which is not using your Netplan <code>8.8.8.8</code> entries.</p>
+<hr />
+<h3 id="step-2-point-resolvconf-to-the-real-dns-configuration">🧰 Step 2: Point resolv.conf to the real DNS configuration</h3>
+<p>You can safely replace that symlink with one that points to the correct file managed by <code>systemd-resolved</code>:</p>
+<pre><code class="language-bash">sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+</code></pre>
+<p>That file (<code>/run/systemd/resolve/resolv.conf</code>) contains the <strong>real upstream nameservers</strong> that systemd-resolved learned from Netplan.</p>
+<p>Now check again:</p>
+<pre><code class="language-bash">cat /etc/resolv.conf
+</code></pre>
+<p>✅ Expected:</p>
+<pre><code>nameserver 8.8.8.8
+nameserver 8.8.4.4
+</code></pre>
+<p>Then test:</p>
+<pre><code class="language-bash">ping -c3 google.com
+</code></pre>
+<p>If it resolves, DNS is now fixed.</p>
+<hr />
+<h3 id="step-3-make-sure-this-survives-reboot">🧩 Step 3: Make sure this survives reboot</h3>
+<p>You’ve already disabled Cloud-Init network overwriting with:</p>
+<pre><code class="language-bash">echo &quot;network: {config: disabled}&quot; | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+</code></pre>
+<p>and moved <code>50-cloud-init.yaml</code>, so this DNS configuration will persist.</p>
+<p>The <code>/etc/resolv.conf</code> symlink fix also persists automatically because it’s a filesystem change, not a runtime file.</p>
+<hr />
+<h3 id="step-4-optional-verification-after-reboot">🧩 Step 4: Optional verification after reboot</h3>
+<p>After you reboot:</p>
+<pre><code class="language-bash">cat /etc/resolv.conf
+resolvectl status
+ping -c3 google.com
+</code></pre>
+<p>All should show Google’s DNS and successful resolution.</p>
+<hr />
+<p>✅ <strong>Summary of what was wrong and what fixed it</strong></p>
+<ul>
+<li>Problem: <code>/etc/resolv.conf</code> still pointed to the stub at <code>127.0.0.53</code>, ignoring your Netplan DNS.</li>
+<li>Fix: Replace that symlink to point to <code>/run/systemd/resolve/resolv.conf</code>, which contains your correct DNS servers.</li>
+</ul>
+<p>After that, Docker and all other applications should be able to resolve hostnames normally.</p>
 
 
 
