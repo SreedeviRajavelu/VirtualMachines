@@ -124,3 +124,121 @@ cur = conn.cursor()
 cur.execute("SELECT * FROM get_gt_ied_data();")  # note the parentheses
 rows = cur.fetchall()
 ```
+
+
+Excellent — yes, you’re thinking of **`psql`'s display and output behavior settings**, and there *is* a way to make it show query results, then immediately return to the prompt without odd pauses or output paging.
+
+Let’s go through this cleanly 👇
+
+---
+
+### 🎯 Problem
+
+When you run a command in `psql`, sometimes:
+
+* It pauses after showing output (especially for long results).
+* Or it pipes output through a pager like `less`, requiring you to press `q` to get back.
+* Or you want it to just print everything directly and go back to the prompt.
+
+---
+
+Excellent — yes, you’re thinking of psql's display and output behavior settings, and there is a way to make it show query results, then immediately return to the prompt without odd pauses or output paging.
+
+Let’s go through this cleanly 👇
+
+### ✅ Solution — Disable the pager and control display settings
+
+You can use these `psql` internal commands:
+
+#### 1. **Disable the pager (so output prints immediately)**
+
+```sql
+\pset pager off
+```
+
+This ensures query results are shown directly in the terminal, **and you return immediately** to the `powerplant=#` prompt after the output.
+
+If you want to **re-enable** it later:
+
+```sql
+\pset pager on
+```
+
+You can check its status:
+
+```sql
+\pset
+```
+
+---
+
+#### 2. **Disable formatting for simpler plain output**
+
+If you want more compact output (no table borders or alignment):
+
+```sql
+\pset format unaligned
+\pset border 0
+```
+
+Then results will appear like plain text (useful for scripts or logs).
+
+Restore normal table output with:
+
+```sql
+\pset format aligned
+\pset border 1
+```
+
+---
+
+#### 3. **Disable headers or footers (optional)**
+
+If you don’t want to see the `(3 rows)` line:
+
+```sql
+\pset footer off
+```
+
+To bring it back:
+
+```sql
+\pset footer on
+```
+
+---
+
+#### 4. **Make settings permanent**
+
+To persist these preferences, add them to your `~/.psqlrc` file:
+
+```bash
+echo '\pset pager off' >> ~/.psqlrc
+echo '\pset format aligned' >> ~/.psqlrc
+echo '\pset border 1' >> ~/.psqlrc
+```
+
+Then they’ll apply automatically every time you start `psql`.
+
+---
+
+### 🧠 Example session
+
+```bash
+psql -U root -d powerplant
+```
+
+Inside `psql`:
+
+```sql
+\pset pager off
+\pset format aligned
+select * from ccp_values limit 5;
+```
+
+➡ Output prints immediately
+➡ Cursor returns cleanly to `powerplant=#`
+
+---
+
+Would you like me to suggest an *optimal `.psqlrc` configuration* for smooth day-to-day work (no pauses, clean formatting, and instant results)?

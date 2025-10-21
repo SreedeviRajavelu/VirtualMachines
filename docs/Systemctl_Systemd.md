@@ -616,3 +616,122 @@ You should see:
 ---
 
 Would you like me to show a **minimal “copy-paste-ready” version** of all commands you can run in sequence (no explanations, just working setup)?
+
+
+## After sudo netplan apply in the above steps, still got error in DNS name resolution
+
+After doing sudo netplan apply, below is the output I get , why do I still get failure in name resolution and how to resolve
+
+```
+ubuntu@pgt:~$ ping -c 3 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=2.22 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=115 time=2.30 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=115 time=2.43 ms
+
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 2.224/2.316/2.425/0.082 ms
+ubuntu@pgt:~$ ping -c 3 google.com
+ping: google.com: Temporary failure in name resolution
+ubuntu@pgt:~$ 
+```
+
+Good observation — this tells us **exactly what’s working and what’s not** 👇
+
+* ✅ `ping 8.8.8.8` works → **your network routing and internet connectivity are fine.**
+* ❌ `ping google.com` fails → **your DNS resolution is broken.**
+
+Let’s go step-by-step to fix and persist it properly.
+
+---
+
+### 🧩 Step 1: Confirm what `/etc/resolv.conf` points to
+
+Run:
+
+```bash
+ls -l /etc/resolv.conf
+cat /etc/resolv.conf
+```
+
+You will almost certainly see this:
+
+```
+/etc/resolv.conf -> ../run/systemd/resolve/stub-resolv.conf
+nameserver 127.0.0.53
+```
+
+That means DNS queries are still going through the **systemd-resolved stub** (`127.0.0.53`), which is not using your Netplan `8.8.8.8` entries.
+
+---
+
+### 🧰 Step 2: Point resolv.conf to the real DNS configuration
+
+You can safely replace that symlink with one that points to the correct file managed by `systemd-resolved`:
+
+```bash
+sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+```
+
+That file (`/run/systemd/resolve/resolv.conf`) contains the **real upstream nameservers** that systemd-resolved learned from Netplan.
+
+Now check again:
+
+```bash
+cat /etc/resolv.conf
+```
+
+✅ Expected:
+
+```
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+```
+
+Then test:
+
+```bash
+ping -c3 google.com
+```
+
+If it resolves, DNS is now fixed.
+
+---
+
+### 🧩 Step 3: Make sure this survives reboot
+
+You’ve already disabled Cloud-Init network overwriting with:
+
+```bash
+echo "network: {config: disabled}" | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+```
+
+and moved `50-cloud-init.yaml`, so this DNS configuration will persist.
+
+The `/etc/resolv.conf` symlink fix also persists automatically because it’s a filesystem change, not a runtime file.
+
+---
+
+### 🧩 Step 4: Optional verification after reboot
+
+After you reboot:
+
+```bash
+cat /etc/resolv.conf
+resolvectl status
+ping -c3 google.com
+```
+
+All should show Google’s DNS and successful resolution.
+
+---
+
+✅ **Summary of what was wrong and what fixed it**
+
+* Problem: `/etc/resolv.conf` still pointed to the stub at `127.0.0.53`, ignoring your Netplan DNS.
+* Fix: Replace that symlink to point to `/run/systemd/resolve/resolv.conf`, which contains your correct DNS servers.
+
+After that, Docker and all other applications should be able to resolve hostnames normally.
+
+

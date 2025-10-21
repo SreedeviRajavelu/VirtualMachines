@@ -1,0 +1,2697 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Systemctl_Systemd/">
+      
+      
+        <link rel="prev" href="../File_Transfer_Host_To_Remote/">
+      
+      
+        <link rel="next" href="../ScadaLTS/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Systemctl Systemd - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#what-the-error-means" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-header__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sree Devi’s Documentation on Virtual Machines, Docker & Networking
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Systemctl Systemd
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SreedeviRajavelu/VirtualMachines" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-nav__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sree Devi’s Documentation on Virtual Machines, Docker & Networking
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SreedeviRajavelu/VirtualMachines" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker, Virtual Machines & Networks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DockerBuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Build
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Networking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Macvlan_Network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Macvlan Network
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DockerEngine_Ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Engine on Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CommunicationBetweenInsideAndOutsideDocker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Communication Inside & Outside Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Container_Interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Container Interfaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_tgz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using tarballs (.tgz)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Volumes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Volumes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Virtualization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Virtualization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VM-to-VM-Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM-to-VM Communication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fix_Slow_UbuntuVM_Boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fix Slow Ubuntu VM Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Recovering_VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Recovering VM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Wine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab_Data_Sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab Data Sources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Remote_PortForwarding_SSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remote Port Fowarding SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NAT_Adapter_Iptables_Forwarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NAT Adapter Iptables Fowarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Bridged_Adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bridged Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File_Transfer_Host_To_Remote/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    File Transfer Host To Remote
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Systemctl Systemd
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Systemctl Systemd
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-error-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 What the error means
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-test-dns-resolution-on-your-ubuntu-vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 1: Test DNS resolution on your Ubuntu VM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-fix-your-etcresolvconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 2: Fix your /etc/resolv.conf
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-restart-networking-and-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 3: Restart networking and Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-persist-dns-changes-if-using-cloud-init-or-netplan" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Optional: Persist DNS changes (if using cloud-init or Netplan)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-fixes-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Why this fixes it
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-fix-for-dns-resolution-recommended-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Step-by-step fix for DNS resolution (recommended way)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧭 Step-by-step fix for DNS resolution (recommended way)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-confirm-the-symlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 1: Confirm the symlink
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-tell-systemd-resolved-to-use-public-dns-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 2: Tell systemd-resolved to use public DNS servers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-point-etcresolvconf-to-the-real-resolv-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 3: Point /etc/resolv.conf to the real resolv file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-restart-systemd-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 4: Restart systemd-resolved
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-test-dns-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 5: Test DNS resolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-method-is-best" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Why this method is best
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#persistent-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persistent Fix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Goal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-disable-cloud-init-network-management-optional-but-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Step 1: Disable cloud-init network management (optional but recommended)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-configure-permanent-dns-in-systemd-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Step 2: Configure permanent DNS in systemd-resolved
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-replace-etcresolvconf-with-the-real-resolver-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Step 3: Replace /etc/resolv.conf with the real resolver file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-restart-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Step 4: Restart services
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-verify-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Step 5: Verify DNS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-is-persistent-and-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Why this is persistent and safe
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-make-sure-etcnetplan-matches-your-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Optional: make sure /etc/netplan matches your setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Optional: make sure /etc/netplan matches your setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persistent-dns-network-configuration-fix-across-reboots-and-cloud-init-resets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persistent DNS + network configuration fix across reboots and cloud-init resets.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-file-is-generated-from-information-provided-by-the-datasource-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      This file is generated from information provided by the datasource. Changes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-it-will-not-persist-across-an-instance-reboot-to-disable-cloud-inits" class="md-nav__link">
+    <span class="md-ellipsis">
+      to it will not persist across an instance reboot. To disable cloud-init's
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-configuration-capabilities-write-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      network configuration capabilities, write a file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etccloudcloudcfgd99-disable-network-configcfg-with-the-following" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-config-disabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      network: {config: disabled}
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-is-runsystemdresolvestub-resolvconf-managed-by-mansystemd-resolved8" class="md-nav__link">
+    <span class="md-ellipsis">
+      This is /run/systemd/resolve/stub-resolv.conf managed by man:systemd-resolved(8).
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#do-not-edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do not edit.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-file-might-be-symlinked-as-etcresolvconf-if-youre-looking-at" class="md-nav__link">
+    <span class="md-ellipsis">
+      This file might be symlinked as /etc/resolv.conf. If you're looking at
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcresolvconf-and-seeing-this-text-you-have-followed-the-symlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/resolv.conf and seeing this text, you have followed the symlink.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-is-a-dynamic-resolvconf-file-for-connecting-local-clients-to-the" class="md-nav__link">
+    <span class="md-ellipsis">
+      This is a dynamic resolv.conf file for connecting local clients to the
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internal-dns-stub-resolver-of-systemd-resolved-this-file-lists-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      internal DNS stub resolver of systemd-resolved. This file lists all
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configured-search-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      configured search domains.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-resolvectl-status-to-see-details-about-the-uplink-dns-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run "resolvectl status" to see details about the uplink DNS servers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#currently-in-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      currently in use.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#third-party-programs-should-typically-not-access-this-file-directly-but-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Third party programs should typically not access this file directly, but only
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#through-the-symlink-at-etcresolvconf-to-manage-manresolvconf5-in-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      through the symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#different-way-replace-this-symlink-by-a-static-file-or-a-different-symlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      different way, replace this symlink by a static file or a different symlink.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-mansystemd-resolvedservice8-for-details-about-the-supported-modes-of" class="md-nav__link">
+    <span class="md-ellipsis">
+      See man:systemd-resolved.service(8) for details about the supported modes of
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operation-for-etcresolvconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      operation for /etc/resolv.conf.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="operation for /etc/resolv.conf.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-happening" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 What’s happening
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-explanation-of-the-commands-you-mentioned" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Step 1: Explanation of the commands you mentioned
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-apply-persistent-dns-network-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Step 2: Apply persistent DNS + network fix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Step 2: Apply persistent DNS + network fix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-disable-cloud-inits-network-regeneration" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ Disable cloud-init’s network regeneration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-your-own-persistent-netplan-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      2️⃣ Create your own persistent netplan file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-apply-and-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      3️⃣ Apply and verify
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-make-etcresolvconf-static-and-persistent" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔁 Step 3: Make /etc/resolv.conf static and persistent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-verify-persistence-after-reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 4: Verify persistence after reboot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-all-changes-to-persist-dns-fix-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧾 Summary of all changes (to persist DNS &amp; fix error)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    SCADA
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            SCADA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ScadaLTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ScadaLTS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mac Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-error-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 What the error means
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-test-dns-resolution-on-your-ubuntu-vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 1: Test DNS resolution on your Ubuntu VM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-fix-your-etcresolvconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 2: Fix your /etc/resolv.conf
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-restart-networking-and-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 3: Restart networking and Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-persist-dns-changes-if-using-cloud-init-or-netplan" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Optional: Persist DNS changes (if using cloud-init or Netplan)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-fixes-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Why this fixes it
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-fix-for-dns-resolution-recommended-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Step-by-step fix for DNS resolution (recommended way)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧭 Step-by-step fix for DNS resolution (recommended way)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-confirm-the-symlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 1: Confirm the symlink
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-tell-systemd-resolved-to-use-public-dns-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 2: Tell systemd-resolved to use public DNS servers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-point-etcresolvconf-to-the-real-resolv-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 3: Point /etc/resolv.conf to the real resolv file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-restart-systemd-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 4: Restart systemd-resolved
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-test-dns-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Step 5: Test DNS resolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-method-is-best" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Why this method is best
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#persistent-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persistent Fix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Goal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-disable-cloud-init-network-management-optional-but-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Step 1: Disable cloud-init network management (optional but recommended)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-configure-permanent-dns-in-systemd-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Step 2: Configure permanent DNS in systemd-resolved
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-replace-etcresolvconf-with-the-real-resolver-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Step 3: Replace /etc/resolv.conf with the real resolver file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-restart-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Step 4: Restart services
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-verify-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Step 5: Verify DNS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-is-persistent-and-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Why this is persistent and safe
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-make-sure-etcnetplan-matches-your-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Optional: make sure /etc/netplan matches your setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Optional: make sure /etc/netplan matches your setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persistent-dns-network-configuration-fix-across-reboots-and-cloud-init-resets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persistent DNS + network configuration fix across reboots and cloud-init resets.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-file-is-generated-from-information-provided-by-the-datasource-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      This file is generated from information provided by the datasource. Changes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-it-will-not-persist-across-an-instance-reboot-to-disable-cloud-inits" class="md-nav__link">
+    <span class="md-ellipsis">
+      to it will not persist across an instance reboot. To disable cloud-init's
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-configuration-capabilities-write-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      network configuration capabilities, write a file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etccloudcloudcfgd99-disable-network-configcfg-with-the-following" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-config-disabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      network: {config: disabled}
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-is-runsystemdresolvestub-resolvconf-managed-by-mansystemd-resolved8" class="md-nav__link">
+    <span class="md-ellipsis">
+      This is /run/systemd/resolve/stub-resolv.conf managed by man:systemd-resolved(8).
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#do-not-edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do not edit.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-file-might-be-symlinked-as-etcresolvconf-if-youre-looking-at" class="md-nav__link">
+    <span class="md-ellipsis">
+      This file might be symlinked as /etc/resolv.conf. If you're looking at
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcresolvconf-and-seeing-this-text-you-have-followed-the-symlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/resolv.conf and seeing this text, you have followed the symlink.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-is-a-dynamic-resolvconf-file-for-connecting-local-clients-to-the" class="md-nav__link">
+    <span class="md-ellipsis">
+      This is a dynamic resolv.conf file for connecting local clients to the
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internal-dns-stub-resolver-of-systemd-resolved-this-file-lists-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      internal DNS stub resolver of systemd-resolved. This file lists all
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configured-search-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      configured search domains.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-resolvectl-status-to-see-details-about-the-uplink-dns-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run "resolvectl status" to see details about the uplink DNS servers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#currently-in-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      currently in use.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#third-party-programs-should-typically-not-access-this-file-directly-but-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Third party programs should typically not access this file directly, but only
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#through-the-symlink-at-etcresolvconf-to-manage-manresolvconf5-in-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      through the symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#different-way-replace-this-symlink-by-a-static-file-or-a-different-symlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      different way, replace this symlink by a static file or a different symlink.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-mansystemd-resolvedservice8-for-details-about-the-supported-modes-of" class="md-nav__link">
+    <span class="md-ellipsis">
+      See man:systemd-resolved.service(8) for details about the supported modes of
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operation-for-etcresolvconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      operation for /etc/resolv.conf.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="operation for /etc/resolv.conf.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-happening" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 What’s happening
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-explanation-of-the-commands-you-mentioned" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Step 1: Explanation of the commands you mentioned
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-apply-persistent-dns-network-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Step 2: Apply persistent DNS + network fix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Step 2: Apply persistent DNS + network fix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-disable-cloud-inits-network-regeneration" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ Disable cloud-init’s network regeneration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-your-own-persistent-netplan-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      2️⃣ Create your own persistent netplan file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-apply-and-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      3️⃣ Apply and verify
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-make-etcresolvconf-static-and-persistent" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔁 Step 3: Make /etc/resolv.conf static and persistent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-verify-persistence-after-reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 4: Verify persistence after reboot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-all-changes-to-persist-dns-fix-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧾 Summary of all changes (to persist DNS &amp; fix error)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p>Excellent question — this is a <strong>network/DNS resolution issue</strong>, not a Docker configuration problem. Let’s break down what’s happening and how to fix it properly.</p>
+<hr />
+<h3 id="what-the-error-means">🧩 <strong>What the error means</strong></h3>
+<pre><code>Error response from daemon: Get &quot;https://registry-1.docker.io/v2/&quot;: dial tcp: lookup registry-1.docker.io on 127.0.0.53:53: read udp 127.0.0.1:46176-&gt;127.0.0.53:53: i/o timeout
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>Docker is trying to pull the image from Docker Hub (<code>registry-1.docker.io</code>).</li>
+<li>It’s using the system DNS resolver (<code>127.0.0.53</code>, which is <code>systemd-resolved</code>).</li>
+<li>The lookup request timed out, meaning <strong>the VM can’t resolve DNS names</strong> (even though it may have internet connectivity, e.g., <code>ping 8.8.8.8</code> works).</li>
+</ul>
+<hr />
+<h3 id="step-1-test-dns-resolution-on-your-ubuntu-vm">✅ <strong>Step 1: Test DNS resolution on your Ubuntu VM</strong></h3>
+<p>Run:</p>
+<pre><code class="language-bash">ping -c 3 google.com
+</code></pre>
+<p>If it fails with “Temporary failure in name resolution,” DNS is the issue.</p>
+<hr />
+<h3 id="step-2-fix-your-etcresolvconf">✅ <strong>Step 2: Fix your <code>/etc/resolv.conf</code></strong></h3>
+<p>Run this command to check the current content:</p>
+<pre><code class="language-bash">cat /etc/resolv.conf
+</code></pre>
+<p>You’ll likely see something like:</p>
+<pre><code>nameserver 127.0.0.53
+options edns0 trust-ad
+search ...
+</code></pre>
+<p>That’s <strong>not helpful</strong> for Docker containers when DNS forwarding breaks.</p>
+<p>Replace it with <strong>public DNS servers</strong>:</p>
+<pre><code class="language-bash">sudo bash -c 'cat &gt; /etc/resolv.conf &lt;&lt;EOF
+nameserver 8.8.8.8
+nameserver 1.1.1.1
+EOF'
+</code></pre>
+<hr />
+<h3 id="step-3-restart-networking-and-docker">✅ <strong>Step 3: Restart networking and Docker</strong></h3>
+<pre><code class="language-bash">sudo systemctl restart systemd-resolved
+sudo systemctl restart docker
+</code></pre>
+<p>Then try again:</p>
+<pre><code class="language-bash">docker compose up -d
+</code></pre>
+<hr />
+<h3 id="optional-persist-dns-changes-if-using-cloud-init-or-netplan">⚙️ <strong>Optional: Persist DNS changes (if using cloud-init or Netplan)</strong></h3>
+<p>Since your <code>/etc/netplan/50-cloud-init.yaml</code> file had:</p>
+<pre><code class="language-yaml">nameservers:
+  addresses:
+    - 127.0.0.53
+    - 8.8.8.8
+    - 8.8.4.4
+</code></pre>
+<p>Update it to <strong>remove 127.0.0.53</strong>, like this:</p>
+<pre><code class="language-yaml">nameservers:
+  addresses:
+    - 8.8.8.8
+    - 8.8.4.4
+</code></pre>
+<p>Then apply the changes:</p>
+<pre><code class="language-bash">sudo netplan apply
+</code></pre>
+<hr />
+<h3 id="why-this-fixes-it">🧠 <strong>Why this fixes it</strong></h3>
+<p>Docker relies on the host’s DNS resolution to fetch images.
+When Ubuntu uses <code>systemd-resolved</code> (127.0.0.53) and that resolver breaks (common on VMs), Docker can’t resolve <code>registry-1.docker.io</code>.
+Setting <code>/etc/resolv.conf</code> to external DNS servers like Google or Cloudflare bypasses that problem.</p>
+<hr />
+<p>Would you like me to give you a <strong>version of this fix that persists across reboots</strong> (since cloud-init can overwrite <code>/etc/resolv.conf</code> each time)?</p>
+<p>Perfect — that’s a <strong>very common situation</strong> on Ubuntu 20.04+ and 22.04 systems.
+You’re correct not to directly edit <code>/etc/resolv.conf</code> because it’s <strong>a symlink managed by <code>systemd-resolved</code></strong>, not a static file.</p>
+<p>Here’s exactly what you should do 👇</p>
+<hr />
+<h2 id="step-by-step-fix-for-dns-resolution-recommended-way">🧭 Step-by-step fix for DNS resolution (recommended way)</h2>
+<h3 id="step-1-confirm-the-symlink">🧩 Step 1: Confirm the symlink</h3>
+<p>Run:</p>
+<pre><code class="language-bash">ls -l /etc/resolv.conf
+</code></pre>
+<p>You’ll likely see something like:</p>
+<pre><code>/etc/resolv.conf -&gt; ../run/systemd/resolve/stub-resolv.conf
+</code></pre>
+<p>This confirms <code>systemd-resolved</code> is managing it.</p>
+<hr />
+<h3 id="step-2-tell-systemd-resolved-to-use-public-dns-servers">🧩 Step 2: Tell systemd-resolved to use public DNS servers</h3>
+<p>Create or edit this file:</p>
+<pre><code class="language-bash">sudo nano /etc/systemd/resolved.conf
+</code></pre>
+<p>Find or add these lines under <code>[Resolve]</code>:</p>
+<pre><code class="language-ini">[Resolve]
+DNS=8.8.8.8 8.8.4.4
+FallbackDNS=1.1.1.1
+DNSStubListener=no
+</code></pre>
+<blockquote>
+<p>💡 The <code>DNSStubListener=no</code> line disables the local 127.0.0.53 stub that’s currently breaking Docker lookups.</p>
+</blockquote>
+<p>Save and exit (<code>Ctrl+O</code>, <code>Enter</code>, then <code>Ctrl+X</code>).</p>
+<hr />
+<h3 id="step-3-point-etcresolvconf-to-the-real-resolv-file">🧩 Step 3: Point <code>/etc/resolv.conf</code> to the <em>real</em> resolv file</h3>
+<p>Replace the current symlink:</p>
+<pre><code class="language-bash">sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+</code></pre>
+<p>This file (<code>/run/systemd/resolve/resolv.conf</code>) contains the actual upstream DNS servers rather than the local stub.</p>
+<hr />
+<h3 id="step-4-restart-systemd-resolved">🧩 Step 4: Restart systemd-resolved</h3>
+<pre><code class="language-bash">sudo systemctl restart systemd-resolved
+</code></pre>
+<p>Then verify:</p>
+<pre><code class="language-bash">resolvectl status
+</code></pre>
+<p>You should now see:</p>
+<pre><code>DNS Servers: 8.8.8.8 8.8.4.4 1.1.1.1
+</code></pre>
+<hr />
+<h3 id="step-5-test-dns-resolution">🧩 Step 5: Test DNS resolution</h3>
+<pre><code class="language-bash">ping -c 3 google.com
+</code></pre>
+<p>If that works, try:</p>
+<pre><code class="language-bash">docker compose up -d
+</code></pre>
+<p>It should now be able to pull from Docker Hub successfully.</p>
+<hr />
+<h3 id="why-this-method-is-best">🧠 Why this method is best</h3>
+<p>This approach:</p>
+<ul>
+<li>Keeps <code>systemd-resolved</code> in control (so no conflicts with Ubuntu updates).</li>
+<li>Permanently replaces the stub DNS (127.0.0.53) with direct DNS servers.</li>
+<li>Persists across reboots and cloud-init updates.</li>
+</ul>
+<hr />
+<p>Would you like me to show you <strong>the persistent fix that also survives a full VM reboot or cloud-init regeneration</strong> (so it’s never reset back to 127.0.0.53)?</p>
+<h2 id="persistent-fix">Persistent Fix</h2>
+<p>Excellent — let’s make your DNS fix <strong>fully persistent</strong>, even across reboots and <code>cloud-init</code> regenerations.</p>
+<p>Here’s the <strong>robust setup</strong> that ensures your VM <em>always</em> keeps working DNS (and Docker can always pull images).</p>
+<hr />
+<h2 id="goal">🧭 Goal</h2>
+<p>Stop Ubuntu’s <code>cloud-init</code> and <code>systemd-resolved</code> from resetting <code>/etc/resolv.conf</code> to <code>127.0.0.53</code>
+✅ Survives reboots
+✅ Survives <code>cloud-init</code> reconfiguration
+✅ Keeps Docker name resolution reliable</p>
+<hr />
+<h2 id="step-1-disable-cloud-init-network-management-optional-but-recommended">🔧 Step 1: Disable <code>cloud-init</code> network management (optional but recommended)</h2>
+<p>Cloud-init regenerates <code>/etc/netplan/50-cloud-init.yaml</code> and resets DNS.
+To prevent that:</p>
+<pre><code class="language-bash">sudo mkdir -p /etc/cloud/cloud.cfg.d/
+echo &quot;network: {config: disabled}&quot; | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+</code></pre>
+<p>This stops cloud-init from overwriting your network configuration or DNS settings.</p>
+<hr />
+<h2 id="step-2-configure-permanent-dns-in-systemd-resolved">🔧 Step 2: Configure permanent DNS in <code>systemd-resolved</code></h2>
+<p>Edit the config file:</p>
+<pre><code class="language-bash">sudo nano /etc/systemd/resolved.conf
+</code></pre>
+<p>Update it to include your preferred DNS servers:</p>
+<pre><code class="language-ini">[Resolve]
+DNS=8.8.8.8 8.8.4.4
+FallbackDNS=1.1.1.1
+DNSStubListener=no
+</code></pre>
+<p>Save and exit (<code>Ctrl+O</code>, <code>Enter</code>, <code>Ctrl+X</code>).</p>
+<hr />
+<h2 id="step-3-replace-etcresolvconf-with-the-real-resolver-file">🔧 Step 3: Replace <code>/etc/resolv.conf</code> with the real resolver file</h2>
+<p>Right now <code>/etc/resolv.conf</code> likely points to:</p>
+<pre><code>/run/systemd/resolve/stub-resolv.conf
+</code></pre>
+<p>…which uses the stub <code>127.0.0.53</code> listener.</p>
+<p>Replace it permanently:</p>
+<pre><code class="language-bash">sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+</code></pre>
+<p>That file (<code>/run/systemd/resolve/resolv.conf</code>) always reflects the real upstream DNS servers (like 8.8.8.8).</p>
+<hr />
+<h2 id="step-4-restart-services">🔧 Step 4: Restart services</h2>
+<pre><code class="language-bash">sudo systemctl restart systemd-resolved
+</code></pre>
+<p>Then check status:</p>
+<pre><code class="language-bash">resolvectl status
+</code></pre>
+<p>You should now see:</p>
+<pre><code>DNS Servers: 8.8.8.8 8.8.4.4 1.1.1.1
+DNS Stub Listener: no
+</code></pre>
+<hr />
+<h2 id="step-5-verify-dns">🔧 Step 5: Verify DNS</h2>
+<p>Run:</p>
+<pre><code class="language-bash">ping -c 3 google.com
+</code></pre>
+<p>and:</p>
+<pre><code class="language-bash">docker pull hello-world
+</code></pre>
+<p>Both should now succeed instantly.</p>
+<hr />
+<h2 id="why-this-is-persistent-and-safe">🧠 Why this is persistent and safe</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Problem</th>
+<th>What we did</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cloud-init</code></td>
+<td>Rewrites network config</td>
+<td>Disabled network reconfiguration</td>
+</tr>
+<tr>
+<td><code>systemd-resolved</code></td>
+<td>Uses stub resolver (127.0.0.53)</td>
+<td>Pointed it to public DNS directly</td>
+</tr>
+<tr>
+<td><code>/etc/resolv.conf</code></td>
+<td>Symlinked to stub file</td>
+<td>Re-linked to the real resolver</td>
+</tr>
+<tr>
+<td>Reboot resets</td>
+<td>Temporary files regenerated</td>
+<td><code>/etc/systemd/resolved.conf</code> persists</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="optional-make-sure-etcnetplan-matches-your-setup">🧩 Optional: make sure <code>/etc/netplan</code> matches your setup</h2>
+<p>If your <code>/etc/netplan/50-cloud-init.yaml</code> defines DNS like:</p>
+<pre><code class="language-yaml">nameservers:
+  addresses:
+    - 127.0.0.53
+</code></pre>
+<p>You can safely change it to:</p>
+<pre><code class="language-yaml">nameservers:
+  addresses:
+    - 8.8.8.8
+    - 8.8.4.4
+</code></pre>
+<p>Then apply it:</p>
+<pre><code class="language-bash">sudo netplan apply
+</code></pre>
+<hr />
+<p>✅ <strong>After doing all this:</strong>
+Your DNS resolution (and Docker access) will remain correct permanently — even after reboot, <code>apt upgrade</code>, or VM image regeneration.</p>
+<hr />
+<p>Would you like me to show how to <strong>verify after reboot</strong> that your changes persist (a quick 2-command check)?</p>
+<h3 id="persistent-dns-network-configuration-fix-across-reboots-and-cloud-init-resets">Persistent DNS + network configuration fix across reboots and cloud-init resets.</h3>
+<p>'''
+explain each of these commands :</p>
+<p>sudo mkdir -p /etc/cloud/cloud.cfg.d/
+echo "network: {config: disabled}" | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg</p>
+<p>this is the content of /etc/netplan/50-cloud-init.yaml , and there is a comment that says any changes will not persist across an instance reboot  , what should I do to persist changes on this file too? summarise and consolidate all changes that I need to do to resolve the error here , to persist and to verify it after reboot </p>
+<p>ubuntu@pgt:~/ccp_multi_IED_multi_plc_database_pg$ sudo cat /etc/netplan/50-cloud-init.yaml 
+[sudo] password for ubuntu: </p>
+<h1 id="this-file-is-generated-from-information-provided-by-the-datasource-changes">This file is generated from information provided by the datasource.  Changes</h1>
+<h1 id="to-it-will-not-persist-across-an-instance-reboot-to-disable-cloud-inits">to it will not persist across an instance reboot.  To disable cloud-init's</h1>
+<h1 id="network-configuration-capabilities-write-a-file">network configuration capabilities, write a file</h1>
+<h1 id="etccloudcloudcfgd99-disable-network-configcfg-with-the-following">/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:</h1>
+<h1 id="network-config-disabled">network: {config: disabled}</h1>
+<p>network:
+    ethernets:
+        enp0s3:
+            dhcp4: false
+            addresses:
+              - 192.168.30.60/24
+            nameservers:
+              addresses:
+                - 127.0.0.53
+                - 8.8.8.8
+                - 8.8.4.4
+            routes:
+              - to: default
+                via: 192.168.30.1
+    version: 2
+ubuntu@pgt:~/ccp_multi_IED_multi_plc_database_pg$ </p>
+<p>drwxr-xr-x 6 ubuntu ubuntu 4096 Oct 21 02:20 ccp_multi_IED_multi_plc_database_pg
+ubuntu@pgt:~$ cd ccp_multi_IED_multi_plc_database_pg/
+ubuntu@pgt:~/ccp_multi_IED_multi_plc_database_pg$ docker compose up -d
+[+] Running 1/1
+ ✘ postgres Error Get "https://registry-1.docker.io/v2/...                10.2s 
+Error response from daemon: Get "https://registry-1.docker.io/v2/": dial tcp: lookup registry-1.docker.io on 127.0.0.53:53: read udp 127.0.0.1:46176-&gt;127.0.0.53:53: i/o timeout
+ubuntu@pgt:~/ccp_multi_IED_multi_plc_database_pg$ ping -c 3 google.com
+ping: google.com: Temporary failure in name resolution
+ubuntu@pgt:~/ccp_multi_IED_multi_plc_database_pg$ ping -c 3 google.com
+ping: google.com: Temporary failure in name resolution
+ubuntu@pgt:~/ccp_multi_IED_multi_plc_database_pg$ cat /etc/resolv.conf</p>
+<h1 id="this-is-runsystemdresolvestub-resolvconf-managed-by-mansystemd-resolved8">This is /run/systemd/resolve/stub-resolv.conf managed by man:systemd-resolved(8).</h1>
+<h1 id="do-not-edit">Do not edit.</h1>
+<h1 id="_1"></h1>
+<h1 id="this-file-might-be-symlinked-as-etcresolvconf-if-youre-looking-at">This file might be symlinked as /etc/resolv.conf. If you're looking at</h1>
+<h1 id="etcresolvconf-and-seeing-this-text-you-have-followed-the-symlink">/etc/resolv.conf and seeing this text, you have followed the symlink.</h1>
+<h1 id="_2"></h1>
+<h1 id="this-is-a-dynamic-resolvconf-file-for-connecting-local-clients-to-the">This is a dynamic resolv.conf file for connecting local clients to the</h1>
+<h1 id="internal-dns-stub-resolver-of-systemd-resolved-this-file-lists-all">internal DNS stub resolver of systemd-resolved. This file lists all</h1>
+<h1 id="configured-search-domains">configured search domains.</h1>
+<h1 id="_3"></h1>
+<h1 id="run-resolvectl-status-to-see-details-about-the-uplink-dns-servers">Run "resolvectl status" to see details about the uplink DNS servers</h1>
+<h1 id="currently-in-use">currently in use.</h1>
+<h1 id="_4"></h1>
+<h1 id="third-party-programs-should-typically-not-access-this-file-directly-but-only">Third party programs should typically not access this file directly, but only</h1>
+<h1 id="through-the-symlink-at-etcresolvconf-to-manage-manresolvconf5-in-a">through the symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a</h1>
+<h1 id="different-way-replace-this-symlink-by-a-static-file-or-a-different-symlink">different way, replace this symlink by a static file or a different symlink.</h1>
+<h1 id="_5"></h1>
+<h1 id="see-mansystemd-resolvedservice8-for-details-about-the-supported-modes-of">See man:systemd-resolved.service(8) for details about the supported modes of</h1>
+<h1 id="operation-for-etcresolvconf">operation for /etc/resolv.conf.</h1>
+<p>nameserver 127.0.0.53
+options edns0 trust-ad
+search .
+ubuntu@pgt:~/ccp_multi_IED_multi_plc_database_pg$ ls -l /etc/resolv.conf
+lrwxrwxrwx 1 root root 39 Sep 11  2024 /etc/resolv.conf -&gt; ../run/systemd/resolve/stub-resolv.conf
+ubuntu@pgt:~/ccp_multi_IED_multi_plc_database_pg$ ls /etc/netplan/
+50-cloud-init.yaml
+content of file /etc/netplan/50-cloud-init.yaml:^C
+'''</p>
+<p>Perfect — you’ve given me everything I need. Let’s walk through <strong>what’s happening</strong>, <strong>what those commands do</strong>, and then I’ll give you a <strong>complete, persistent DNS + network configuration fix</strong> that <strong>survives reboots and cloud-init resets</strong>.</p>
+<hr />
+<h2 id="whats-happening">🧩 What’s happening</h2>
+<ul>
+<li>Your VM’s <code>/etc/resolv.conf</code> is <strong>symlinked</strong> to a dynamically managed file:</li>
+</ul>
+<p><code>/etc/resolv.conf -&gt; ../run/systemd/resolve/stub-resolv.conf</code></p>
+<p>This is controlled by <strong>systemd-resolved</strong>.
+  So even if you edit it manually, it gets overwritten after reboot or service restart.</p>
+<ul>
+<li>The file <code>/etc/netplan/50-cloud-init.yaml</code> is <strong>auto-generated by cloud-init</strong>.
+  The comment:</li>
+</ul>
+<blockquote>
+<p>“Changes to it will not persist across an instance reboot”
+means cloud-init rewrites it every time the VM boots.</p>
+</blockquote>
+<ul>
+<li>Your DNS (<code>127.0.0.53</code>) is a <strong>local DNS stub resolver</strong>, which is failing to resolve queries.</li>
+</ul>
+<hr />
+<h2 id="step-1-explanation-of-the-commands-you-mentioned">🧠 Step 1: Explanation of the commands you mentioned</h2>
+<pre><code class="language-bash">sudo mkdir -p /etc/cloud/cloud.cfg.d/
+</code></pre>
+<ul>
+<li>Creates the directory <code>/etc/cloud/cloud.cfg.d/</code> if it doesn’t exist.</li>
+<li>This directory stores override configurations for <strong>cloud-init</strong>.</li>
+</ul>
+<pre><code class="language-bash">echo &quot;network: {config: disabled}&quot; | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+</code></pre>
+<ul>
+<li>This disables <strong>cloud-init’s automatic network configuration</strong>, preventing it from regenerating <code>/etc/netplan/50-cloud-init.yaml</code> at each reboot.</li>
+<li>Once disabled, <strong>you control networking manually via Netplan</strong>.</li>
+</ul>
+<hr />
+<h2 id="step-2-apply-persistent-dns-network-fix">⚙️ Step 2: Apply persistent DNS + network fix</h2>
+<p>Follow these steps exactly in order:</p>
+<h3 id="1-disable-cloud-inits-network-regeneration">1️⃣ Disable cloud-init’s network regeneration</h3>
+<pre><code class="language-bash">sudo mkdir -p /etc/cloud/cloud.cfg.d/
+echo &quot;network: {config: disabled}&quot; | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+</code></pre>
+<h3 id="2-create-your-own-persistent-netplan-file">2️⃣ Create your own persistent netplan file</h3>
+<p>Create <code>/etc/netplan/01-netcfg.yaml</code> (custom, not cloud-init generated):</p>
+<pre><code class="language-bash">sudo nano /etc/netplan/01-netcfg.yaml
+</code></pre>
+<p>Paste the following content:</p>
+<pre><code class="language-yaml">network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: no
+      addresses:
+        - 192.168.30.60/24
+      gateway4: 192.168.30.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+</code></pre>
+<blockquote>
+<p>✅ Explanation:</p>
+<ul>
+<li><code>renderer: networkd</code> ensures systemd-networkd handles the interface.</li>
+<li>We’ve <strong>removed 127.0.0.53</strong> so DNS goes directly to Google’s servers.</li>
+<li>This file is <strong>not</strong> managed by cloud-init, so it persists.</li>
+</ul>
+</blockquote>
+<h3 id="3-apply-and-verify">3️⃣ Apply and verify</h3>
+<pre><code class="language-bash">sudo netplan apply
+</code></pre>
+<p>Then test:</p>
+<pre><code class="language-bash">ping -c 3 google.com
+</code></pre>
+<p>If ping works — DNS is fixed.</p>
+<hr />
+<h2 id="step-3-make-etcresolvconf-static-and-persistent">🔁 Step 3: Make <code>/etc/resolv.conf</code> static and persistent</h2>
+<p>To break the dynamic symlink and use a static resolv.conf:</p>
+<pre><code class="language-bash">sudo rm /etc/resolv.conf
+sudo bash -c 'cat &gt; /etc/resolv.conf &lt;&lt;EOF
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+EOF'
+</code></pre>
+<p>Then <strong>make sure it isn’t replaced</strong> by systemd-resolved:</p>
+<pre><code class="language-bash">sudo systemctl disable systemd-resolved.service
+sudo systemctl stop systemd-resolved.service
+</code></pre>
+<p>Now <code>/etc/resolv.conf</code> will remain <strong>static and persistent</strong>.</p>
+<hr />
+<h2 id="step-4-verify-persistence-after-reboot">✅ Step 4: Verify persistence after reboot</h2>
+<p>After reboot:</p>
+<pre><code class="language-bash">cat /etc/resolv.conf
+ls -l /etc/netplan/
+cat /etc/netplan/01-netcfg.yaml
+</code></pre>
+<p>You should see:</p>
+<ul>
+<li><code>resolv.conf</code> no longer symlinked.</li>
+<li>DNS pointing to 8.8.8.8 and 8.8.4.4.</li>
+<li><code>netplan</code> using your custom YAML.</li>
+<li>Network still working (<code>ping google.com</code> succeeds).</li>
+</ul>
+<hr />
+<h2 id="summary-of-all-changes-to-persist-dns-fix-error">🧾 Summary of all changes (to persist DNS &amp; fix error)</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Purpose</th>
+<th>Persistent?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>sudo mkdir -p /etc/cloud/cloud.cfg.d/</code></td>
+<td>Ensure override directory exists</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>echo "network: {config: disabled}" &gt; /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg</code></td>
+<td>Disable cloud-init network resets</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Create <code>/etc/netplan/01-netcfg.yaml</code></td>
+<td>Manual static IP + DNS setup</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>sudo netplan apply</code></td>
+<td>Apply new config</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Remove symlink <code>/etc/resolv.conf</code> and create static file</td>
+<td>Fix DNS permanently</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>sudo systemctl disable systemd-resolved</code></td>
+<td>Prevent it from overwriting resolv.conf</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Would you like me to show a <strong>minimal “copy-paste-ready” version</strong> of all commands you can run in sequence (no explanations, just working setup)?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
