@@ -543,3 +543,206 @@ is a bind mount, meaning:
 The left side (~/matlab_projects) is a folder on your host (your remote Ubuntu VM).
 
 The right side (/home/matlab/projects) is the location inside the container where that folder will appear.
+
+
+## Database Toolbox - Persist Database Toolbox across Container Restarts 
+
+Excellent — this is exactly the right question to ask 👍 because by default, **MATLAB containers are ephemeral**, meaning any toolbox installed inside them **disappears when the container stops** unless you persist it properly.
+
+Let’s go through all the ways to make the **Database Toolbox installation persistent**, and then I’ll recommend **the best approach for your remote Ubuntu VM setup.**
+
+---
+
+## 🧩 Why toolboxes disappear
+
+When you install the Database Toolbox from the MATLAB GUI inside a container:
+
+* It gets installed to a path inside the container’s filesystem (typically `/usr/local/MATLAB/R2025a/toolbox`).
+* That directory **is part of the container image layer**, not your mounted volume.
+* So when you stop or remove the container, those changes are lost.
+
+To make toolboxes *persistent*, you have two main options:
+
+---
+
+## ✅ **Option 1: Create a new custom Docker image with Database Toolbox preinstalled**
+
+This is the **recommended and professional method**.
+
+It ensures:
+
+* The Database Toolbox is installed permanently inside the image.
+* You can restart or recreate containers anytime — the toolbox remains.
+* The setup is reproducible for others or future VMs.
+
+---
+
+### **Steps**
+
+#### 1️⃣ Create a `Dockerfile` like this:
+
+```dockerfile
+FROM mathworks/matlab:r2025a
+
+# Install Database Toolbox inside MATLAB
+RUN matlab -batch "matlab.addons.installToolbox('/home/matlab/Database_Toolbox.mltbx'); exit"
+
+# Optional: Set default working directory
+WORKDIR /home/matlab/projects
+```
+
+#### 2️⃣ Place the `.mltbx` file inside the same directory as the Dockerfile.
+
+You can download the `Database_Toolbox.mltbx` file from MathWorks (via Add-Ons or File Exchange).
+If you already installed it once, MATLAB’s Add-On Manager might have cached it in:
+
+```
+~/.matlab/Add-Ons/Downloads/
+```
+
+---
+
+#### 3️⃣ Build your custom image
+
+Run on your remote Ubuntu VM:
+
+```bash
+docker build -t matlab-with-dbtoolbox .
+```
+
+This will:
+
+* Pull the official MATLAB image.
+* Install the Database Toolbox inside it.
+* Create a new image named `matlab-with-dbtoolbox`.
+
+---
+
+#### 4️⃣ Run your container from the new image
+
+```bash
+docker run --init -it --name matlab_container \
+  -p 5901:5901 -p 6080:6080 \
+  -v ~/matlab_projects:/home/matlab/projects \
+  --shm-size=512M \
+  matlab-with-dbtoolbox -vnc
+```
+
+✅ Now every time you start or restart the container from this image, **Database Toolbox will already be installed.**
+
+---
+
+## ✅ **Option 2: Use a persistent volume for the MATLAB installation directory**
+
+If you don’t want to build a new image, you can mount the MATLAB installation directory to a **Docker volume** or **bind mount** so that installed toolboxes remain there between runs.
+
+---
+
+### Steps
+
+1️⃣ First, find where MATLAB installs toolboxes inside the container:
+It’s usually under:
+
+```
+/usr/local/MATLAB/R2025a/toolbox
+```
+
+2️⃣ Create a directory on your host for MATLAB installation persistence:
+
+```bash
+mkdir -p ~/matlab_installation
+```
+
+3️⃣ Run the container with that directory mounted:
+
+```bash
+docker run --init -it --name matlab_container \
+  -p 5901:5901 -p 6080:6080 \
+  -v ~/matlab_projects:/home/matlab/projects \
+  -v ~/matlab_installation:/usr/local/MATLAB/R2025a/toolbox \
+  --shm-size=512M \
+  mathworks/matlab:r2025a -vnc
+```
+
+4️⃣ Now when you install the Database Toolbox (via GUI or script), it’s saved in your host directory `~/matlab_installation`, and it will persist between restarts.
+
+⚠️ However: MATLAB itself might not have permission to modify `/usr/local` as a non-root user, so you might need to run MATLAB as root the first time for installation:
+
+```bash
+sudo matlab &
+```
+
+---
+
+## ✅ **Option 3: Commit your running container to a new image**
+
+If you already have a container where you successfully installed the Database Toolbox once, you can **turn that running container into a new image** that keeps everything as-is.
+
+---
+
+### Steps
+
+1️⃣ After successfully installing the Database Toolbox, check your running container name or ID:
+
+```bash
+docker ps
+```
+
+2️⃣ Commit the container as a new image:
+
+```bash
+docker commit matlab_container matlab-with-dbtoolbox
+```
+
+3️⃣ Verify:
+
+```bash
+docker images
+```
+
+You should now see:
+
+```
+matlab-with-dbtoolbox   latest   <image_id>   ...
+```
+
+4️⃣ Next time, run containers from that image:
+
+```bash
+docker run --init -it --name matlab_container \
+  -p 5901:5901 -p 6080:6080 \
+  -v ~/matlab_projects:/home/matlab/projects \
+  --shm-size=512M \
+  matlab-with-dbtoolbox -vnc
+```
+
+✅ Now Database Toolbox persists because it’s baked into the new image layer.
+
+---
+
+## 💡 Recommended Approach for You
+
+Since you’re using a **remote Ubuntu VM** and want a clean, reusable setup:
+
+👉 **Best Choice:**
+**Option 3 — Commit your configured container to a new image.**
+
+It’s fast, doesn’t require a new Dockerfile, and keeps everything you just installed.
+
+---
+
+### ✅ Summary Table
+
+| Option                       | Description                                | Toolbox Persists?  | Complexity | Recommended For                      |
+| ---------------------------- | ------------------------------------------ | ------------------ | ---------- | ------------------------------------ |
+| 1. Custom Image (Dockerfile) | Install via script during image build      | ✅ Permanent        | Medium     | Reusable environments                |
+| 2. Persistent Volume         | Mount `/usr/local/MATLAB/R2025a/toolbox`   | ✅ Between restarts | Medium     | Manual installs                      |
+| 3. Commit Container          | Save your current container as a new image | ✅ Permanent        | 🔹Easy     | One-time setup (recommended for you) |
+
+---
+
+Would you like me to give you **the exact commands for Option 3 (commit method)** so you can make your current container persist the Database Toolbox installation immediately after you reinstall it?
+
+
+
+
