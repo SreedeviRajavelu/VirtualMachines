@@ -1,0 +1,2925 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Linux_System_Administration/">
+      
+      
+        <link rel="prev" href="../Mac/">
+      
+      
+        <link rel="next" href="../Networking_Fundamentals/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Linux System Administration - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux-system-administration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-header__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sree Devi’s Documentation on Virtual Machines, Docker & Networking
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux System Administration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SreedeviRajavelu/VirtualMachines" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-nav__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sree Devi’s Documentation on Virtual Machines, Docker & Networking
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SreedeviRajavelu/VirtualMachines" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker, Virtual Machines & Networks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DockerBuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Build
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Networking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Macvlan_Network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Macvlan Network
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DockerEngine_Ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Engine on Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CommunicationBetweenInsideAndOutsideDocker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Communication Inside & Outside Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Container_Interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Container Interfaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_tgz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using tarballs (.tgz)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Volumes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Volumes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Virtualization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Virtualization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VM-to-VM-Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM-to-VM Communication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fix_Slow_UbuntuVM_Boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fix Slow Ubuntu VM Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Recovering_VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Recovering VM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab_Docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Wine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab_Data_Sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab Data Sources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Remote_PortForwarding_SSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remote Port Fowarding SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NAT_Adapter_Iptables_Forwarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NAT Adapter Iptables Fowarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Bridged_Adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bridged Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File_Transfer_Host_To_Remote/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    File Transfer Host To Remote
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Systemctl_Systemd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Systemctl Systemd
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    SCADA
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            SCADA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ScadaLTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ScadaLTS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mac Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    System Administration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            System Administration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Linux System Administration
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux System Administration
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux-system-administration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux System Administration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-linux-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 1. Linux Processes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 1. Linux Processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-they-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 What They Are
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Key Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Key Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ps-process-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      ps — process status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top-dynamic-view-of-running-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      top — dynamic view of running processes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Process Management Commands
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-systemd-service-and-process-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ 2. systemd — Service and Process Manager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ 2. systemd — Service and Process Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 What It Is
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Common Commands
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-logs-and-journalctl" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧾 3. Logs and journalctl
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧾 3. Logs and journalctl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-logs-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Where Logs Live
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journalctl" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 journalctl
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-permissions-and-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 4. Permissions and Ownership
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 4. Permissions and Ownership">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-permission-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Linux Permission Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-resource-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      💻 5. Resource Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💻 5. Resource Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commands_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Commands
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-useful-diagnostic-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 6. Useful Diagnostic Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 6. Useful Diagnostic Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lsof-list-open-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      lsof — List Open Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netstat-or-ss-network-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      netstat or ss — Network Connections
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-load-average" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 7. Load Average
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 7. Load Average">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 What It Means
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-interview-demonstration-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 8. Interview Demonstration Example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 8. Interview Demonstration Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explain-the-use-and-how-to-use-each-of-the-commands-you-mentioned-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explain the use and how to use each of the commands you mentioned here
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-system-resource-usage-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 1. System Resource Usage Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 1. System Resource Usage Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-monitor-processes-and-resource-usage-in-real-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      top — Monitor processes and resource usage in real time
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free-m-show-memory-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      free -m — Show memory usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iostat-monitor-disk-io-inputoutput-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      iostat — Monitor disk I/O (input/output performance)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vmstat-system-performance-overview-cpu-memory-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      vmstat — System performance overview (CPU, memory, I/O)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-inspect-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧾 2. Inspect Logs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧾 2. Inspect Logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-web-server-and-system-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check web server and system logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-test-connectivity-and-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌐 3. Test Connectivity and DNS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌐 3. Test Connectivity and DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ping-check-if-a-host-is-reachable" class="md-nav__link">
+    <span class="md-ellipsis">
+      ping — Check if a host is reachable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curl-test-https-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      curl — Test HTTP(S) connectivity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traceroute-trace-network-path-to-a-destination" class="md-nav__link">
+    <span class="md-ellipsis">
+      traceroute — Trace network path to a destination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dig-dns-lookup-utility" class="md-nav__link">
+    <span class="md-ellipsis">
+      dig — DNS lookup utility
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nslookup-simpler-dns-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      nslookup — Simpler DNS tool
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-check-open-ports-and-active-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 4. Check Open Ports and Active Connections
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔒 4. Check Open Ports and Active Connections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netstat-tulpen-show-active-network-ports-and-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      netstat -tulpen — Show active network ports and processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ss-modern-replacement-for-netstat" class="md-nav__link">
+    <span class="md-ellipsis">
+      ss — Modern replacement for netstat
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-container-resource-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      🐳 5. Container Resource Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐳 5. Container Resource Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-stats-monitor-container-cpumemory-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      docker stats — Monitor container CPU/memory usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonus-commands-for-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bonus Commands for Containers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-putting-it-all-together-interview-scenario-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 6. Putting It All Together — Interview Scenario Example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 6. Putting It All Together — Interview Scenario Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#your-investigation-flow-and-what-to-say-in-interview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your investigation flow (and what to say in interview):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Networking_Fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networking Fundamentals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Troubleshooting_Tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux-system-administration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux System Administration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-linux-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 1. Linux Processes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 1. Linux Processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-they-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 What They Are
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Key Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Key Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ps-process-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      ps — process status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top-dynamic-view-of-running-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      top — dynamic view of running processes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-management-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Process Management Commands
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-systemd-service-and-process-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ 2. systemd — Service and Process Manager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ 2. systemd — Service and Process Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 What It Is
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Common Commands
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-logs-and-journalctl" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧾 3. Logs and journalctl
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧾 3. Logs and journalctl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-logs-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Where Logs Live
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journalctl" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 journalctl
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-permissions-and-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 4. Permissions and Ownership
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 4. Permissions and Ownership">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-permission-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Linux Permission Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-resource-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      💻 5. Resource Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💻 5. Resource Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commands_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Commands
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-useful-diagnostic-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 6. Useful Diagnostic Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 6. Useful Diagnostic Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lsof-list-open-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      lsof — List Open Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netstat-or-ss-network-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      netstat or ss — Network Connections
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-load-average" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 7. Load Average
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 7. Load Average">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 What It Means
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-interview-demonstration-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 8. Interview Demonstration Example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 8. Interview Demonstration Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explain-the-use-and-how-to-use-each-of-the-commands-you-mentioned-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explain the use and how to use each of the commands you mentioned here
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-system-resource-usage-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 1. System Resource Usage Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 1. System Resource Usage Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-monitor-processes-and-resource-usage-in-real-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      top — Monitor processes and resource usage in real time
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free-m-show-memory-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      free -m — Show memory usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iostat-monitor-disk-io-inputoutput-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      iostat — Monitor disk I/O (input/output performance)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vmstat-system-performance-overview-cpu-memory-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      vmstat — System performance overview (CPU, memory, I/O)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-inspect-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧾 2. Inspect Logs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧾 2. Inspect Logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-web-server-and-system-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check web server and system logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-test-connectivity-and-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌐 3. Test Connectivity and DNS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌐 3. Test Connectivity and DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ping-check-if-a-host-is-reachable" class="md-nav__link">
+    <span class="md-ellipsis">
+      ping — Check if a host is reachable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curl-test-https-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      curl — Test HTTP(S) connectivity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traceroute-trace-network-path-to-a-destination" class="md-nav__link">
+    <span class="md-ellipsis">
+      traceroute — Trace network path to a destination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dig-dns-lookup-utility" class="md-nav__link">
+    <span class="md-ellipsis">
+      dig — DNS lookup utility
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nslookup-simpler-dns-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      nslookup — Simpler DNS tool
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-check-open-ports-and-active-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 4. Check Open Ports and Active Connections
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔒 4. Check Open Ports and Active Connections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netstat-tulpen-show-active-network-ports-and-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      netstat -tulpen — Show active network ports and processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ss-modern-replacement-for-netstat" class="md-nav__link">
+    <span class="md-ellipsis">
+      ss — Modern replacement for netstat
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-container-resource-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      🐳 5. Container Resource Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐳 5. Container Resource Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-stats-monitor-container-cpumemory-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      docker stats — Monitor container CPU/memory usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonus-commands-for-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bonus Commands for Containers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-putting-it-all-together-interview-scenario-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 6. Putting It All Together — Interview Scenario Example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 6. Putting It All Together — Interview Scenario Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#your-investigation-flow-and-what-to-say-in-interview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your investigation flow (and what to say in interview):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Linux System Administration</h1>
+
+<h2 id="linux-system-administration">Linux System Administration</h2>
+<p>Perfect, Sree Devi — this is <em>exactly</em> the right area to master before your Meta SRE interview. The interviewer will <strong>not just ask you definitions</strong>, but test how you <em>think, observe, and troubleshoot</em> in a live Linux environment.</p>
+<p>Let’s go step-by-step through the <strong>core Linux system administration concepts</strong> you mentioned — what each is, how it works, and how to use it in interview scenarios 👇</p>
+<hr />
+<h2 id="1-linux-processes">🧩 1. <strong>Linux Processes</strong></h2>
+<h3 id="what-they-are">🔹 What They Are</h3>
+<p>A <strong>process</strong> is an instance of a running program. Every time you run a command or application, Linux creates a process with a <strong>PID (Process ID)</strong>.</p>
+<p>Each process has:</p>
+<ul>
+<li>A <strong>parent process (PPID)</strong> — the process that spawned it.</li>
+<li>A <strong>user</strong> who owns it.</li>
+<li>A <strong>state</strong> (running, sleeping, stopped, zombie).</li>
+<li><strong>CPU/memory usage</strong> info.</li>
+</ul>
+<hr />
+<h3 id="key-commands">🔹 Key Commands</h3>
+<h4 id="ps-process-status"><strong><code>ps</code> — process status</strong></h4>
+<p>Shows currently running processes.</p>
+<pre><code class="language-bash">ps aux        # show all processes with detailed info
+ps -ef        # alternative format, common in system admin
+ps -u sree    # show processes by specific user
+</code></pre>
+<p>Example output fields:</p>
+<pre><code>USER  PID  %CPU  %MEM  VSZ  RSS  TTY  STAT  START  TIME  COMMAND
+</code></pre>
+<ul>
+<li><strong>%CPU / %MEM</strong> — how much CPU/memory process uses</li>
+<li><strong>STAT</strong> — process state (R = running, S = sleeping, Z = zombie)</li>
+</ul>
+<blockquote>
+<p>✅ <em>Interview tip:</em> If asked “how to find what’s consuming high CPU?”, say:
+“I’d run <code>ps aux --sort=-%cpu | head</code> or use <code>top</code> for live view.”</p>
+</blockquote>
+<hr />
+<h4 id="top-dynamic-view-of-running-processes"><strong><code>top</code> — dynamic view of running processes</strong></h4>
+<p>Real-time system monitor (press <code>q</code> to quit).</p>
+<pre><code class="language-bash">top
+</code></pre>
+<p>Look for:</p>
+<ul>
+<li><strong>%CPU</strong>, <strong>%MEM</strong> usage by each process</li>
+<li><strong>load average</strong> (top right): indicates overall system load</li>
+<li><strong>Tasks</strong> summary (running, sleeping, stopped, zombie)</li>
+</ul>
+<p><strong>Useful keys in top:</strong></p>
+<ul>
+<li><code>P</code> – sort by CPU</li>
+<li><code>M</code> – sort by memory</li>
+<li><code>k</code> – kill process (enter PID)</li>
+<li><code>1</code> – show per-CPU usage</li>
+</ul>
+<blockquote>
+<p>✅ <em>Scenario example:</em>
+“Server feels slow — I’d open <code>top</code> to check which process spikes CPU or memory, then investigate that PID with <code>ps -fp &lt;pid&gt;</code>.”</p>
+</blockquote>
+<hr />
+<h3 id="process-management-commands">🔹 Process Management Commands</h3>
+<pre><code class="language-bash">kill &lt;pid&gt;           # terminate a process
+kill -9 &lt;pid&gt;        # force kill (SIGKILL)
+pkill nginx          # kill all nginx processes
+systemctl restart nginx   # restart a service safely
+</code></pre>
+<hr />
+<h2 id="2-systemd-service-and-process-manager">⚙️ 2. <strong>systemd — Service and Process Manager</strong></h2>
+<h3 id="what-it-is">🔹 What It Is</h3>
+<p><code>systemd</code> is the init system responsible for <strong>starting and managing services</strong> after boot.</p>
+<p>Services are called <strong>units</strong>, and they are defined in files ending with <code>.service</code> under <code>/etc/systemd/system</code> or <code>/lib/systemd/system</code>.</p>
+<hr />
+<h3 id="common-commands">🔹 Common Commands</h3>
+<pre><code class="language-bash">systemctl status nginx        # view service status
+systemctl start nginx         # start a service
+systemctl stop nginx          # stop a service
+systemctl restart nginx       # restart a service
+systemctl enable nginx        # enable on boot
+systemctl disable nginx       # disable on boot
+systemctl list-units --type=service   # list active services
+</code></pre>
+<blockquote>
+<p>✅ <em>Interview tip:</em>
+“If a web app doesn’t respond, I’d check if its service is active using <code>systemctl status &lt;service&gt;</code>, review its logs using <code>journalctl -u &lt;service&gt;</code>.”</p>
+</blockquote>
+<hr />
+<h2 id="3-logs-and-journalctl">🧾 3. <strong>Logs and journalctl</strong></h2>
+<h3 id="where-logs-live">🔹 Where Logs Live</h3>
+<p>Linux logs are in <code>/var/log</code>. Common ones:</p>
+<pre><code>/var/log/syslog        # system messages (Ubuntu/Debian)
+/var/log/messages      # general logs (CentOS/RHEL)
+/var/log/auth.log      # login attempts, sudo usage
+/var/log/nginx/error.log  # web server logs
+</code></pre>
+<h3 id="journalctl">🔹 <code>journalctl</code></h3>
+<p>Used with <code>systemd</code> to view logs.</p>
+<pre><code class="language-bash">journalctl -xe                   # view latest logs with explanations
+journalctl -u nginx.service      # view logs for specific service
+journalctl --since &quot;1 hour ago&quot;  # filter by time
+journalctl -f                    # follow logs in real time (like tail -f)
+</code></pre>
+<blockquote>
+<p>✅ <em>Scenario example:</em>
+“When debugging a failed service restart, I’d run <code>systemctl status</code> and <code>journalctl -u &lt;service&gt;</code> to find detailed failure logs.”</p>
+</blockquote>
+<hr />
+<h2 id="4-permissions-and-ownership">🔐 4. <strong>Permissions and Ownership</strong></h2>
+<h3 id="linux-permission-model">🔹 Linux Permission Model</h3>
+<p>Every file has:</p>
+<ul>
+<li><strong>Owner</strong></li>
+<li><strong>Group</strong></li>
+<li><strong>Others</strong></li>
+</ul>
+<p>Permissions:</p>
+<ul>
+<li><strong>r</strong> – read</li>
+<li><strong>w</strong> – write</li>
+<li><strong>x</strong> – execute</li>
+</ul>
+<h3 id="commands">🔹 Commands</h3>
+<pre><code class="language-bash">ls -l                 # view permissions
+chmod 755 filename    # set permissions (rwxr-xr-x)
+chown user:group file # change ownership
+sudo                  # run command as superuser
+</code></pre>
+<h3 id="example">🔹 Example</h3>
+<pre><code>-rwxr-xr--  1 sree  devteam  1024 Oct 18 10:00 script.sh
+</code></pre>
+<p>→ Owner can read/write/execute
+→ Group can read/execute
+→ Others can only read</p>
+<blockquote>
+<p>✅ <em>Scenario example:</em>
+“A script fails with ‘Permission denied’. I’d check permissions with <code>ls -l</code> and use <code>chmod +x script.sh</code> to make it executable.”</p>
+</blockquote>
+<hr />
+<h2 id="5-resource-monitoring">💻 5. <strong>Resource Monitoring</strong></h2>
+<h3 id="commands_1">🔹 Commands</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>top</code></td>
+<td>View CPU, memory, and load average in real time</td>
+</tr>
+<tr>
+<td><code>free -h</code></td>
+<td>Check memory usage (RAM, swap)</td>
+</tr>
+<tr>
+<td><code>df -h</code></td>
+<td>Check disk space usage</td>
+</tr>
+<tr>
+<td><code>du -sh /var/log</code></td>
+<td>Check folder size</td>
+</tr>
+<tr>
+<td><code>uptime</code></td>
+<td>Show system uptime and load average</td>
+</tr>
+<tr>
+<td><code>vmstat</code></td>
+<td>CPU, memory, I/O stats</td>
+</tr>
+<tr>
+<td><code>iostat</code></td>
+<td>Disk I/O performance</td>
+</tr>
+<tr>
+<td><code>sar</code></td>
+<td>Historical performance (requires <code>sysstat</code> package)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>✅ <em>Scenario:</em>
+“If a service is lagging, I’d check CPU/memory usage via <code>top</code>, disk space via <code>df -h</code>, and whether swap usage is high via <code>free -h</code>.”</p>
+</blockquote>
+<hr />
+<h2 id="6-useful-diagnostic-tools">🔍 6. <strong>Useful Diagnostic Tools</strong></h2>
+<h3 id="lsof-list-open-files"><strong><code>lsof</code> — List Open Files</strong></h3>
+<p>Shows what files or network sockets a process has open.</p>
+<pre><code class="language-bash">lsof -p &lt;pid&gt;           # files opened by specific process
+lsof -i :80             # processes using port 80
+</code></pre>
+<blockquote>
+<p>✅ <em>Use Case:</em> “Port 8080 is in use — I’d run <code>lsof -i :8080</code> to find which process occupies it.”</p>
+</blockquote>
+<hr />
+<h3 id="netstat-or-ss-network-connections"><strong><code>netstat</code> or <code>ss</code> — Network Connections</strong></h3>
+<p>Show network sockets and listening ports.</p>
+<pre><code class="language-bash">netstat -tulnp          # list all listening ports with process IDs
+ss -tuln                # modern alternative to netstat
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-t</code></td>
+<td>TCP connections</td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td>UDP connections</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>Listening ports</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>Show numeric addresses</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>Show PID/program name</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>✅ <em>Scenario:</em>
+“To verify if Nginx is listening on port 443, I’d use <code>ss -tulnp | grep 443</code>.”</p>
+</blockquote>
+<hr />
+<h2 id="7-load-average">📊 7. <strong>Load Average</strong></h2>
+<h3 id="what-it-means">🔹 What It Means</h3>
+<p>Appears at the top of <code>top</code> or via <code>uptime</code>:</p>
+<pre><code>load average: 1.24, 0.87, 0.75
+</code></pre>
+<p>These are <strong>average runnable processes over 1, 5, and 15 minutes</strong>.</p>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>If you have 4 CPU cores and a load average of 1.0 → system is under 25% load.</li>
+<li>Load average ≈ number of processes waiting for CPU.</li>
+<li>High load (&gt; number of cores) means CPU is bottlenecked or too many I/O waits.</li>
+</ul>
+<blockquote>
+<p>✅ <em>Scenario example:</em>
+“If load average stays above 8 on a 4-core server, I’d check CPU utilization in <code>top</code> and disk I/O using <code>iostat</code> or <code>vmstat</code> to see what’s causing the wait.”</p>
+</blockquote>
+<hr />
+<h2 id="8-interview-demonstration-example">🧠 8. <strong>Interview Demonstration Example</strong></h2>
+<blockquote>
+<p><strong>Question:</strong> A user reports the web service is down. What’s your first step?
+<strong>Answer Walkthrough:</strong></p>
+<ol>
+<li>Check if the service is active: <code>systemctl status nginx</code></li>
+<li>If inactive, restart it: <code>systemctl restart nginx</code></li>
+<li>If it fails, view logs: <code>journalctl -u nginx -xe</code></li>
+<li>Verify port 80 is listening: <code>ss -tulnp | grep 80</code></li>
+<li>Check disk space: <code>df -h</code></li>
+<li>Check memory &amp; CPU: <code>top</code></li>
+<li>Confirm no permission or config file issues: <code>ls -l /etc/nginx/nginx.conf</code></li>
+</ol>
+</blockquote>
+<p>That’s the kind of structured, <strong>root-cause-first reasoning</strong> Meta’s Lead SRE will look for.</p>
+<hr />
+<p>Would you like me to create a <strong>hands-on practice guide</strong> next — with example tasks (like “simulate high CPU”, “analyze logs”, “fix service failure”) and commands you can try on your own Linux VM or WSL?
+That would help you <em>practice interactively</em> before your interview.</p>
+<h3 id="explain-the-use-and-how-to-use-each-of-the-commands-you-mentioned-here">Explain the use and how to use each of the commands you mentioned here</h3>
+<p>✅ Answer Outline: Check system resource usage (top, free -m, iostat, vmstat). Inspect web server logs (/var/log/nginx/access.log, /var/log/syslog). Test connectivity (ping, curl, traceroute) and DNS (dig, nslookup). Use netstat -tulpen or ss to check open ports and connections. If containerized, check container CPU/memory with docker stats. Isolate if it’s network latency, disk I/O, CPU load, or app issue.</p>
+<p>Excellent follow-up, Sree Devi 👏 — these commands are exactly what an SRE at Meta (or anywhere) uses <strong>daily</strong> to troubleshoot production systems.</p>
+<p>Let’s go <strong>step-by-step through each command</strong>, with:</p>
+<ul>
+<li>✅ <em>What it does</em></li>
+<li>⚙️ <em>How to use it (with examples)</em></li>
+<li>🧠 <em>How to interpret output in an interview scenario</em></li>
+</ul>
+<hr />
+<h2 id="1-system-resource-usage-commands">🧩 1. <strong>System Resource Usage Commands</strong></h2>
+<hr />
+<h3 id="top-monitor-processes-and-resource-usage-in-real-time"><strong><code>top</code></strong> — Monitor processes and resource usage in real time</h3>
+<p>✅ <strong>Purpose:</strong> See which processes are consuming CPU, memory, and how the system load changes dynamically.</p>
+<pre><code class="language-bash">top
+</code></pre>
+<p><strong>Key output fields:</strong></p>
+<ul>
+<li><strong>%CPU, %MEM</strong> → show process resource usage</li>
+<li><strong>load average:</strong> → number of runnable processes (system load)</li>
+<li><strong>Tasks:</strong> → running/sleeping/zombie processes</li>
+</ul>
+<p><strong>Interactive keys:</strong></p>
+<ul>
+<li><code>P</code> → sort by CPU</li>
+<li><code>M</code> → sort by memory</li>
+<li><code>k</code> → kill a process (enter PID)</li>
+<li><code>1</code> → show per-CPU stats</li>
+</ul>
+<p><strong>Example:</strong>
+If the system feels slow, look for a process consuming &gt;90% CPU or memory.
+You might say in the interview:</p>
+<blockquote>
+<p>“I’d run <code>top</code> to check for processes consuming high CPU or memory and use <code>k</code> to kill runaway ones.”</p>
+</blockquote>
+<hr />
+<h3 id="free-m-show-memory-usage"><strong><code>free -m</code></strong> — Show memory usage</h3>
+<p>✅ <strong>Purpose:</strong> Display total, used, and available RAM.</p>
+<pre><code class="language-bash">free -m
+</code></pre>
+<ul>
+<li><code>-m</code> → show memory in megabytes (<code>-h</code> for human-readable)</li>
+</ul>
+<p><strong>Output example:</strong></p>
+<pre><code>              total    used    free   shared  buff/cache  available
+Mem:           7972    2564    1504      120        3904       5120
+Swap:          2048       0    2048
+</code></pre>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li><code>used</code> → memory actively in use</li>
+<li><code>buff/cache</code> → memory used for caching (reclaimable)</li>
+<li><code>available</code> → memory apps can still use</li>
+</ul>
+<blockquote>
+<p>✅ “If memory usage is near 100% and swap is active, it’s likely a memory leak or overloaded system.”</p>
+</blockquote>
+<hr />
+<h3 id="iostat-monitor-disk-io-inputoutput-performance"><strong><code>iostat</code></strong> — Monitor disk I/O (input/output performance)</h3>
+<p>✅ <strong>Purpose:</strong> Identify I/O bottlenecks — slow disks or too many reads/writes.</p>
+<p>Install (if missing):</p>
+<pre><code class="language-bash">sudo apt install sysstat
+</code></pre>
+<p>Run:</p>
+<pre><code class="language-bash">iostat -x 2 3
+</code></pre>
+<ul>
+<li><code>-x</code> → extended stats</li>
+<li><code>2 3</code> → update every 2 seconds, 3 times</li>
+</ul>
+<p><strong>Key columns:</strong></p>
+<ul>
+<li><code>%util</code> → how busy the disk is (close to 100% = bottleneck)</li>
+<li><code>r/s</code>, <code>w/s</code> → read/write requests per second</li>
+<li><code>await</code> → average wait time per I/O request</li>
+</ul>
+<blockquote>
+<p>✅ “If <code>%util</code> &gt; 90%, the disk is saturated — I’d check which process is writing heavily using <code>iotop</code> or <code>lsof</code>.”</p>
+</blockquote>
+<hr />
+<h3 id="vmstat-system-performance-overview-cpu-memory-io"><strong><code>vmstat</code></strong> — System performance overview (CPU, memory, I/O)</h3>
+<p>✅ <strong>Purpose:</strong> Gives a quick view of CPU usage, swap activity, and system processes.</p>
+<pre><code class="language-bash">vmstat 2 5
+</code></pre>
+<ul>
+<li>Every 2 seconds, show stats 5 times.</li>
+</ul>
+<p><strong>Key columns:</strong></p>
+<ul>
+<li><code>r</code> → runnable processes</li>
+<li><code>b</code> → processes in uninterruptible sleep (I/O wait)</li>
+<li><code>si/so</code> → swap in/out (should be 0 ideally)</li>
+<li><code>us</code>/<code>sy</code> → CPU time spent in user/system mode</li>
+<li><code>wa</code> → time spent waiting on I/O</li>
+</ul>
+<blockquote>
+<p>✅ “If I see high <code>wa</code> (I/O wait) in <code>vmstat</code>, I know disk I/O is the bottleneck, not CPU.”</p>
+</blockquote>
+<hr />
+<h2 id="2-inspect-logs">🧾 2. <strong>Inspect Logs</strong></h2>
+<hr />
+<h3 id="check-web-server-and-system-logs"><strong>Check web server and system logs</strong></h3>
+<p><strong>Default paths:</strong></p>
+<pre><code class="language-bash">/var/log/nginx/access.log
+/var/log/nginx/error.log
+/var/log/syslog
+</code></pre>
+<p><strong>Common commands:</strong></p>
+<pre><code class="language-bash">tail -n 50 /var/log/nginx/error.log      # show last 50 lines
+tail -f /var/log/nginx/access.log        # live log updates
+grep &quot;500&quot; /var/log/nginx/access.log     # filter HTTP 500 errors
+less /var/log/syslog                     # browse system logs
+</code></pre>
+<blockquote>
+<p>✅ <em>Interview answer example:</em>
+“If the app returns 500 errors, I’d check <code>/var/log/nginx/error.log</code> and use <code>grep</code> to filter out error patterns.”</p>
+</blockquote>
+<hr />
+<h2 id="3-test-connectivity-and-dns">🌐 3. <strong>Test Connectivity and DNS</strong></h2>
+<hr />
+<h3 id="ping-check-if-a-host-is-reachable"><strong><code>ping</code></strong> — Check if a host is reachable</h3>
+<p>✅ <strong>Purpose:</strong> Test basic network connectivity using ICMP.</p>
+<pre><code class="language-bash">ping google.com
+</code></pre>
+<ul>
+<li>Sends ICMP echo requests; reports response time and packet loss.</li>
+<li><code>Ctrl + C</code> to stop.</li>
+</ul>
+<p><strong>Output example:</strong></p>
+<pre><code>64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=14.3 ms
+</code></pre>
+<blockquote>
+<p>✅ “If ping fails, it could be a DNS issue, routing problem, or firewall blocking ICMP.”</p>
+</blockquote>
+<hr />
+<h3 id="curl-test-https-connectivity"><strong><code>curl</code></strong> — Test HTTP(S) connectivity</h3>
+<p>✅ <strong>Purpose:</strong> Simulate web requests and see responses (great for web app debugging).</p>
+<pre><code class="language-bash">curl -I https://example.com
+</code></pre>
+<ul>
+<li><code>-I</code> → fetch headers only</li>
+<li><code>-v</code> → verbose mode</li>
+<li><code>-L</code> → follow redirects</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="language-bash">curl -v http://localhost:8080
+</code></pre>
+<blockquote>
+<p>✅ “If the app returns 500, I’d curl the endpoint to check if backend is reachable or misconfigured.”</p>
+</blockquote>
+<hr />
+<h3 id="traceroute-trace-network-path-to-a-destination"><strong><code>traceroute</code></strong> — Trace network path to a destination</h3>
+<p>✅ <strong>Purpose:</strong> Identify where packets are delayed or dropped along a route.</p>
+<pre><code class="language-bash">sudo apt install traceroute
+traceroute google.com
+</code></pre>
+<p>Shows each router hop with latency times.</p>
+<p><strong>Interpretation:</strong>
+If delay starts increasing after a certain hop, that’s where the problem lies (network congestion or bad route).</p>
+<blockquote>
+<p>✅ “If latency is high, I’d use <code>traceroute</code> to pinpoint where in the path the delay starts.”</p>
+</blockquote>
+<hr />
+<h3 id="dig-dns-lookup-utility"><strong><code>dig</code></strong> — DNS lookup utility</h3>
+<p>✅ <strong>Purpose:</strong> Query DNS servers to resolve domain names.</p>
+<pre><code class="language-bash">dig google.com
+</code></pre>
+<p><strong>Output fields:</strong></p>
+<ul>
+<li><strong>ANSWER SECTION</strong> → IP address (A or AAAA record)</li>
+<li><strong>Query time:</strong> → how long it took</li>
+<li><strong>SERVER:</strong> → which DNS server replied</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="language-bash">dig @8.8.8.8 example.com +short
+</code></pre>
+<blockquote>
+<p>✅ “If DNS seems broken, I’d run <code>dig</code> to see if the domain resolves and which DNS server responds.”</p>
+</blockquote>
+<hr />
+<h3 id="nslookup-simpler-dns-tool"><strong><code>nslookup</code></strong> — Simpler DNS tool</h3>
+<p>✅ <strong>Purpose:</strong> Same as <code>dig</code> but simpler format.</p>
+<pre><code class="language-bash">nslookup google.com
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Server:  8.8.8.8
+Address: 8.8.8.8#53
+Name:    google.com
+Address: 142.250.72.206
+</code></pre>
+<blockquote>
+<p>✅ “I use <code>nslookup</code> or <code>dig</code> to confirm if DNS is returning the right IP before suspecting network issues.”</p>
+</blockquote>
+<hr />
+<h2 id="4-check-open-ports-and-active-connections">🔒 4. <strong>Check Open Ports and Active Connections</strong></h2>
+<hr />
+<h3 id="netstat-tulpen-show-active-network-ports-and-processes"><strong><code>netstat -tulpen</code></strong> — Show active network ports and processes</h3>
+<p>✅ <strong>Purpose:</strong> See which processes are listening on which ports.</p>
+<pre><code class="language-bash">sudo netstat -tulpen
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-t</code></td>
+<td>TCP connections</td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td>UDP connections</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>Listening sockets</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>Show PID/program</td>
+</tr>
+<tr>
+<td><code>-e</code></td>
+<td>Extended info</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>Don’t resolve hostnames</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Output example:</strong></p>
+<pre><code>Proto Recv-Q Send-Q Local Address  Foreign Address  State  PID/Program name
+tcp   0      0 0.0.0.0:80         0.0.0.0:*        LISTEN 1234/nginx
+</code></pre>
+<blockquote>
+<p>✅ “To verify if Nginx is running, I’d use <code>netstat -tulpen | grep 80</code>.”</p>
+</blockquote>
+<hr />
+<h3 id="ss-modern-replacement-for-netstat"><strong><code>ss</code></strong> — Modern replacement for netstat</h3>
+<p>✅ <strong>Purpose:</strong> Faster, newer way to view sockets.</p>
+<pre><code class="language-bash">sudo ss -tulnp
+</code></pre>
+<p>Shows all listening ports and which service owns them.</p>
+<blockquote>
+<p>✅ “I’d use <code>ss -tulnp</code> instead of <code>netstat</code> on modern systems — it’s faster and doesn’t require extra packages.”</p>
+</blockquote>
+<hr />
+<h2 id="5-container-resource-monitoring">🐳 5. <strong>Container Resource Monitoring</strong></h2>
+<hr />
+<h3 id="docker-stats-monitor-container-cpumemory-usage"><strong><code>docker stats</code></strong> — Monitor container CPU/memory usage</h3>
+<p>✅ <strong>Purpose:</strong> Real-time resource stats for running containers.</p>
+<pre><code class="language-bash">docker stats
+</code></pre>
+<p><strong>Output example:</strong></p>
+<pre><code>CONTAINER ID   NAME         CPU %     MEM USAGE / LIMIT
+a1b2c3d4e5f6   nginx_web    2.35%     120MiB / 2GiB
+b7c8d9e0f1g2   db_service   10.52%    450MiB / 4GiB
+</code></pre>
+<blockquote>
+<p>✅ “If a containerized app is slow, I’d check <code>docker stats</code> to see if a container is hitting its resource limits.”</p>
+</blockquote>
+<hr />
+<h3 id="bonus-commands-for-containers"><strong>Bonus Commands for Containers</strong></h3>
+<pre><code class="language-bash">docker ps                       # list running containers
+docker logs &lt;container_id&gt;       # view container logs
+docker inspect &lt;container_id&gt;    # show container config/network info
+docker exec -it &lt;container_id&gt; bash  # open shell inside container
+</code></pre>
+<hr />
+<h2 id="6-putting-it-all-together-interview-scenario-example">🧠 6. <strong>Putting It All Together — Interview Scenario Example</strong></h2>
+<blockquote>
+<p><strong>Scenario:</strong> Users report your web app is slow.</p>
+</blockquote>
+<h3 id="your-investigation-flow-and-what-to-say-in-interview">Your investigation flow (and what to say in interview):</h3>
+<ol>
+<li>
+<p><strong>Check server load:</strong>
+   <code>top</code> → CPU/memory usage
+   <code>free -m</code> → memory status
+   <code>iostat</code> / <code>vmstat</code> → I/O bottlenecks</p>
+</li>
+<li>
+<p><strong>Check logs:</strong>
+   <code>tail -f /var/log/nginx/error.log</code>
+   <code>grep "500" /var/log/nginx/access.log</code></p>
+</li>
+<li>
+<p><strong>Test connectivity:</strong>
+   <code>ping app-server</code> → reachability
+   <code>curl -I http://localhost:8080</code> → check app response
+   <code>traceroute</code> → trace route if remote latency suspected</p>
+</li>
+<li>
+<p><strong>Check DNS resolution:</strong>
+   <code>dig app.company.com +short</code></p>
+</li>
+<li>
+<p><strong>Verify open ports:</strong>
+   <code>ss -tulnp | grep 8080</code> → ensure app is listening</p>
+</li>
+<li>
+<p><strong>If containerized:</strong>
+   <code>docker stats</code> → check resource use
+   <code>docker logs &lt;id&gt;</code> → application errors</p>
+</li>
+</ol>
+<blockquote>
+<p>✅ <em>What the interviewer sees:</em> You follow a logical, layered troubleshooting process — from system → network → app → container — just like a real SRE.</p>
+</blockquote>
+<hr />
+<p>Would you like me to create a <strong>practice lab script</strong> (like a guided “break and fix” Linux exercise) where you simulate an outage and use these commands to diagnose and fix it?
+That kind of hands-on simulation would prepare you <em>exactly</em> for the troubleshooting part of the Meta SRE interview.</p>
+<p>top vs htop </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
