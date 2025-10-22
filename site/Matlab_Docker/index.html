@@ -1879,11 +1879,15 @@ sudo apt update</p>
 <ol>
 <li>On your <strong>local machine</strong>, forward the VNC web port:</li>
 </ol>
-<p><code>ssh -L 6080:localhost:6080 username@remote_vm_ip</code>
-2. Open in your local browser:</p>
-<p><code>http://localhost:6080</code>
-3. Login with password <code>matlab</code>.
-   You’ll see a full Ubuntu desktop running MATLAB.</p>
+<p><code>ssh -L 6080:localhost:6080 username@remote_vm_ip</code></p>
+<ol>
+<li>Open in your local browser:</li>
+</ol>
+<p><code>http://localhost:6080</code></p>
+<ol>
+<li>Login with password <code>matlab</code>.
+   You’ll see a full Ubuntu desktop running MATLAB.</li>
+</ol>
 <p>→ From there, open <strong>MATLAB → Home → Add-Ons → Get Add-Ons</strong>, search for <strong>Database Toolbox</strong>, and install.</p>
 <hr />
 <h3 id="option-2-use-a-vnc-client-tigervnc-realvnc-etc">🧑‍💻 Option 2: Use a VNC Client (TigerVNC, RealVNC, etc.)</h3>
@@ -1898,11 +1902,7 @@ sudo apt update</p>
 <hr />
 <h2 id="4-keep-the-container-persistent">💾 4. Keep the Container Persistent</h2>
 <p>When installing toolboxes, you’ll definitely want to <strong>keep the container persistent</strong> so your installation isn’t lost:</p>
-<pre><code>docker run --init -it --name matlab_container \
-  -p 5901:5901 -p 6080:6080 \
-  -v ~/matlab_projects:/home/matlab/projects \
-  --shm-size=512M \
-  mathworks/matlab:r2024b -vnc
+<pre><code>docker run --init -it --name matlab_container -p 5901:5901 -p 6080:6080 -v ~/matlab_projects:/home/matlab/projects --shm-size=512M mathworks/matlab:r2025a -vnc
 </code></pre>
 <p>Then after installation:</p>
 <pre><code>docker stop matlab_container      # stop container

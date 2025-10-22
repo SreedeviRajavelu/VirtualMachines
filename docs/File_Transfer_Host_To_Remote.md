@@ -74,7 +74,7 @@ If you prefer GUI methods:
 
 You can verify the transfer:
 
-```bash
+```
 ssh ubuntu@192.168.30.60
 ls -l /home/ubuntu/
 ```
@@ -107,7 +107,7 @@ Here’s exactly how to transfer your local folder to your **remote Ubuntu VM** 
 
 ### ✅ **Command to use (from your local host terminal):**
 
-```bash
+```
 scp -r "/Users/sreedevirajavelu/Desktop/POWER PLANT TWIN/ccp_multi_IED_multi_plc_database_pg" ubuntu@192.168.30.60:/home/ubuntu/
 ```
 
