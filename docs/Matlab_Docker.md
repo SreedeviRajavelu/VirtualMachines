@@ -746,3 +746,145 @@ Would you like me to give you **the exact commands for Option 3 (commit method)*
 
 
 
+## Installing Database Toolbox on MATLAB Docker container
+
+Excellent — that tells us the Database Toolbox files you copied over are **not fully functional** by themselves (they lack the compiled components and metadata MATLAB uses to register licensed toolboxes).
+
+Let’s clarify the situation, then go over **two reliable ways to install the Database Toolbox** in your MATLAB Docker container so it actually works and persists.
+
+---
+
+## 🚨 Why your current copy doesn’t work
+
+The folder `/Applications/MATLAB_R2025a.app/toolbox/database/` on macOS contains **only the high-level MATLAB scripts and doc files**, but the actual toolbox relies on:
+
+* Internal compiled libraries (`.p`, `.mex*`, `.jar`, `.xml`)
+* License registration info stored in MATLAB’s internal database
+* Installation metadata from the **Add-On Manager**
+
+That’s why copying just the folder doesn’t make MATLAB recognize it — it’s not a standalone package.
+
+---
+
+## ✅ You have two correct ways to install it
+
+### **Option 1 — Use the MATLAB Add-On Installer inside the container (recommended if license allows it)**
+
+This is the **official** way and ensures proper registration and license validation.
+
+#### Steps:
+
+1. **Run MATLAB Docker container with VNC:**
+
+   ```bash
+   docker start -ai matlab_container
+   ```
+
+   or if not created:
+
+   ```bash
+   docker run --init -it --name matlab_container -p 5901:5901 -p 6080:6080 \
+   -v ~/matlab_projects:/home/matlab/projects \
+   --shm-size=512M mathworks/matlab:r2025a -vnc
+   ```
+
+2. **Access GUI:**
+   Go to your browser and open:
+
+   ```
+   http://<your_vm_ip>:6080
+   ```
+
+   (Default password: `matlab`)
+
+3. **Install from MATLAB GUI:**
+
+   * In MATLAB, go to **Home → Add-Ons → Get Add-Ons**
+   * Search for **Database Toolbox**
+   * Click **Install**
+
+4. MATLAB may restart automatically after installation — **that’s normal**.
+   If it doesn’t reopen, restart manually:
+
+   ```bash
+   matlab &
+   ```
+
+5. After restart, verify:
+
+   ```matlab
+   ver
+   which database
+   ```
+
+✅ If successful, MATLAB will now have Database Toolbox **registered properly**, and it will persist inside the container (since installation writes to `/usr/local/MATLAB`).
+
+---
+
+### **Option 2 — Download the `.mltbx` file on your Mac and transfer it**
+
+If the Add-On GUI fails (e.g., no internet access inside container), you can manually download and install the toolbox.
+
+#### Steps:
+
+1. On your **Mac**, open MATLAB → Home → Add-Ons → Manage Add-Ons.
+   Find **Database Toolbox**, click **View Details**, and note the installation source path.
+
+   Or go to:
+
+   ```
+   https://www.mathworks.com/matlabcentral/fileexchange/
+   ```
+
+   (or the Add-On Explorer web link for Database Toolbox if you have MathWorks access)
+
+2. Download the **Database Toolbox .mltbx** installer file.
+
+3. Copy it to your Ubuntu VM:
+
+   ```bash
+   scp /path/to/Database_Toolbox.mltbx ubuntu@<vm_ip>:/home/ubuntu/
+   ```
+
+4. Copy it into the container:
+
+   ```bash
+   docker cp /home/ubuntu/Database_Toolbox.mltbx matlab_container:/home/matlab/
+   ```
+
+5. Access the container:
+
+   ```bash
+   docker exec -it matlab_container bash
+   ```
+
+6. Run MATLAB inside:
+
+   ```bash
+   matlab -batch "matlab.addons.install('/home/matlab/Database_Toolbox.mltbx');"
+   ```
+
+7. Then verify:
+
+   ```bash
+   matlab -batch "ver"
+   ```
+
+✅ This method installs the toolbox properly, registers it with MATLAB’s license manager, and persists across container restarts.
+
+---
+
+## 🧠 Summary
+
+| Method                     | Description                                  | Requires Internet in Container | Persists |
+| -------------------------- | -------------------------------------------- | ------------------------------ | -------- |
+| **Add-On GUI**             | Install Database Toolbox from MATLAB Add-Ons | ✅ Yes                          | ✅ Yes    |
+| **.mltbx Manual Install**  | Install from local `.mltbx` file             | ❌ No                           | ✅ Yes    |
+| **Copying toolbox folder** | What you tried (won’t register toolbox)      | N/A                            | ❌ No     |
+
+---
+
+👉 Since you already have the container running with GUI access, I recommend retrying **Option 1 (Add-On GUI)**.
+If it fails again (e.g., after restart the toolbox doesn’t show up), proceed with **Option 2** — I can guide you to get the `.mltbx` file from your Mac MATLAB installation directory if needed.
+
+Would you like me to show you exactly where to find the `.mltbx` file on your Mac?
