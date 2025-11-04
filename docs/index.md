@@ -34,6 +34,7 @@ Welcome! Use the sidebar to navigate to different sections of this project.
 - [File Transfer Host To Remote](File_Transfer_Host_To_Remote.md)
 - [Systemctl Systemd](Systemctl_Systemd.md)
 - [Ubuntu Python Packages](Ubuntu_Python_Packages.md)
+- [Connecting DB IEDs PLCs] (Connecting_DB_IEDs_PLCs.md)
 
 ## SCADA
 
