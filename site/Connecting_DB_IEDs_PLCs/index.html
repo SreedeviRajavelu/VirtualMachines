@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Docker_Networks/">
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Connecting_DB_IEDs_PLCs/">
       
       
-        <link rel="prev" href="../DockerBuild/">
+        <link rel="prev" href="../Ubuntu_Python_Packages/">
       
       
-        <link rel="next" href="../Docker_Macvlan_Network/">
+        <link rel="next" href="../ScadaLTS/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Docker Networking - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+        <title>Connecting DB IEDs PLCs - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#docker-networking-tutorial-bridge-none-host-ipvlan-macvlan-overlay" class="md-skip">
+        <a href="#part-1-prepare-the-first-ied-for-dockerizing-st-ied" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Docker Networking
+              Connecting DB IEDs PLCs
             
           </span>
         </div>
@@ -239,20 +239,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -268,7 +266,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Docker
@@ -302,30 +300,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Docker Networking
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../Docker_Networks/" class="md-nav__link">
         
   
   
@@ -336,150 +314,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#docker-networking-tutorial-bridge-none-host-ipvlan-macvlan-overlay" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Networking Tutorial (Bridge - None - Host - IPvlan - Macvlan - Overlay)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-bridge" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Bridge
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Docker Bridge">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#when-you-install-docker-for-the-first-time-it-will-create-a-default-bridge-network-on-the-host-slightly-different-on-macos-as-it-will-run-al-containers-inside-a-linux-vm-virtualization-framework" class="md-nav__link">
-    <span class="md-ellipsis">
-      When you install Docker for the first time, it will create a default bridge network on the host (slightly different on MacOS as it will run al containers inside a Linux VM, virtualization framework)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#containers-created-in-the-default-bridge-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      Containers created in the default bridge network
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#user-defined-bridge-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      User defined bridge network**:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#host-mode-networking-option" class="md-nav__link">
-    <span class="md-ellipsis">
-      Host mode - networking option
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ipvlan-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      IPvlan network:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#macvlan-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      MacVLAN network:
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="MacVLAN network:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#difference-between-ipvlan-and-macvlan" class="md-nav__link">
-    <span class="md-ellipsis">
-      Difference between IPVLAN and MACVLAN:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overlay-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overlay network
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overlay-networks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overlay Networks
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Overlay Networks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-overlay-networks-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      How overlay networks work?
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -771,18 +605,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -798,7 +634,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Tools
@@ -1108,10 +944,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../Connecting_DB_IEDs_PLCs/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1122,6 +967,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1401,140 +1247,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#docker-networking-tutorial-bridge-none-host-ipvlan-macvlan-overlay" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Networking Tutorial (Bridge - None - Host - IPvlan - Macvlan - Overlay)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-bridge" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Bridge
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Docker Bridge">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#when-you-install-docker-for-the-first-time-it-will-create-a-default-bridge-network-on-the-host-slightly-different-on-macos-as-it-will-run-al-containers-inside-a-linux-vm-virtualization-framework" class="md-nav__link">
-    <span class="md-ellipsis">
-      When you install Docker for the first time, it will create a default bridge network on the host (slightly different on MacOS as it will run al containers inside a Linux VM, virtualization framework)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#containers-created-in-the-default-bridge-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      Containers created in the default bridge network
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#user-defined-bridge-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      User defined bridge network**:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#host-mode-networking-option" class="md-nav__link">
-    <span class="md-ellipsis">
-      Host mode - networking option
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ipvlan-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      IPvlan network:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#macvlan-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      MacVLAN network:
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="MacVLAN network:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#difference-between-ipvlan-and-macvlan" class="md-nav__link">
-    <span class="md-ellipsis">
-      Difference between IPVLAN and MACVLAN:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overlay-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overlay network
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overlay-networks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overlay Networks
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Overlay Networks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-overlay-networks-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      How overlay networks work?
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -1553,114 +1267,235 @@
   
 
 
-<h2 id="docker-networking-tutorial-bridge-none-host-ipvlan-macvlan-overlay">Docker Networking Tutorial (Bridge - None - Host - IPvlan - Macvlan - Overlay)</h2>
-<p>Reference: https://youtu.be/fBRgw5dyBd4?si=LodjJDx4AdnjYOS6</p>
-<h2 id="docker-bridge">Docker Bridge</h2>
-<ul>
-<li>2 segments that the bridge connects is:</li>
-<li>local host e.g. your laptop, or linux server where you run your Docker containers</li>
-<li>virtual network created by Docker</li>
-<li></li>
-</ul>
-<h3 id="when-you-install-docker-for-the-first-time-it-will-create-a-default-bridge-network-on-the-host-slightly-different-on-macos-as-it-will-run-al-containers-inside-a-linux-vm-virtualization-framework">When you install Docker for the first time, it will create a default bridge network on the host (slightly different on MacOS as it will run al containers inside a Linux VM, virtualization framework)</h3>
-<ul>
-<li>all containers you create on that host will get an IP address on that range</li>
-</ul>
-<p>On a Linux host, Docker Engine directly creates a docker0 bridge network interface in the host’s network stack. That’s the familiar default bridge you see with ifconfig or ip a (usually 172.17.0.1/16).
-<img width="884" height="610" alt="image" src="https://github.com/user-attachments/assets/0f59a653-6033-4d16-b14b-aaaf61bfb04f" /></p>
-<p>On a Mac (macOS) or Windows, things are different:</p>
-<p>Docker Desktop does not create a native docker0 bridge interface on your MacBook’s network stack.</p>
-<p>Instead, Docker Desktop runs all containers inside a lightweight Linux VM (on macOS, this is managed using Apple’s HyperKit or now a Virtualization Framework).</p>
-<p>Inside that VM, Docker does create a docker0 bridge (just like on Linux). But this bridge is inside the VM, not on macOS itself.</p>
-<p>From your MacBook’s perspective, you won’t see docker0 if you run ifconfig or ip a. Instead, Docker Desktop sets up a special networking layer that forwards traffic between your MacBook and the VM.</p>
-<p>So to answer directly:</p>
-<p>👉 No, Docker Desktop does not create a default bridge network on your MacBook’s host network stack.
-👉 Yes, it does create a default bridge network inside the Linux VM where your containers run.</p>
-<p>If you run:
-<code>docker network ls</code>
-you’ll still see bridge, host, and none listed, because those networks exist in the Docker VM environment, even though your Mac itself doesn’t expose them as interfaces.</p>
-<p>Do you want me to also explain how you can check the actual IP range of the bridge network inside Docker Desktop on your Mac?</p>
-<h2 id="containers-created-in-the-default-bridge-network">Containers created in the default bridge network</h2>
-<ul>
-<li>can communicate with each other</li>
-<li>default bridge network has restrictions and is not recommended for production, better to use user-defined bridge network.</li>
-<li>Default bridge network: Cannot use container DNS from host </li>
-<li>In default bridge network, DNS is not supported. Also cannot use DNS to send requests between containers.</li>
-</ul>
-<h2 id="user-defined-bridge-network">User defined bridge network**:</h2>
-<ul>
-<li><strong>Can use DNS to send requests to containers.</strong> </li>
-<li><strong>This only applies to communications inside the bridge network between containers. You still will NOT be able to use the container DNS from the host.</strong></li>
-</ul>
-<h2 id="host-mode-networking-option">Host mode - networking option</h2>
-<ul>
-<li>container will not get its own IP and instead share the same networking namespace as the host where you run the container</li>
-<li>will appear as if you were running a regular application on that host</li>
-<li>thus any application running on a different server will be able to access the container using the host's IP address</li>
-</ul>
-<h2 id="ipvlan-network">IPvlan network:</h2>
-<ul>
-<li>Traditionally, to expose a container to the outside world we used bridge network. But it adds additional complexity and performance penalty. Packet needs to go through additional hop, need to map ports from the container to the host to expose it to other applications.  </li>
-<li>Does not use a bridge for isolation and is associated directly with the Linux network interface. No need for port mappings in these scenarios.</li>
-</ul>
-<h2 id="macvlan-network">MacVLAN network:</h2>
-<ul>
-<li>Some legacy applications and those that monitor network traffic expect to be directly connected to the physical network.</li>
-<li>In this case, can use the MacVLAN network driver to assign a MAC address to each container's virtual network interface.</li>
-<li>It will appear as a physical network interface directly connected to the physical network.</li>
-<li>to create it, must specify the subnet that the host uses, the gateway, and the parent network interface</li>
-<li>compare the parent MAC address (parent interface) -&gt; e.g. ip addr show ens33</li>
-<li>MAC address of the container -&gt; ssh into it and do <code>ip addr</code></li>
-</ul>
-<h3 id="difference-between-ipvlan-and-macvlan">Difference between IPVLAN and MACVLAN:</h3>
-<ul>
-<li>if use IPVLAN: container will get the same MAC address as your host</li>
-<li>if use MACVLAN: container will have a different MAC address from host</li>
-</ul>
-<h2 id="overlay-network">Overlay network</h2>
-<ul>
-<li>When you deploy your applications to production, you will need more than one physical or virtual server, each with a Docker daemon installed.</li>
-<li>The overlay network driver creates a distributed network among multiple Docker daemon hosts.</li>
-<li>This network sits on top of (overlays) the host-specific networks, allowing containers connected to it to communicate securely, especially when encryption is enabled.</li>
-<li>Most frequently, this type of network is used with <strong>Docker Swarm</strong> , but it is also possible to connect individual containers.</li>
-<li>Comment from youtuber: to manage containers at scale, especially in production, consider using Kubernetes.</li>
-<li>need to disable</li>
-<li>Example of usage of overlay network:</li>
-<li><code>2 ubuntu VMs</code></li>
-<li>find network interfaces on both VMs, e.g. ens33 on both VMs -&gt; disable this on the network interface on both VMs</li>
-<li><code>sudo ethtool -K ens33 tx-checksum-ip-generic off</code> (not persistent across restarts so might need to use something like a script using systemd service to automatically run it on boot)</li>
-<li>Even if you want to connect individual containers to overlay network, we still need to initialize the Docker Swarm</li>
-<li>on the first VM, run <code>docker swarm init</code></li>
-<li>will give a command you can execute on other VMs to join the Docker Swarm</li>
-<li>each VM must have docker installed</li>
-<li>manager and worker nodes (the VMs)</li>
-<li>on manager, create an overlay network and an attachable flag for individual containers to be able to use this network. Otherwise only swarm services will be able to use it.</li>
-<li>on the worker node (VM) if you do <code>docker network ls</code>, you will only see the overlay network when you start a container that uses the network (can start on the manager node)</li>
-<li>to verify that we can access containers on that overlay network deployed on different VMs, can SSH to the second container and use curl to send a request to the first container on the manager node</li>
-<li></li>
-</ul>
-<h1 id="overlay-networks">Overlay Networks</h1>
-<ul>
-<li>Allow containers running on <strong>different Docker hosts (machines)</strong> to communicate with each other as if they are on the same local network, while keeping the communcation secure and isolated.</li>
-</ul>
-<p>Why normal Docker networks is not enough?
-- By default, Docker creates a <strong>bridge network</strong> on a single host (like bridge0 on Linux)
-- Containers connected to this <strong>bridge</strong> can talk to each other, <strong>but only on the same host</strong>.</p>
-<p>If you want: 
-- multiple physical/virtual servers
-- running containers that need to talk to each other
-- <strong>Need something that span across hosts</strong></p>
-<h2 id="how-overlay-networks-work">How overlay networks work?</h2>
-<ul>
-<li>Docker creates a virtual distributed network that spans all participating nodes (hosts).</li>
-<li>uses VXLAN tunneling (encapsulating packets inside UDP) so that container-to-container traffic can move across hosts transparently.</li>
-<li>network is managed by Docker swarm or Docker engine in swarm mode</li>
-</ul>
-<p>Example:
-- Host A has a container running web.
-- Host B has a container running db.
-- Both containers join the same overlay network called backend-net.
-- Now web can talk to db using the container name (db:3306), even though they are on different machines.</p>
+<p>Below is <strong>the exact step-by-step way to dockerize your first IED (ST_IED)</strong> using the networking architecture you selected.</p>
+<p>✅ After this, you will be able to repeat the process for GT, EG, HRSG by copying 1 folder and changing:
+– the Python script filename
+– the Modbus port
+– the MACVLAN IP</p>
+<p>Everything else stays identical.</p>
+<hr />
+<h1 id="part-1-prepare-the-first-ied-for-dockerizing-st-ied">✅ <strong>PART 1 — Prepare the first IED for Dockerizing (ST IED)</strong></h1>
+<p>We will create this structure:</p>
+<pre><code>st_ied/
+│
+├── Dockerfile
+├── requirements.txt
+└── ST_IED_pg.py
+</code></pre>
+<hr />
+<h1 id="1-create-requirementstxt">✅ <strong>1. Create <code>requirements.txt</code></strong></h1>
+<p><code>requirements.txt</code>:</p>
+<pre><code>psycopg2
+pymodbus
+</code></pre>
+<hr />
+<h1 id="2-create-the-dockerfile">✅ <strong>2. Create the Dockerfile</strong></h1>
+<p><code>Dockerfile</code>:</p>
+<pre><code class="language-dockerfile">FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install Postgres client dependencies
+RUN apt-get update &amp;&amp; apt-get install -y --no-install-recommends \
+    libpq-dev gcc \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD [&quot;python3&quot;, &quot;ST_IED_pg.py&quot;]
+</code></pre>
+<p>✅ This Dockerfile is reusable for all IEDs.
+You only replace the Python filename inside <code>CMD</code>.</p>
+<hr />
+<h1 id="3-modify-your-st_ied-python-script-to-use-environment-variables">✅ <strong>3. Modify your ST_IED Python script to use environment variables</strong></h1>
+<p>Replace your <code>establish_connection()</code> function with this:</p>
+<pre><code class="language-python">import os
+
+def establish_connection():
+    conn = psycopg2.connect(
+        host=os.getenv(&quot;DB_HOST&quot;, &quot;ccp-multi-ied-multi-plc-pg&quot;),
+        port=os.getenv(&quot;DB_PORT&quot;, &quot;5432&quot;),
+        user=os.getenv(&quot;DB_USER&quot;, &quot;root&quot;),
+        password=os.getenv(&quot;DB_PASS&quot;, &quot;root&quot;),
+        database=os.getenv(&quot;DB_NAME&quot;, &quot;powerplant&quot;)
+    )
+    return conn
+</code></pre>
+<p>✅ No more hardcoded IP
+✅ Container resolves Postgres by <strong>container name</strong>
+✅ DB host changes don’t affect your script anymore</p>
+<hr />
+<h1 id="part-2-create-the-docker-compose-entry-for-st-ied">✅ <strong>PART 2 — Create the docker-compose entry for ST IED</strong></h1>
+<p>Since you already created the two networks:</p>
+<p>✅ <code>ied_pg_net</code> (for DB access)
+✅ <code>plc-macvlan-40</code> (for PLC access)</p>
+<p>Your docker-compose for <strong>one IED</strong> looks like this:</p>
+<p><code>docker-compose.yml</code>:</p>
+<pre><code class="language-yaml">version: &quot;3.9&quot;
+
+services:
+  st_ied:
+    build: ./st_ied
+    container_name: st_ied
+    networks:
+      ied_pg_net: {}                 # bridge network for DB
+      plc-macvlan-40:
+        ipv4_address: 192.168.40.210  # example IP
+    environment:
+      DB_HOST: ccp-multi-ied-multi-plc-pg
+      DB_PORT: &quot;5432&quot;
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: powerplant
+    ports:
+      - &quot;504:504&quot;   # expose for debugging (optional)
+      - &quot;50001:50001&quot;  # TCP listener (optional)
+
+networks:
+  ied_pg_net:
+    external: true
+
+  plc-macvlan-40:
+    external: true
+</code></pre>
+<h3 id="why-this-works">✅ Why this works</h3>
+<p>✔ ST IED joins <code>ied_pg_net</code>, so it can reach PostgreSQL by:</p>
+<pre><code>host = &quot;ccp-multi-ied-multi-plc-pg&quot;
+</code></pre>
+<p>✔ ST IED joins <code>plc-macvlan-40</code> with a static IP:</p>
+<pre><code>192.168.40.210
+</code></pre>
+<p>✔ PLC (at e.g. 192.168.40.202) can reach the IED via Modbus at:</p>
+<pre><code>192.168.40.210:504
+</code></pre>
+<hr />
+<h1 id="part-3-build-run-your-first-dockerized-ied">✅ <strong>PART 3 — Build + Run your first dockerized IED</strong></h1>
+<p>Build:</p>
+<pre><code class="language-bash">docker compose build st_ied
+</code></pre>
+<p>Run:</p>
+<pre><code class="language-bash">docker compose up -d st_ied
+</code></pre>
+<p>Check its IP inside the macvlan network:</p>
+<pre><code class="language-bash">docker inspect st_ied | grep IPAddress
+</code></pre>
+<p>Check logs:</p>
+<pre><code class="language-bash">docker logs -f st_ied
+</code></pre>
+<p>✅ If you see <code>[ST] Initial Modbus context values…</code> → the IED is working
+✅ If you see <code>[ST: DB sync] Updated Modbus reg…</code> → DB polling works
+✅ PLC should now read registers</p>
+<hr />
+<h1 id="part-4-how-to-dockerize-the-remaining-ieds">✅ <strong>PART 4 — How to dockerize the remaining IEDs</strong></h1>
+<p>Now simply repeat this <strong>exact same folder pattern</strong>:</p>
+<pre><code>eg_ied/
+│── Dockerfile
+│── requirements.txt
+│── EG_IED_pg.py
+
+gt_ied/
+│── Dockerfile
+│── requirements.txt
+│── GT_IED_pg.py
+
+hrsg_ied/
+│── Dockerfile
+│── requirements.txt
+│── HRSG_IED_pg.py
+</code></pre>
+<p>And add each service to docker-compose:</p>
+<p>✅ EG IED Example</p>
+<pre><code class="language-yaml">  eg_ied:
+    build: ./eg_ied
+    container_name: eg_ied
+    networks:
+      ied_pg_net: {}
+      plc-macvlan-40:
+        ipv4_address: 192.168.40.211
+    environment:
+      DB_HOST: ccp-multi-ied-multi-plc-pg
+      DB_PORT: &quot;5432&quot;
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: powerplant
+    ports:
+      - &quot;505:505&quot;
+</code></pre>
+<p>✅ GT IED</p>
+<pre><code class="language-yaml">  gt_ied:
+    build: ./gt_ied
+    container_name: gt_ied
+    networks:
+      ied_pg_net: {}
+      plc-macvlan-40:
+        ipv4_address: 192.168.40.212
+    environment:
+      DB_HOST: ccp-multi-ied-multi-plc-pg
+      DB_PORT: &quot;5432&quot;
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: powerplant
+    ports:
+      - &quot;502:502&quot;
+</code></pre>
+<p>✅ HRSG IED</p>
+<pre><code class="language-yaml">  hrsg_ied:
+    build: ./hrsg_ied
+    container_name: hrsg_ied
+    networks:
+      ied_pg_net: {}
+      plc-macvlan-40:
+        ipv4_address: 192.168.40.213
+    environment:
+      DB_HOST: ccp-multi-ied-multi-plc-pg
+      DB_PORT: &quot;5432&quot;
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: powerplant
+    ports:
+      - &quot;503:503&quot;
+      - &quot;50000:50000&quot;
+</code></pre>
+<hr />
+<h1 id="part-5-final-networking-diagram">✅ <strong>PART 5 — Final Networking Diagram</strong></h1>
+<pre><code>         (ied_pg_net)
+  +------------------------------+
+  |    Postgres (container)     |
+  +------------------------------+
+               |
+               |
+         +-----+------+
+         |   IEDs     | (all also join plc-macvlan-40)
+         +------------+
+          |    |    |
+    192.168.40.210  (ST)
+    192.168.40.211  (EG)
+    192.168.40.212  (GT)
+    192.168.40.213  (HRSG)
+          |
+          |  (physical MACVLAN)
+   +------+------------------+
+   |          PLC           |
+   |   192.168.40.202       |
+   +------------------------+
+</code></pre>
+<p>✅ <strong>PLC ↔ IED</strong> on MACVLAN subnet
+✅ <strong>IED ↔ Postgres</strong> on shared bridge network
+✅ <strong>PLCs cannot reach PostgreSQL</strong> (secure)</p>
+<hr />
+<h1 id="if-you-want">✅ <strong>If you want:</strong></h1>
+<p>I can generate <strong>the full production-ready docker-compose</strong> containing:</p>
+<p>✅ All 4 IEDs
+✅ Naming conventions
+✅ Restart policies
+✅ Healthchecks
+✅ Logs mounted to local files
+✅ Automatic DB wait-for initialization</p>
+<p>Just say:
+<strong>“Generate full multi-IED docker-compose.”</strong></p>
 
 
 

@@ -8,13 +8,9 @@
       
       
       
-        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Docker_Networks/">
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Routes/">
       
       
-        <link rel="prev" href="../DockerBuild/">
-      
-      
-        <link rel="next" href="../Docker_Macvlan_Network/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>Docker Networking - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+        <title>Question: how do I check that this does not conflict with any of the other existing routes sudo route -n add 192.168.40.0/24 192.168.30.60 - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
       
     
     
@@ -64,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#docker-networking-tutorial-bridge-none-host-ipvlan-macvlan-overlay" class="md-skip">
+        <a href="#question-how-do-i-check-that-this-does-not-conflict-with-any-of-the-other-existing-routes-sudo-route-n-add-19216840024-1921683060" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Docker Networking
+              Question: how do I check that this does not conflict with any of the other existing routes sudo route -n add 192.168.40.0/24 192.168.30.60
             
           </span>
         </div>
@@ -239,20 +235,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -268,7 +262,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Docker
@@ -302,30 +296,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Docker Networking
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../Docker_Networks/" class="md-nav__link">
         
   
   
@@ -336,150 +310,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#docker-networking-tutorial-bridge-none-host-ipvlan-macvlan-overlay" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Networking Tutorial (Bridge - None - Host - IPvlan - Macvlan - Overlay)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-bridge" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Bridge
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Docker Bridge">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#when-you-install-docker-for-the-first-time-it-will-create-a-default-bridge-network-on-the-host-slightly-different-on-macos-as-it-will-run-al-containers-inside-a-linux-vm-virtualization-framework" class="md-nav__link">
-    <span class="md-ellipsis">
-      When you install Docker for the first time, it will create a default bridge network on the host (slightly different on MacOS as it will run al containers inside a Linux VM, virtualization framework)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#containers-created-in-the-default-bridge-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      Containers created in the default bridge network
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#user-defined-bridge-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      User defined bridge network**:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#host-mode-networking-option" class="md-nav__link">
-    <span class="md-ellipsis">
-      Host mode - networking option
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ipvlan-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      IPvlan network:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#macvlan-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      MacVLAN network:
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="MacVLAN network:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#difference-between-ipvlan-and-macvlan" class="md-nav__link">
-    <span class="md-ellipsis">
-      Difference between IPVLAN and MACVLAN:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overlay-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overlay network
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overlay-networks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overlay Networks
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Overlay Networks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-overlay-networks-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      How overlay networks work?
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1401,140 +1231,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#docker-networking-tutorial-bridge-none-host-ipvlan-macvlan-overlay" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Networking Tutorial (Bridge - None - Host - IPvlan - Macvlan - Overlay)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-bridge" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Bridge
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Docker Bridge">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#when-you-install-docker-for-the-first-time-it-will-create-a-default-bridge-network-on-the-host-slightly-different-on-macos-as-it-will-run-al-containers-inside-a-linux-vm-virtualization-framework" class="md-nav__link">
-    <span class="md-ellipsis">
-      When you install Docker for the first time, it will create a default bridge network on the host (slightly different on MacOS as it will run al containers inside a Linux VM, virtualization framework)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#containers-created-in-the-default-bridge-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      Containers created in the default bridge network
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#user-defined-bridge-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      User defined bridge network**:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#host-mode-networking-option" class="md-nav__link">
-    <span class="md-ellipsis">
-      Host mode - networking option
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ipvlan-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      IPvlan network:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#macvlan-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      MacVLAN network:
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="MacVLAN network:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#difference-between-ipvlan-and-macvlan" class="md-nav__link">
-    <span class="md-ellipsis">
-      Difference between IPVLAN and MACVLAN:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overlay-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overlay network
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#overlay-networks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overlay Networks
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Overlay Networks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-overlay-networks-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      How overlay networks work?
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -1553,114 +1251,331 @@
   
 
 
-<h2 id="docker-networking-tutorial-bridge-none-host-ipvlan-macvlan-overlay">Docker Networking Tutorial (Bridge - None - Host - IPvlan - Macvlan - Overlay)</h2>
-<p>Reference: https://youtu.be/fBRgw5dyBd4?si=LodjJDx4AdnjYOS6</p>
-<h2 id="docker-bridge">Docker Bridge</h2>
+<h1 id="question-how-do-i-check-that-this-does-not-conflict-with-any-of-the-other-existing-routes-sudo-route-n-add-19216840024-1921683060">Question: how do I check that this does not conflict with any of the other existing routes sudo route -n add 192.168.40.0/24 192.168.30.60</h1>
+<p>To <strong>check whether adding the route will conflict with any existing routes</strong> on your macOS machine, follow these steps <strong>before</strong> you run:</p>
+<pre><code>sudo route -n add 192.168.40.0/24 192.168.30.60
+</code></pre>
+<hr />
+<h1 id="1-check-your-current-routing-table">✅ <strong>1. Check your current routing table</strong></h1>
+<p>On your <strong>MacBook</strong>, run:</p>
+<pre><code>netstat -rn
+</code></pre>
+<p>or:</p>
+<pre><code>route -n get 192.168.40.0
+</code></pre>
+<p>You are looking for any existing route entries that already reference <strong>192.168.40.0/24</strong>.</p>
+<h3 id="example-of-what-to-look-for">Example of what to look for:</h3>
 <ul>
-<li>2 segments that the bridge connects is:</li>
-<li>local host e.g. your laptop, or linux server where you run your Docker containers</li>
-<li>virtual network created by Docker</li>
-<li></li>
+<li>If you see something like:</li>
 </ul>
-<h3 id="when-you-install-docker-for-the-first-time-it-will-create-a-default-bridge-network-on-the-host-slightly-different-on-macos-as-it-will-run-al-containers-inside-a-linux-vm-virtualization-framework">When you install Docker for the first time, it will create a default bridge network on the host (slightly different on MacOS as it will run al containers inside a Linux VM, virtualization framework)</h3>
+<pre><code>192.168.40/24      link#xx
+</code></pre>
+<p>or:</p>
+<pre><code>192.168.40.0/24    192.168.1.1
+</code></pre>
+<p>That means <strong>a route already exists</strong>, and adding a new one will <strong>create conflict</strong> or override it.</p>
+<p>✅ If <strong>no entry</strong> exists for <code>192.168.40.*</code>, then it is safe.</p>
+<hr />
+<h1 id="2-check-for-overlapping-networks">✅ <strong>2. Check for overlapping networks</strong></h1>
+<p>Run:</p>
+<pre><code>ifconfig
+</code></pre>
+<p>or:</p>
+<pre><code>ipconfig getifaddr en0
+</code></pre>
+<p>You want to ensure none of your Mac interfaces are already using:</p>
 <ul>
-<li>all containers you create on that host will get an IP address on that range</li>
+<li>192.168.40.x</li>
+<li>A VPN that uses 192.168.40.x</li>
+<li>A hotspot that uses 192.168.40.x</li>
 </ul>
-<p>On a Linux host, Docker Engine directly creates a docker0 bridge network interface in the host’s network stack. That’s the familiar default bridge you see with ifconfig or ip a (usually 172.17.0.1/16).
-<img width="884" height="610" alt="image" src="https://github.com/user-attachments/assets/0f59a653-6033-4d16-b14b-aaaf61bfb04f" /></p>
-<p>On a Mac (macOS) or Windows, things are different:</p>
-<p>Docker Desktop does not create a native docker0 bridge interface on your MacBook’s network stack.</p>
-<p>Instead, Docker Desktop runs all containers inside a lightweight Linux VM (on macOS, this is managed using Apple’s HyperKit or now a Virtualization Framework).</p>
-<p>Inside that VM, Docker does create a docker0 bridge (just like on Linux). But this bridge is inside the VM, not on macOS itself.</p>
-<p>From your MacBook’s perspective, you won’t see docker0 if you run ifconfig or ip a. Instead, Docker Desktop sets up a special networking layer that forwards traffic between your MacBook and the VM.</p>
-<p>So to answer directly:</p>
-<p>👉 No, Docker Desktop does not create a default bridge network on your MacBook’s host network stack.
-👉 Yes, it does create a default bridge network inside the Linux VM where your containers run.</p>
-<p>If you run:
-<code>docker network ls</code>
-you’ll still see bridge, host, and none listed, because those networks exist in the Docker VM environment, even though your Mac itself doesn’t expose them as interfaces.</p>
-<p>Do you want me to also explain how you can check the actual IP range of the bridge network inside Docker Desktop on your Mac?</p>
-<h2 id="containers-created-in-the-default-bridge-network">Containers created in the default bridge network</h2>
+<p>If any interface is already in <code>192.168.40.0/24</code>, then the macvlan network will conflict.</p>
+<hr />
+<h1 id="3-verify-gateway-reachability-1921683060">✅ <strong>3. Verify gateway reachability (192.168.30.60)</strong></h1>
+<p>The route you plan to add uses:</p>
+<p><strong>192.168.30.60</strong> → Ubuntu VM interface (enp0s3)</p>
+<p>Check that it is reachable from your Mac:</p>
+<pre><code>ping 192.168.30.60
+</code></pre>
+<p>If unreachable, the static route will not work.</p>
+<hr />
+<h1 id="4-verify-that-macvlan-network-is-isolated">✅ <strong>4. Verify that macvlan network is isolated</strong></h1>
+<p>macvlan uses:</p>
 <ul>
-<li>can communicate with each other</li>
-<li>default bridge network has restrictions and is not recommended for production, better to use user-defined bridge network.</li>
-<li>Default bridge network: Cannot use container DNS from host </li>
-<li>In default bridge network, DNS is not supported. Also cannot use DNS to send requests between containers.</li>
+<li>PLCs: <code>192.168.40.x</code></li>
+<li>Ubuntu host macvlan interface: <code>192.168.40.250</code></li>
+<li>But macOS cannot reach them <strong>unless routed</strong>.</li>
 </ul>
-<h2 id="user-defined-bridge-network">User defined bridge network**:</h2>
+<p>So adding the route:</p>
+<pre><code>192.168.40.0/24 via 192.168.30.60
+</code></pre>
+<p>is correct <strong>as long as no other network on your Mac already uses 192.168.40.0/24</strong>.</p>
+<hr />
+<h1 id="5-simulate-the-routing-decision-dry-run">✅ <strong>5. Simulate the routing decision (Dry-run)</strong></h1>
+<p>Before adding the route, check how macOS currently resolves that subnet:</p>
+<pre><code>route -n get 192.168.40.100
+</code></pre>
+<p>Expected output <em>before adding route</em>:</p>
+<pre><code>route: no route to host
+</code></pre>
+<p>or:</p>
+<pre><code>gateway: 192.168.30.1 (your home router)
+</code></pre>
+<p>If the gateway shown is your router (192.168.30.1), then it's fine—you want macOS to stop sending 192.168.40.* traffic to your router and instead route it to the VM.</p>
+<hr />
+<h1 id="final-steps">✅ <strong>Final steps</strong></h1>
+<h3 id="if-no-conflict-add-the-route">✅ If no conflict → Add the route:</h3>
+<pre><code>sudo route -n add 192.168.40.0/24 192.168.30.60
+</code></pre>
+<h3 id="confirm-the-route-was-added">✅ Confirm the route was added:</h3>
+<pre><code>netstat -rn | grep 192.168.40
+</code></pre>
+<p>Expected:</p>
+<pre><code>192.168.40/24    192.168.30.60    UGSc
+</code></pre>
+<hr />
+<h1 id="after-adding-route-test-connectivity-to-plc-container">✅ After adding route, test connectivity to PLC container:</h1>
+<pre><code>curl http://192.168.40.202:8080
+</code></pre>
+<p>or:</p>
+<pre><code>ping 192.168.40.202
+</code></pre>
+<hr />
+<h1 id="if-you-want-me-to-check-your-routing-table-now">✅ If you want me to check your routing table now</h1>
+<p>Paste the output:</p>
+<pre><code>netstat -rn
+</code></pre>
+<p>and I will tell you <strong>exactly</strong> whether it conflicts and whether it is safe to add this new static route.</p>
+<h2 id="dnat-rules">DNAT RULES</h2>
+<p>Here is how you can <strong>reuse the same iptables DNAT (port-forwarding) setup</strong> <em>even when you must stay connected through a VPN</em> and <strong>cannot rely on macOS en0 bridging</strong>.</p>
+<hr />
+<h1 id="goal-recap">✅ <strong>Goal Recap</strong></h1>
+<p>You want to access 4 different remote servers (192.168.40.201–204 port 8080) through <strong>your remote Ubuntu VM</strong> using DNAT:</p>
+<table>
+<thead>
+<tr>
+<th>Public Port on VM</th>
+<th>Internal Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8081</td>
+<td>192.168.40.201:8080</td>
+</tr>
+<tr>
+<td>8082</td>
+<td>192.168.40.202:8080</td>
+</tr>
+<tr>
+<td>8083</td>
+<td>192.168.40.203:8080</td>
+</tr>
+<tr>
+<td>8084</td>
+<td>192.168.40.204:8080</td>
+</tr>
+</tbody>
+</table>
+<p>And you access them from your MacBook using:</p>
+<pre><code>http://192.168.30.60:8081/login
+http://192.168.30.60:8082/login
+http://192.168.30.60:8083/login
+http://192.168.30.60:8084/login
+</code></pre>
+<p>This means:
+✅ You want all port forwarding to stay inside the <strong>remote Ubuntu VM</strong>
+✅ You want to keep using the VM as a reverse proxy
+✅ You want this to work whether VPN is up or not
+✅ macOS interface (en0) should not matter</p>
+<p>✅ <strong>This is possible.</strong>
+You just need <strong>correct IP forwarding + NAT rules</strong> inside the <em>Ubuntu VM</em>.</p>
+<hr />
+<h1 id="1-enable-ip-forwarding-on-the-remote-ubuntu-vm">✅ <strong>1. Enable IP Forwarding on the Remote Ubuntu VM</strong></h1>
+<p>Run:</p>
+<pre><code class="language-bash">sudo sysctl -w net.ipv4.ip_forward=1
+</code></pre>
+<p>Make it permanent:</p>
+<pre><code class="language-bash">echo &quot;net.ipv4.ip_forward=1&quot; | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+</code></pre>
+<hr />
+<h1 id="2-add-your-dnat-port-forwarding-rules">✅ <strong>2. Add Your DNAT Port-Forwarding Rules</strong></h1>
+<h3 id="dnat-destination-nat"><strong>DNAT (destination NAT):</strong></h3>
+<pre><code class="language-bash">sudo iptables -t nat -A PREROUTING -p tcp --dport 8081 -j DNAT --to-destination 192.168.40.201:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8082 -j DNAT --to-destination 192.168.40.202:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8083 -j DNAT --to-destination 192.168.40.203:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8084 -j DNAT --to-destination 192.168.40.204:8080
+</code></pre>
+<h3 id="snat-so-return-packets-go-back-correctly"><strong>SNAT (so return packets go back correctly):</strong></h3>
+<p>Assuming the VM internal interface is <strong>eth0</strong> and its internal IP is <strong>192.168.30.60</strong>:</p>
+<h3 id="this-is-not-correct-refer-to-version-below-instead">THIS IS NOT CORRECT - REFER TO VERSION BELOW INSTEAD !</h3>
+<pre><code class="language-bash">sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE 
+</code></pre>
+<p>If the VPN creates a tun0 interface and traffic comes in through it, add:</p>
+<pre><code class="language-bash">sudo iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
+</code></pre>
+<hr />
+<h1 id="3-allow-traffic-through-firewall-if-ufw-is-active">✅ <strong>3. Allow traffic through firewall (if ufw is active)</strong></h1>
+<p>Check:</p>
+<pre><code class="language-bash">sudo ufw status
+</code></pre>
+<p>If active:</p>
+<pre><code class="language-bash">sudo ufw allow 8081/tcp
+sudo ufw allow 8082/tcp
+sudo ufw allow 8083/tcp
+sudo ufw allow 8084/tcp
+</code></pre>
+<hr />
+<h1 id="4-verify-port-forwarding-is-working">✅ <strong>4. Verify Port-Forwarding Is Working</strong></h1>
+<h3 id="check-nat-rules"><strong>Check NAT rules:</strong></h3>
+<pre><code class="language-bash">sudo iptables -t nat -L -n -v
+</code></pre>
+<p>You should see entries like:</p>
+<pre><code>DNAT tcp -- anywhere 192.168.30.60 tcp dpt:8081 to:192.168.40.201:8080
+</code></pre>
+<hr />
+<h1 id="5-test-from-the-ubuntu-vm-first">✅ <strong>5. Test from the Ubuntu VM first</strong></h1>
+<pre><code class="language-bash">curl http://192.168.30.60:8081/login
+curl http://192.168.30.60:8082/login
+</code></pre>
+<p>If these work → MacBook will also work.</p>
+<hr />
+<h1 id="6-nothing-needed-on-your-macbook">✅ <strong>6. Nothing Needed on Your MacBook</strong></h1>
+<p>Since DNAT happens <strong>inside the Ubuntu VM</strong>, macOS en0 or VPN interfaces do not affect your success.</p>
+<p>You only need:</p>
+<p>✅ You can reach 192.168.30.60
+✅ The Ubuntu VM has working DNAT rules
+✅ VPN routes traffic to 192.168.40.x</p>
+<hr />
+<h1 id="summary-this-solves-your-problem">✅ <strong>Summary: This solves your problem</strong></h1>
+<p>✅ Keep using VPN
+✅ Keep using the Ubuntu VM
+✅ Reuse iptables DNAT
+✅ No need to modify Mac networking
+✅ Access continues to work through:</p>
+<pre><code>192.168.30.60:8081 → 192.168.40.201:8080
+192.168.30.60:8082 → 192.168.40.202:8080
+192.168.30.60:8083 → 192.168.40.203:8080
+192.168.30.60:8084 → 192.168.40.204:8080
+</code></pre>
+<hr />
+<p>If you'd like, I can also:</p>
+<p>✅ generate a <strong>persistent iptables script</strong>
+✅ convert this to <strong>nftables</strong> (recommended on Ubuntu 20.04+)
+✅ troubleshoot broken forwarding rules</p>
+<p>Just tell me!</p>
+<h2 id="question-which-of-these-am-i-supposed-to-do">QUESTION: which of these am I supposed to do</h2>
+<p>SNAT (so return packets go back correctly):</p>
+<p>Assuming the VM internal interface is eth0 and its internal IP is 192.168.30.60:</p>
+<p>sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</p>
+<p>If the VPN creates a tun0 interface and traffic comes in through it, add:</p>
+<p>sudo iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE</p>
+<p>Here is the <strong>simple rule</strong> for you:</p>
+<p>✅ <strong>You only need to MASQUERADE on the interface that traffic is leaving the VM through.</strong>
+You do <strong>not</strong> apply both unless your traffic leaves through both.</p>
+<p>Let’s break it down clearly.</p>
+<hr />
+<h1 id="step-1-identify-which-interface-is-used-for-routing-to-19216840x">✅ Step 1 — Identify which interface is used for routing to 192.168.40.x</h1>
+<p>Run this on the <strong>Ubuntu VM</strong>:</p>
+<pre><code class="language-bash">ip route get 192.168.40.201
+</code></pre>
+<p>This will output something like:</p>
+<pre><code>192.168.40.201 via 192.168.30.1 dev eth0
+</code></pre>
+<p>or maybe:</p>
+<pre><code>192.168.40.201 via 10.8.0.1 dev tun0
+</code></pre>
+<p>✅ Whatever <strong>dev <interface></strong> appears is the interface you must use in POSTROUTING.</p>
+<hr />
+<h1 id="step-2-use-the-correct-masquerade-rule-based-on-the-result">✅ Step 2 — Use the correct MASQUERADE rule based on the result</h1>
+<h3 id="case-a-if-it-says-dev-eth0">✅ <strong>Case A: If it says <code>dev eth0</code></strong></h3>
+<p>Use:</p>
+<pre><code class="language-bash">sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+</code></pre>
+<h3 id="case-b-if-it-says-dev-tun0">✅ <strong>Case B: If it says <code>dev tun0</code></strong></h3>
+<p>Use:</p>
+<pre><code class="language-bash">sudo iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
+</code></pre>
+<h3 id="case-c-if-some-servers-go-through-eth0-and-some-through-tun0">✅ <strong>Case C: If some servers go through eth0 and some through tun0</strong></h3>
+<p>Then — and only then — use <em>both</em>.</p>
+<hr />
+<h1 id="why-this-matters">✅ Why this matters</h1>
+<p>DNAT forwards traffic <em>into</em> your VM, but when the internal server replies:</p>
 <ul>
-<li><strong>Can use DNS to send requests to containers.</strong> </li>
-<li><strong>This only applies to communications inside the bridge network between containers. You still will NOT be able to use the container DNS from the host.</strong></li>
+<li>It must send packets <strong>back the same interface</strong> the VM used to reach it.</li>
+<li>MASQUERADE ensures the internal server returns traffic to the VM, not directly to your Mac.</li>
 </ul>
-<h2 id="host-mode-networking-option">Host mode - networking option</h2>
+<p>Without the correct MASQUERADE → the return packets never reach you.</p>
+<hr />
+<h1 id="quick-example-so-youre-confident">✅ Quick example so you're confident</h1>
+<h3 id="if-you-run">If you run:</h3>
+<pre><code class="language-bash">ip route get 192.168.40.201
+</code></pre>
+<p>Result is:</p>
+<pre><code>192.168.40.201 via 192.168.30.1 dev eth0
+</code></pre>
+<p>✅ You only need the eth0 rule.</p>
+<hr />
+<h1 id="want-me-to-check-your-routing-output">✅ Want me to check your routing output?</h1>
+<p>Paste the output of:</p>
+<pre><code>ip route
+ip addr
+ip route get 192.168.40.201
+</code></pre>
+<p>I will tell you exactly which MASQUERADE rule is correct.</p>
+<h1 id="output">Output :</h1>
+<pre><code>ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$ ip route get 192.168.40.201 192.168.40.201 dev macvlan0 src 192.168.40.254 uid 1000 cache ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$
+</code></pre>
+<p>Great — this makes it <strong>very clear</strong> what you need.</p>
+<p>Your Ubuntu VM reaches <strong>192.168.40.x</strong> through:</p>
+<p>✅ <strong>Interface: <code>macvlan0</code></strong>
+✅ <strong>Source IP: <code>192.168.40.254</code></strong></p>
+<p>That means:</p>
 <ul>
-<li>container will not get its own IP and instead share the same networking namespace as the host where you run the container</li>
-<li>will appear as if you were running a regular application on that host</li>
-<li>thus any application running on a different server will be able to access the container using the host's IP address</li>
+<li>Your VM <strong>already has an IP inside the 192.168.40.0/24 network</strong> (via macvlan)</li>
+<li>Packets to 192.168.40.x <strong>do NOT leave through eth0 or tun0</strong></li>
+<li>DNAT forwarding will only work if you MASQUERADE <strong>out of macvlan0</strong></li>
 </ul>
-<h2 id="ipvlan-network">IPvlan network:</h2>
+<p>So the correct SNAT rule is:</p>
+<h1 id="snat-masquerade-rule">✅ SNAT / MASQUERADE rule</h1>
+<pre><code class="language-bash">sudo iptables -t nat -A POSTROUTING -o macvlan0 -j MASQUERADE
+</code></pre>
+<p>This ensures that replies from:</p>
 <ul>
-<li>Traditionally, to expose a container to the outside world we used bridge network. But it adds additional complexity and performance penalty. Packet needs to go through additional hop, need to map ports from the container to the host to expose it to other applications.  </li>
-<li>Does not use a bridge for isolation and is associated directly with the Linux network interface. No need for port mappings in these scenarios.</li>
+<li>192.168.40.201</li>
+<li>192.168.40.202</li>
+<li>192.168.40.203</li>
+<li>192.168.40.204</li>
 </ul>
-<h2 id="macvlan-network">MacVLAN network:</h2>
-<ul>
-<li>Some legacy applications and those that monitor network traffic expect to be directly connected to the physical network.</li>
-<li>In this case, can use the MacVLAN network driver to assign a MAC address to each container's virtual network interface.</li>
-<li>It will appear as a physical network interface directly connected to the physical network.</li>
-<li>to create it, must specify the subnet that the host uses, the gateway, and the parent network interface</li>
-<li>compare the parent MAC address (parent interface) -&gt; e.g. ip addr show ens33</li>
-<li>MAC address of the container -&gt; ssh into it and do <code>ip addr</code></li>
-</ul>
-<h3 id="difference-between-ipvlan-and-macvlan">Difference between IPVLAN and MACVLAN:</h3>
-<ul>
-<li>if use IPVLAN: container will get the same MAC address as your host</li>
-<li>if use MACVLAN: container will have a different MAC address from host</li>
-</ul>
-<h2 id="overlay-network">Overlay network</h2>
-<ul>
-<li>When you deploy your applications to production, you will need more than one physical or virtual server, each with a Docker daemon installed.</li>
-<li>The overlay network driver creates a distributed network among multiple Docker daemon hosts.</li>
-<li>This network sits on top of (overlays) the host-specific networks, allowing containers connected to it to communicate securely, especially when encryption is enabled.</li>
-<li>Most frequently, this type of network is used with <strong>Docker Swarm</strong> , but it is also possible to connect individual containers.</li>
-<li>Comment from youtuber: to manage containers at scale, especially in production, consider using Kubernetes.</li>
-<li>need to disable</li>
-<li>Example of usage of overlay network:</li>
-<li><code>2 ubuntu VMs</code></li>
-<li>find network interfaces on both VMs, e.g. ens33 on both VMs -&gt; disable this on the network interface on both VMs</li>
-<li><code>sudo ethtool -K ens33 tx-checksum-ip-generic off</code> (not persistent across restarts so might need to use something like a script using systemd service to automatically run it on boot)</li>
-<li>Even if you want to connect individual containers to overlay network, we still need to initialize the Docker Swarm</li>
-<li>on the first VM, run <code>docker swarm init</code></li>
-<li>will give a command you can execute on other VMs to join the Docker Swarm</li>
-<li>each VM must have docker installed</li>
-<li>manager and worker nodes (the VMs)</li>
-<li>on manager, create an overlay network and an attachable flag for individual containers to be able to use this network. Otherwise only swarm services will be able to use it.</li>
-<li>on the worker node (VM) if you do <code>docker network ls</code>, you will only see the overlay network when you start a container that uses the network (can start on the manager node)</li>
-<li>to verify that we can access containers on that overlay network deployed on different VMs, can SSH to the second container and use curl to send a request to the first container on the manager node</li>
-<li></li>
-</ul>
-<h1 id="overlay-networks">Overlay Networks</h1>
-<ul>
-<li>Allow containers running on <strong>different Docker hosts (machines)</strong> to communicate with each other as if they are on the same local network, while keeping the communcation secure and isolated.</li>
-</ul>
-<p>Why normal Docker networks is not enough?
-- By default, Docker creates a <strong>bridge network</strong> on a single host (like bridge0 on Linux)
-- Containers connected to this <strong>bridge</strong> can talk to each other, <strong>but only on the same host</strong>.</p>
-<p>If you want: 
-- multiple physical/virtual servers
-- running containers that need to talk to each other
-- <strong>Need something that span across hosts</strong></p>
-<h2 id="how-overlay-networks-work">How overlay networks work?</h2>
-<ul>
-<li>Docker creates a virtual distributed network that spans all participating nodes (hosts).</li>
-<li>uses VXLAN tunneling (encapsulating packets inside UDP) so that container-to-container traffic can move across hosts transparently.</li>
-<li>network is managed by Docker swarm or Docker engine in swarm mode</li>
-</ul>
-<p>Example:
-- Host A has a container running web.
-- Host B has a container running db.
-- Both containers join the same overlay network called backend-net.
-- Now web can talk to db using the container name (db:3306), even though they are on different machines.</p>
+<p>…go back to the VM instead of being misrouted.</p>
+<hr />
+<h1 id="final-dnat-configuration-for-reference">✅ Final DNAT configuration (for reference)</h1>
+<pre><code>sudo iptables -t nat -A PREROUTING -p tcp --dport 8081 -j DNAT --to-destination 192.168.40.201:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8082 -j DNAT --to-destination 192.168.40.202:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8083 -j DNAT --to-destination 192.168.40.203:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8084 -j DNAT --to-destination 192.168.40.204:8080
+</code></pre>
+<p>And SNAT:</p>
+<pre><code>sudo iptables -t nat -A POSTROUTING -o macvlan0 -j MASQUERADE
+</code></pre>
+<hr />
+<h1 id="how-to-test-now">✅ How to test now</h1>
+<p>From your <strong>Mac</strong>:</p>
+<pre><code>curl http://192.168.30.60:8082/login
+</code></pre>
+<p>OR:</p>
+<pre><code>curl -v http://192.168.30.60:8082/login
+</code></pre>
+<p>If still no response, I can walk you through enabling <code>iptables</code> logging and confirm packets are being NATed.</p>
+<hr />
+<p>If you want, show me:</p>
+<pre><code>ip addr
+brctl show
+docker network ls
+docker network inspect &lt;your network&gt;
+</code></pre>
+<p>I can confirm exactly how your macvlan is wired.</p>
 
 
 
