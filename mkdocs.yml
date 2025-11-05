@@ -37,6 +37,7 @@ nav:
       - Systemctl Systemd: Systemctl_Systemd.md
       - Ubuntu Python Packages: Ubuntu_Python_Packages.md
       - Connecting DB IEDs PLCs: Connecting_DB_IEDs_PLCs.md
+      - Routes: Routes.md
   - SCADA:
       - ScadaLTS: ScadaLTS.md
   - OS:
