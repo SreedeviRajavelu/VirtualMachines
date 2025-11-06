@@ -536,7 +536,7 @@ I can confirm exactly how your macvlan is wired.
 # Question: will these DNAT configurations persist when VM is rebooted? if not, how can I make it persist across reboots of the VM ?
 
 
-
+```
 ✅ Final DNAT configuration (for reference)
 sudo iptables -t nat -A PREROUTING -p tcp --dport 8081 -j DNAT --to-destination 192.168.40.201:8080
 sudo iptables -t nat -A PREROUTING -p tcp --dport 8082 -j DNAT --to-destination 192.168.40.202:8080
@@ -544,7 +544,7 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 8083 -j DNAT --to-destination 
 sudo iptables -t nat -A PREROUTING -p tcp --dport 8084 -j DNAT --to-destination 192.168.40.204:8080
 And SNAT:
 sudo iptables -t nat -A POSTROUTING -o macvlan0 -j MASQUERADE
-
+```
 
 Short answer: **No, they will NOT persist after a reboot** unless you explicitly save and restore them.
 
