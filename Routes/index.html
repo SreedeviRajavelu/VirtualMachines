@@ -1615,6 +1615,90 @@ docker network ls
 docker network inspect &lt;your network&gt;
 </code></pre>
 <p>I can confirm exactly how your macvlan is wired.</p>
+<h1 id="question-will-these-dnat-configurations-persist-when-vm-is-rebooted-if-not-how-can-i-make-it-persist-across-reboots-of-the-vm">Question: will these DNAT configurations persist when VM is rebooted? if not, how can I make it persist across reboots of the VM ?</h1>
+<p>✅ Final DNAT configuration (for reference)
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8081 -j DNAT --to-destination 192.168.40.201:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8082 -j DNAT --to-destination 192.168.40.202:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8083 -j DNAT --to-destination 192.168.40.203:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8084 -j DNAT --to-destination 192.168.40.204:8080
+And SNAT:
+sudo iptables -t nat -A POSTROUTING -o macvlan0 -j MASQUERADE</p>
+<p>Short answer: <strong>No, they will NOT persist after a reboot</strong> unless you explicitly save and restore them.</p>
+<p>Below is the <strong>safest and simplest way</strong> to make your DNAT + SNAT rules persistent on Ubuntu.</p>
+<hr />
+<h1 id="best-method-use-iptables-persistent">✅ <strong>Best Method: Use <code>iptables-persistent</code></strong></h1>
+<h3 id="1-install-the-persistence-package">1. Install the persistence package</h3>
+<pre><code class="language-bash">sudo apt update
+sudo apt install iptables-persistent
+</code></pre>
+<p>During install, it will ask:</p>
+<p>✅ <strong>Save current IPv4 rules?</strong> → Select <strong>Yes</strong>
+✅ <strong>Save current IPv6 rules?</strong> → You can select <strong>No</strong> if you don’t use IPv6.</p>
+<hr />
+<h1 id="2-add-your-dnat-snat-rules-again">✅ 2. Add your DNAT + SNAT rules again</h1>
+<p>(re-enter them so they get saved)</p>
+<pre><code class="language-bash">sudo iptables -t nat -A PREROUTING -p tcp --dport 8081 -j DNAT --to-destination 192.168.40.201:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8082 -j DNAT --to-destination 192.168.40.202:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8083 -j DNAT --to-destination 192.168.40.203:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8084 -j DNAT --to-destination 192.168.40.204:8080
+
+sudo iptables -t nat -A POSTROUTING -o macvlan0 -j MASQUERADE
+</code></pre>
+<hr />
+<h1 id="3-save-the-rules-permanently">✅ 3. Save the rules permanently</h1>
+<pre><code class="language-bash">sudo netfilter-persistent save
+</code></pre>
+<p>This writes the rules into:</p>
+<pre><code>/etc/iptables/rules.v4
+</code></pre>
+<hr />
+<h1 id="4-verify-that-they-are-saved">✅ 4. Verify that they are saved</h1>
+<pre><code class="language-bash">sudo cat /etc/iptables/rules.v4
+</code></pre>
+<p>You should see your DNAT + MASQUERADE rules in this file.</p>
+<hr />
+<h1 id="5-test-persistence-by-rebooting">✅ 5. Test persistence by rebooting</h1>
+<pre><code class="language-bash">sudo reboot
+</code></pre>
+<p>After reboot:</p>
+<pre><code class="language-bash">sudo iptables -t nat -L -n -v
+</code></pre>
+<p>You should still see:</p>
+<ul>
+<li>PREROUTING DNAT rules for ports 8081–8084</li>
+<li>POSTROUTING MASQUERADE for <code>macvlan0</code></li>
+</ul>
+<hr />
+<h1 id="alternative-not-recommended-unless-needed">✅ Alternative (not recommended unless needed)</h1>
+<p>You <em>can</em> put rules inside a script like:</p>
+<p><code>/etc/network/if-up.d/iptables-rules</code></p>
+<p>But <code>iptables-persistent</code> is cleaner, reliable, and survives all reboots + network restarts.</p>
+<hr />
+<h1 id="summary">✅ Summary</h1>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Do DNAT/SNAT rules persist after reboot?</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td>How to persist them?</td>
+<td>✅ Install <code>iptables-persistent</code> and save</td>
+</tr>
+<tr>
+<td>Do they auto-load on boot?</td>
+<td>✅ Yes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>If you want, I can <strong>generate the exact <code>/etc/iptables/rules.v4</code> file</strong> for your setup so you don’t have to manually edit anything.</p>
 
 
 
