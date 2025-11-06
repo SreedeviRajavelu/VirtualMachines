@@ -532,3 +532,120 @@ docker network inspect <your network>
 ```
 
 I can confirm exactly how your macvlan is wired.
+
+# Question: will these DNAT configurations persist when VM is rebooted? if not, how can I make it persist across reboots of the VM ?
+
+
+
+✅ Final DNAT configuration (for reference)
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8081 -j DNAT --to-destination 192.168.40.201:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8082 -j DNAT --to-destination 192.168.40.202:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8083 -j DNAT --to-destination 192.168.40.203:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8084 -j DNAT --to-destination 192.168.40.204:8080
+And SNAT:
+sudo iptables -t nat -A POSTROUTING -o macvlan0 -j MASQUERADE
+
+
+Short answer: **No, they will NOT persist after a reboot** unless you explicitly save and restore them.
+
+Below is the **safest and simplest way** to make your DNAT + SNAT rules persistent on Ubuntu.
+
+---
+
+# ✅ **Best Method: Use `iptables-persistent`**
+
+### 1. Install the persistence package
+
+```bash
+sudo apt update
+sudo apt install iptables-persistent
+```
+
+During install, it will ask:
+
+✅ **Save current IPv4 rules?** → Select **Yes**
+✅ **Save current IPv6 rules?** → You can select **No** if you don’t use IPv6.
+
+---
+
+# ✅ 2. Add your DNAT + SNAT rules again
+
+(re-enter them so they get saved)
+
+```bash
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8081 -j DNAT --to-destination 192.168.40.201:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8082 -j DNAT --to-destination 192.168.40.202:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8083 -j DNAT --to-destination 192.168.40.203:8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8084 -j DNAT --to-destination 192.168.40.204:8080
+
+sudo iptables -t nat -A POSTROUTING -o macvlan0 -j MASQUERADE
+```
+
+---
+
+# ✅ 3. Save the rules permanently
+
+```bash
+sudo netfilter-persistent save
+```
+
+This writes the rules into:
+
+```
+/etc/iptables/rules.v4
+```
+
+---
+
+# ✅ 4. Verify that they are saved
+
+```bash
+sudo cat /etc/iptables/rules.v4
+```
+
+You should see your DNAT + MASQUERADE rules in this file.
+
+---
+
+# ✅ 5. Test persistence by rebooting
+
+```bash
+sudo reboot
+```
+
+After reboot:
+
+```bash
+sudo iptables -t nat -L -n -v
+```
+
+You should still see:
+
+* PREROUTING DNAT rules for ports 8081–8084
+* POSTROUTING MASQUERADE for `macvlan0`
+
+---
+
+# ✅ Alternative (not recommended unless needed)
+
+You *can* put rules inside a script like:
+
+`/etc/network/if-up.d/iptables-rules`
+
+But `iptables-persistent` is cleaner, reliable, and survives all reboots + network restarts.
+
+---
+
+# ✅ Summary
+
+| Question                                 | Answer                                   |
+| ---------------------------------------- | ---------------------------------------- |
+| Do DNAT/SNAT rules persist after reboot? | ❌ No                                     |
+| How to persist them?                     | ✅ Install `iptables-persistent` and save |
+| Do they auto-load on boot?               | ✅ Yes                                    |
+
+---
+
+If you want, I can **generate the exact `/etc/iptables/rules.v4` file** for your setup so you don’t have to manually edit anything.
+
+
