@@ -1616,13 +1616,14 @@ docker network inspect &lt;your network&gt;
 </code></pre>
 <p>I can confirm exactly how your macvlan is wired.</p>
 <h1 id="question-will-these-dnat-configurations-persist-when-vm-is-rebooted-if-not-how-can-i-make-it-persist-across-reboots-of-the-vm">Question: will these DNAT configurations persist when VM is rebooted? if not, how can I make it persist across reboots of the VM ?</h1>
-<p>✅ Final DNAT configuration (for reference)
+<pre><code>✅ Final DNAT configuration (for reference)
 sudo iptables -t nat -A PREROUTING -p tcp --dport 8081 -j DNAT --to-destination 192.168.40.201:8080
 sudo iptables -t nat -A PREROUTING -p tcp --dport 8082 -j DNAT --to-destination 192.168.40.202:8080
 sudo iptables -t nat -A PREROUTING -p tcp --dport 8083 -j DNAT --to-destination 192.168.40.203:8080
 sudo iptables -t nat -A PREROUTING -p tcp --dport 8084 -j DNAT --to-destination 192.168.40.204:8080
 And SNAT:
-sudo iptables -t nat -A POSTROUTING -o macvlan0 -j MASQUERADE</p>
+sudo iptables -t nat -A POSTROUTING -o macvlan0 -j MASQUERADE
+</code></pre>
 <p>Short answer: <strong>No, they will NOT persist after a reboot</strong> unless you explicitly save and restore them.</p>
 <p>Below is the <strong>safest and simplest way</strong> to make your DNAT + SNAT rules persistent on Ubuntu.</p>
 <hr />
