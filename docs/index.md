@@ -12,6 +12,7 @@ Welcome! Use the sidebar to navigate to different sections of this project.
 - [Using tarballs (.tgz)](Docker_tgz.md)
 - [Docker Compose](Docker_Compose.md)
 - [Docker Volumes](Docker_Volumes.md)
+- [Docker Space Optimization](Docker_Space_Optimization.md)
 
 ## Virtualization
 

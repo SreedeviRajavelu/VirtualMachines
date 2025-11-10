@@ -157,3 +157,399 @@ volumes:
 ```
 
 This **declares** the named volume used above, so Docker knows it should create and manage it.
+
+
+# Question: how can I ensure that these 3 containers always stay running ? before I stop and remove the containers how can I verify whether the data in the containers are persisted ? ubuntu@pgt:~$ docker ps | grep ccp d38cf688db43 postgres:16 "docker-entrypoint.s…" 2 weeks ago Up 37 minutes 0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp ccp-multi-ied-multi-plc-pg ubuntu@pgt:~$ docker ps | grep scada ubuntu@pgt:~$ docker ps -a | grep scada 017a83b809c7 scadalts/scadalts:latest "catalina.sh run" 2 days ago Exited (143) 45 minutes ago scadalts ubuntu@pgt:~$ docker ps -a | grep mysql 8ddf0f1a81bf mysql/mysql-server:5.7 "/entrypoint.sh mysq…" 2 days ago Exited (0) 45 minutes ago mysql ubuntu@pgt:~$
+
+Here is the **safe and correct workflow** to ensure your 3 containers always stay running **WITHOUT LOSING DATA**.
+
+We will do it in 3 steps:
+
+✅ **Step 1 — Check if your containers already use volumes**
+✅ **Step 2 — Back up data (if needed)**
+✅ **Step 3 — Recreate with restart policies (`--restart unless-stopped`)**
+
+---
+
+# ✅ Step 1 — Check whether your containers use volumes
+
+Before removing anything, you MUST confirm that:
+
+✅ the data lives in Docker volumes (safe)
+❌ or the data is stored inside the container filesystem (unsafe — will be lost if container is deleted)
+
+---
+
+## ✅ 1.1 Check volumes for each container
+
+### **ScadaLTS**
+
+```bash
+docker inspect scadalts | grep -i mount -A 10
+```
+
+### **MySQL 5.7**
+
+```bash
+docker inspect mysql | grep -i mount -A 10
+```
+
+### **MATLAB container**
+
+```bash
+docker inspect matlab_container | grep -i mount -A 10
+```
+
+---
+
+## ✅ What you want to see:
+
+Example (this is good):
+
+```
+"Mounts": [
+    {
+        "Type": "volume",
+        "Name": "mysql_data",
+        "Destination": "/var/lib/mysql"
+    }
+]
+```
+
+If you see `"Type": "volume"` → **your data is safe**.
+If instead you see `"Type": "bind"` → data is also safe (stored on host).
+If you see **empty Mounts:** → dangerous, all data is inside the container and will be lost if removed.
+
+Let me know what your actual outputs are.
+
+---
+
+# ✅ Step 2 — Back up the data (if your volumes are missing)
+
+If Mounts is empty, you must back up first.
+
+### ✅ MySQL backup
+
+```bash
+docker start mysql
+docker exec -it mysql mysqldump -u root -p --all-databases > mysql_backup.sql
+```
+
+### ✅ ScadaLTS backup
+
+It stores data inside:
+
+* `/usr/local/tomcat/webapps/Scada-LTS/WEB-INF/classes`
+* `/opt/scadalts` depending on version
+
+You can copy the data out:
+
+```bash
+docker cp scadalts:/usr/local/tomcat/webapps/Scada-LTS ./scadalts_backup
+```
+
+### ✅ MATLAB container
+
+Only needed if you stored data inside the container:
+
+```bash
+docker cp matlab_container:/home/matlab ./matlab_backup
+```
+
+---
+
+# ✅ Step 3 — Make containers **always running**
+
+Once volume safety is confirmed, you can recreate the containers with:
+
+✅ auto-restart
+✅ persistent data volumes
+✅ correct ports
+
+---
+
+# ✅ 3.1 Apply restart policies without recreating (if possible)
+
+You can add restart policies **even to existing containers**:
+
+```bash
+docker update --restart unless-stopped scadalts
+docker update --restart unless-stopped mysql
+docker update --restart unless-stopped matlab_container
+```
+
+### ✅ Check they’re applied
+
+```bash
+docker inspect scadalts | grep RestartPolicy -A 3
+```
+
+Expected:
+
+```
+"RestartPolicy": {
+    "Name": "unless-stopped",
+    "MaximumRetryCount": 0
+}
+```
+
+This avoids deleting the containers at all.
+**Data stays untouched.**
+
+---
+
+# ✅ 3.2 Ensure they start now
+
+Start them manually:
+
+```bash
+docker start scadalts
+docker start mysql
+docker start matlab_container
+```
+
+---
+
+# ✅ 3.3 Reboot test
+
+```bash
+sudo reboot
+```
+
+Then run:
+
+```bash
+docker ps -a
+```
+
+All three should show: **Up X minutes (restart policy: unless-stopped)**
+
+---
+
+# ✅ Summary — safest path for you
+
+✅ Check existing volumes (**prevent data loss**)
+✅ Add restart policies using `docker update`
+✅ No need to delete or recreate containers
+✅ Reboot VM → containers auto-start
+
+---
+
+Reply with the **output of:**
+
+```
+docker inspect scadalts | grep -i mount -A 10
+docker inspect mysql | grep -i mount -A 10
+docker inspect matlab_container | grep -i mount -A 10
+```
+
+I will tell you **exactly** whether your data is safe and what to do next.
+
+
+
+# Output of commands above
+
+based on the output below is my data safe in all 3 containers if I stop and restart them?
+
+```
+ubuntu@pgt:~$ docker inspect scadalts | grep -i mount -A 10
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "scadalts_scadalts-data:/usr/local/tomcat/webapps/Scada-LTS:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+--
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "scadalts_scadalts-data",
+                "Source": "/var/lib/docker/volumes/scadalts_scadalts-data/_data",
+                "Destination": "/usr/local/tomcat/webapps/Scada-LTS",
+                "Driver": "local",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": ""
+            }
+ubuntu@pgt:~$ docker inspect mysql | grep -i mount -A 10
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "scadalts_mysql-data:/var/lib/mysql:rw",
+                "/home/ubuntu/scadaLTS/scadalts_dump.sql:/docker-entrypoint-initdb.d/scadalts_dump.sql:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+--
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/home/ubuntu/scadaLTS/scadalts_dump.sql",
+                "Destination": "/docker-entrypoint-initdb.d/scadalts_dump.sql",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+ubuntu@pgt:~$ docker inspect matlab_container | grep -i mount -A 10
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/home/ubuntu/matlab_projects:/home/matlab/projects",
+                "/home/ubuntu/database_toolbox:/usr/local/MATLAB/R2025a/toolbox/database",
+                "/home/ubuntu/matlab_licenses:/usr/local/MATLAB/R2025a/licenses",
+                "/home/ubuntu/matlab_local:/usr/local/MATLAB/R2025a/toolbox/local"
+            ],
+--
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/home/ubuntu/matlab_projects",
+                "Destination": "/home/matlab/projects",
+                "Mode": "",
+                "RW": true,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+ubuntu@pgt:~$ 
+```
+
+✅ **Yes — all your data is safe in all 3 containers.**
+Here is the breakdown, container by container, so you can be confident nothing will be lost even if you recreate or restart them.
+
+---
+
+# ✅ 1. SCADA-LTS Container — **Data is SAFE**
+
+You have this mount:
+
+```
+"Type": "volume",
+"Name": "scadalts_scadalts-data",
+"Destination": "/usr/local/tomcat/webapps/Scada-LTS"
+```
+
+✅ This is a **Docker-managed volume**
+✅ All SCADA-LTS application files, configs, DB files (for embedded DB, if any), and runtime data are stored in:
+
+```
+/var/lib/docker/volumes/scadalts_scadalts-data/_data
+```
+
+This will **persist across container removal, recreation, and reboots**.
+
+✅ **SCADALTS data is safe.**
+
+---
+
+# ✅ 2. MySQL Container — **Data is SAFE**
+
+You have two mounts:
+
+### ✅ MySQL data directory volume (critical one)
+
+```
+"Type": "volume",
+"Name": "scadalts_mysql-data",
+"Destination": "/var/lib/mysql"
+```
+
+This means your actual MySQL database files (`.frm`, `.ibd`, logs, binary logs, etc.) are safely stored in a Docker volume.
+
+✅ This is the most important part — your database content is protected.
+
+### ✅ SQL dump bind mount
+
+```
+"Type": "bind",
+"Source": "/home/ubuntu/scadaLTS/scadalts_dump.sql"
+```
+
+This is only for *initial database import* and is not overwritten.
+It does *not* affect or replace your real MySQL data.
+
+✅ Your MySQL database is safe and future-proof.
+
+---
+
+# ✅ 3. MATLAB Container — **Data is SAFE**
+
+Everything important is mounted via bind mounts:
+
+```
+/home/ubuntu/matlab_projects → /home/matlab/projects
+/home/ubuntu/database_toolbox → /usr/local/MATLAB/...
+/home/ubuntu/matlab_licenses → /usr/local/MATLAB/...
+/home/ubuntu/matlab_local → /usr/local/MATLAB/...
+```
+
+✅ All your projects, toolbox files, and license files are stored on the host filesystem.
+
+None of your work is inside the container’s internal filesystem.
+
+✅ MATLAB data is safe.
+
+---
+
+# ✅ ✅ Final Summary — You are SAFE to Restart, Recreate, or Apply Restart Policies
+
+| Container     | Uses Docker Volume? | Uses Bind Mount?          | Is Data Safe? |
+| ------------- | ------------------- | ------------------------- | ------------- |
+| **SCADA-LTS** | ✅ Yes               | ❌ No                      | ✅ Safe        |
+| **MySQL**     | ✅ Yes (DB data)     | ✅ Yes (SQL file only)     | ✅ Safe        |
+| **MATLAB**    | ❌ No volume         | ✅ All data in bind mounts | ✅ Safe        |
+
+👉 **All 3 containers store their important data outside the container filesystem.
+So even if you delete the containers (`docker rm`), your data stays intact.**
+
+---
+
+# ✅ Next Steps (Safe to Do Now)
+
+You can now safely apply restart policies:
+
+```
+docker update --restart unless-stopped scadalts
+docker update --restart unless-stopped mysql
+docker update --restart unless-stopped matlab_container
+```
+
+Then:
+
+```
+docker start scadalts
+docker start mysql
+docker start matlab_container
+```
+
+After reboot:
+
+```
+docker ps -a
+```
+
+All three should show “Up …” — meaning they auto-started.
+
+---
+
+If you want, I can also help you:
+
+✅ convert this setup into a **docker-compose.yml**
+✅ simplify all services into a clean, reproducible stack
+✅ automatically restore on reboot
+
+Just let me know.
+
