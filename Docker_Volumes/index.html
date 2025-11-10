@@ -14,7 +14,7 @@
         <link rel="prev" href="../Docker_Compose/">
       
       
-        <link rel="next" href="../VM-to-VM-Communication/">
+        <link rel="next" href="../Docker_Space_Optimization/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -553,10 +553,288 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#question-how-can-i-ensure-that-these-3-containers-always-stay-running-before-i-stop-and-remove-the-containers-how-can-i-verify-whether-the-data-in-the-containers-are-persisted-ubuntupgt-docker-ps-grep-ccp-d38cf688db43-postgres16-docker-entrypoints-2-weeks-ago-up-37-minutes-00005432-5432tcp-5432-5432tcp-ccp-multi-ied-multi-plc-pg-ubuntupgt-docker-ps-grep-scada-ubuntupgt-docker-ps-a-grep-scada-017a83b809c7-scadaltsscadaltslatest-catalinash-run-2-days-ago-exited-143-45-minutes-ago-scadalts-ubuntupgt-docker-ps-a-grep-mysql-8ddf0f1a81bf-mysqlmysql-server57-entrypointsh-mysq-2-days-ago-exited-0-45-minutes-ago-mysql-ubuntupgt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question: how can I ensure that these 3 containers always stay running ? before I stop and remove the containers how can I verify whether the data in the containers are persisted ? ubuntu@pgt:~$ docker ps | grep ccp d38cf688db43 postgres:16 "docker-entrypoint.s…" 2 weeks ago Up 37 minutes 0.0.0.0:5432-&gt;5432/tcp, [::]:5432-&gt;5432/tcp ccp-multi-ied-multi-plc-pg ubuntu@pgt:~$ docker ps | grep scada ubuntu@pgt:~$ docker ps -a | grep scada 017a83b809c7 scadalts/scadalts:latest "catalina.sh run" 2 days ago Exited (143) 45 minutes ago scadalts ubuntu@pgt:~$ docker ps -a | grep mysql 8ddf0f1a81bf mysql/mysql-server:5.7 "/entrypoint.sh mysq…" 2 days ago Exited (0) 45 minutes ago mysql ubuntu@pgt:~$
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-check-whether-your-containers-use-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 1 — Check whether your containers use volumes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Step 1 — Check whether your containers use volumes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-check-volumes-for-each-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 1.1 Check volumes for each container
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 1.1 Check volumes for each container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scadalts" class="md-nav__link">
+    <span class="md-ellipsis">
+      ScadaLTS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-57" class="md-nav__link">
+    <span class="md-ellipsis">
+      MySQL 5.7
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matlab-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      MATLAB container
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-want-to-see" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ What you want to see:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-back-up-the-data-if-your-volumes-are-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 2 — Back up the data (if your volumes are missing)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Step 2 — Back up the data (if your volumes are missing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mysql-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ MySQL backup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scadalts-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ ScadaLTS backup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matlab-container_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ MATLAB container
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-make-containers-always-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 3 — Make containers always running
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-apply-restart-policies-without-recreating-if-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 3.1 Apply restart policies without recreating (if possible)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 3.1 Apply restart policies without recreating (if possible)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-theyre-applied" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Check they’re applied
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-ensure-they-start-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 3.2 Ensure they start now
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-reboot-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 3.3 Reboot test
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-safest-path-for-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Summary — safest path for you
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-of-commands-above" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output of commands above
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-scada-lts-container-data-is-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 1. SCADA-LTS Container — Data is SAFE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mysql-container-data-is-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 2. MySQL Container — Data is SAFE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 2. MySQL Container — Data is SAFE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mysql-data-directory-volume-critical-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ MySQL data directory volume (critical one)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-dump-bind-mount" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ SQL dump bind mount
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-matlab-container-data-is-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 3. MATLAB Container — Data is SAFE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-summary-you-are-safe-to-restart-recreate-or-apply-restart-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ ✅ Final Summary — You are SAFE to Restart, Recreate, or Apply Restart Policies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps-safe-to-do-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Next Steps (Safe to Do Now)
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Space_Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Space Optimization
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1389,6 +1667,261 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#question-how-can-i-ensure-that-these-3-containers-always-stay-running-before-i-stop-and-remove-the-containers-how-can-i-verify-whether-the-data-in-the-containers-are-persisted-ubuntupgt-docker-ps-grep-ccp-d38cf688db43-postgres16-docker-entrypoints-2-weeks-ago-up-37-minutes-00005432-5432tcp-5432-5432tcp-ccp-multi-ied-multi-plc-pg-ubuntupgt-docker-ps-grep-scada-ubuntupgt-docker-ps-a-grep-scada-017a83b809c7-scadaltsscadaltslatest-catalinash-run-2-days-ago-exited-143-45-minutes-ago-scadalts-ubuntupgt-docker-ps-a-grep-mysql-8ddf0f1a81bf-mysqlmysql-server57-entrypointsh-mysq-2-days-ago-exited-0-45-minutes-ago-mysql-ubuntupgt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question: how can I ensure that these 3 containers always stay running ? before I stop and remove the containers how can I verify whether the data in the containers are persisted ? ubuntu@pgt:~$ docker ps | grep ccp d38cf688db43 postgres:16 "docker-entrypoint.s…" 2 weeks ago Up 37 minutes 0.0.0.0:5432-&gt;5432/tcp, [::]:5432-&gt;5432/tcp ccp-multi-ied-multi-plc-pg ubuntu@pgt:~$ docker ps | grep scada ubuntu@pgt:~$ docker ps -a | grep scada 017a83b809c7 scadalts/scadalts:latest "catalina.sh run" 2 days ago Exited (143) 45 minutes ago scadalts ubuntu@pgt:~$ docker ps -a | grep mysql 8ddf0f1a81bf mysql/mysql-server:5.7 "/entrypoint.sh mysq…" 2 days ago Exited (0) 45 minutes ago mysql ubuntu@pgt:~$
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-check-whether-your-containers-use-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 1 — Check whether your containers use volumes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Step 1 — Check whether your containers use volumes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-check-volumes-for-each-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 1.1 Check volumes for each container
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 1.1 Check volumes for each container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scadalts" class="md-nav__link">
+    <span class="md-ellipsis">
+      ScadaLTS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-57" class="md-nav__link">
+    <span class="md-ellipsis">
+      MySQL 5.7
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matlab-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      MATLAB container
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-want-to-see" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ What you want to see:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-back-up-the-data-if-your-volumes-are-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 2 — Back up the data (if your volumes are missing)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Step 2 — Back up the data (if your volumes are missing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mysql-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ MySQL backup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scadalts-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ ScadaLTS backup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matlab-container_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ MATLAB container
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-make-containers-always-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Step 3 — Make containers always running
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-apply-restart-policies-without-recreating-if-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 3.1 Apply restart policies without recreating (if possible)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 3.1 Apply restart policies without recreating (if possible)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-theyre-applied" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Check they’re applied
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-ensure-they-start-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 3.2 Ensure they start now
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-reboot-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 3.3 Reboot test
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-safest-path-for-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Summary — safest path for you
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-of-commands-above" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output of commands above
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-scada-lts-container-data-is-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 1. SCADA-LTS Container — Data is SAFE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mysql-container-data-is-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 2. MySQL Container — Data is SAFE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 2. MySQL Container — Data is SAFE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mysql-data-directory-volume-critical-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ MySQL data directory volume (critical one)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-dump-bind-mount" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ SQL dump bind mount
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-matlab-container-data-is-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 3. MATLAB Container — Data is SAFE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-summary-you-are-safe-to-restart-recreate-or-apply-restart-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ ✅ Final Summary — You are SAFE to Restart, Recreate, or Apply Restart Policies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps-safe-to-do-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Next Steps (Safe to Do Now)
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1407,8 +1940,6 @@
   
   
 
-
-  <h1>Docker Volumes</h1>
 
 <h2 id="what-is-a-volume-in-docker">What is a Volume in Docker</h2>
 <p>Think of Docker container as a small isolated computer - when you stop or delete it, everything inside disappears (its 'disk' is temporary).</p>
@@ -1552,6 +2083,290 @@ volumes:
   postgres_data:
 </code></pre>
 <p>This <strong>declares</strong> the named volume used above, so Docker knows it should create and manage it.</p>
+<h1 id="question-how-can-i-ensure-that-these-3-containers-always-stay-running-before-i-stop-and-remove-the-containers-how-can-i-verify-whether-the-data-in-the-containers-are-persisted-ubuntupgt-docker-ps-grep-ccp-d38cf688db43-postgres16-docker-entrypoints-2-weeks-ago-up-37-minutes-00005432-5432tcp-5432-5432tcp-ccp-multi-ied-multi-plc-pg-ubuntupgt-docker-ps-grep-scada-ubuntupgt-docker-ps-a-grep-scada-017a83b809c7-scadaltsscadaltslatest-catalinash-run-2-days-ago-exited-143-45-minutes-ago-scadalts-ubuntupgt-docker-ps-a-grep-mysql-8ddf0f1a81bf-mysqlmysql-server57-entrypointsh-mysq-2-days-ago-exited-0-45-minutes-ago-mysql-ubuntupgt">Question: how can I ensure that these 3 containers always stay running ? before I stop and remove the containers how can I verify whether the data in the containers are persisted ? ubuntu@pgt:~$ docker ps | grep ccp d38cf688db43 postgres:16 "docker-entrypoint.s…" 2 weeks ago Up 37 minutes 0.0.0.0:5432-&gt;5432/tcp, [::]:5432-&gt;5432/tcp ccp-multi-ied-multi-plc-pg ubuntu@pgt:~$ docker ps | grep scada ubuntu@pgt:~$ docker ps -a | grep scada 017a83b809c7 scadalts/scadalts:latest "catalina.sh run" 2 days ago Exited (143) 45 minutes ago scadalts ubuntu@pgt:~$ docker ps -a | grep mysql 8ddf0f1a81bf mysql/mysql-server:5.7 "/entrypoint.sh mysq…" 2 days ago Exited (0) 45 minutes ago mysql ubuntu@pgt:~$</h1>
+<p>Here is the <strong>safe and correct workflow</strong> to ensure your 3 containers always stay running <strong>WITHOUT LOSING DATA</strong>.</p>
+<p>We will do it in 3 steps:</p>
+<p>✅ <strong>Step 1 — Check if your containers already use volumes</strong>
+✅ <strong>Step 2 — Back up data (if needed)</strong>
+✅ <strong>Step 3 — Recreate with restart policies (<code>--restart unless-stopped</code>)</strong></p>
+<hr />
+<h1 id="step-1-check-whether-your-containers-use-volumes">✅ Step 1 — Check whether your containers use volumes</h1>
+<p>Before removing anything, you MUST confirm that:</p>
+<p>✅ the data lives in Docker volumes (safe)
+❌ or the data is stored inside the container filesystem (unsafe — will be lost if container is deleted)</p>
+<hr />
+<h2 id="11-check-volumes-for-each-container">✅ 1.1 Check volumes for each container</h2>
+<h3 id="scadalts"><strong>ScadaLTS</strong></h3>
+<pre><code class="language-bash">docker inspect scadalts | grep -i mount -A 10
+</code></pre>
+<h3 id="mysql-57"><strong>MySQL 5.7</strong></h3>
+<pre><code class="language-bash">docker inspect mysql | grep -i mount -A 10
+</code></pre>
+<h3 id="matlab-container"><strong>MATLAB container</strong></h3>
+<pre><code class="language-bash">docker inspect matlab_container | grep -i mount -A 10
+</code></pre>
+<hr />
+<h2 id="what-you-want-to-see">✅ What you want to see:</h2>
+<p>Example (this is good):</p>
+<pre><code>&quot;Mounts&quot;: [
+    {
+        &quot;Type&quot;: &quot;volume&quot;,
+        &quot;Name&quot;: &quot;mysql_data&quot;,
+        &quot;Destination&quot;: &quot;/var/lib/mysql&quot;
+    }
+]
+</code></pre>
+<p>If you see <code>"Type": "volume"</code> → <strong>your data is safe</strong>.
+If instead you see <code>"Type": "bind"</code> → data is also safe (stored on host).
+If you see <strong>empty Mounts:</strong> → dangerous, all data is inside the container and will be lost if removed.</p>
+<p>Let me know what your actual outputs are.</p>
+<hr />
+<h1 id="step-2-back-up-the-data-if-your-volumes-are-missing">✅ Step 2 — Back up the data (if your volumes are missing)</h1>
+<p>If Mounts is empty, you must back up first.</p>
+<h3 id="mysql-backup">✅ MySQL backup</h3>
+<pre><code class="language-bash">docker start mysql
+docker exec -it mysql mysqldump -u root -p --all-databases &gt; mysql_backup.sql
+</code></pre>
+<h3 id="scadalts-backup">✅ ScadaLTS backup</h3>
+<p>It stores data inside:</p>
+<ul>
+<li><code>/usr/local/tomcat/webapps/Scada-LTS/WEB-INF/classes</code></li>
+<li><code>/opt/scadalts</code> depending on version</li>
+</ul>
+<p>You can copy the data out:</p>
+<pre><code class="language-bash">docker cp scadalts:/usr/local/tomcat/webapps/Scada-LTS ./scadalts_backup
+</code></pre>
+<h3 id="matlab-container_1">✅ MATLAB container</h3>
+<p>Only needed if you stored data inside the container:</p>
+<pre><code class="language-bash">docker cp matlab_container:/home/matlab ./matlab_backup
+</code></pre>
+<hr />
+<h1 id="step-3-make-containers-always-running">✅ Step 3 — Make containers <strong>always running</strong></h1>
+<p>Once volume safety is confirmed, you can recreate the containers with:</p>
+<p>✅ auto-restart
+✅ persistent data volumes
+✅ correct ports</p>
+<hr />
+<h1 id="31-apply-restart-policies-without-recreating-if-possible">✅ 3.1 Apply restart policies without recreating (if possible)</h1>
+<p>You can add restart policies <strong>even to existing containers</strong>:</p>
+<pre><code class="language-bash">docker update --restart unless-stopped scadalts
+docker update --restart unless-stopped mysql
+docker update --restart unless-stopped matlab_container
+</code></pre>
+<h3 id="check-theyre-applied">✅ Check they’re applied</h3>
+<pre><code class="language-bash">docker inspect scadalts | grep RestartPolicy -A 3
+</code></pre>
+<p>Expected:</p>
+<pre><code>&quot;RestartPolicy&quot;: {
+    &quot;Name&quot;: &quot;unless-stopped&quot;,
+    &quot;MaximumRetryCount&quot;: 0
+}
+</code></pre>
+<p>This avoids deleting the containers at all.
+<strong>Data stays untouched.</strong></p>
+<hr />
+<h1 id="32-ensure-they-start-now">✅ 3.2 Ensure they start now</h1>
+<p>Start them manually:</p>
+<pre><code class="language-bash">docker start scadalts
+docker start mysql
+docker start matlab_container
+</code></pre>
+<hr />
+<h1 id="33-reboot-test">✅ 3.3 Reboot test</h1>
+<pre><code class="language-bash">sudo reboot
+</code></pre>
+<p>Then run:</p>
+<pre><code class="language-bash">docker ps -a
+</code></pre>
+<p>All three should show: <strong>Up X minutes (restart policy: unless-stopped)</strong></p>
+<hr />
+<h1 id="summary-safest-path-for-you">✅ Summary — safest path for you</h1>
+<p>✅ Check existing volumes (<strong>prevent data loss</strong>)
+✅ Add restart policies using <code>docker update</code>
+✅ No need to delete or recreate containers
+✅ Reboot VM → containers auto-start</p>
+<hr />
+<p>Reply with the <strong>output of:</strong></p>
+<pre><code>docker inspect scadalts | grep -i mount -A 10
+docker inspect mysql | grep -i mount -A 10
+docker inspect matlab_container | grep -i mount -A 10
+</code></pre>
+<p>I will tell you <strong>exactly</strong> whether your data is safe and what to do next.</p>
+<h1 id="output-of-commands-above">Output of commands above</h1>
+<p>based on the output below is my data safe in all 3 containers if I stop and restart them?</p>
+<pre><code>ubuntu@pgt:~$ docker inspect scadalts | grep -i mount -A 10
+        &quot;MountLabel&quot;: &quot;&quot;,
+        &quot;ProcessLabel&quot;: &quot;&quot;,
+        &quot;AppArmorProfile&quot;: &quot;docker-default&quot;,
+        &quot;ExecIDs&quot;: null,
+        &quot;HostConfig&quot;: {
+            &quot;Binds&quot;: [
+                &quot;scadalts_scadalts-data:/usr/local/tomcat/webapps/Scada-LTS:rw&quot;
+            ],
+            &quot;ContainerIDFile&quot;: &quot;&quot;,
+            &quot;LogConfig&quot;: {
+                &quot;Type&quot;: &quot;json-file&quot;,
+--
+        &quot;Mounts&quot;: [
+            {
+                &quot;Type&quot;: &quot;volume&quot;,
+                &quot;Name&quot;: &quot;scadalts_scadalts-data&quot;,
+                &quot;Source&quot;: &quot;/var/lib/docker/volumes/scadalts_scadalts-data/_data&quot;,
+                &quot;Destination&quot;: &quot;/usr/local/tomcat/webapps/Scada-LTS&quot;,
+                &quot;Driver&quot;: &quot;local&quot;,
+                &quot;Mode&quot;: &quot;rw&quot;,
+                &quot;RW&quot;: true,
+                &quot;Propagation&quot;: &quot;&quot;
+            }
+ubuntu@pgt:~$ docker inspect mysql | grep -i mount -A 10
+        &quot;MountLabel&quot;: &quot;&quot;,
+        &quot;ProcessLabel&quot;: &quot;&quot;,
+        &quot;AppArmorProfile&quot;: &quot;docker-default&quot;,
+        &quot;ExecIDs&quot;: null,
+        &quot;HostConfig&quot;: {
+            &quot;Binds&quot;: [
+                &quot;scadalts_mysql-data:/var/lib/mysql:rw&quot;,
+                &quot;/home/ubuntu/scadaLTS/scadalts_dump.sql:/docker-entrypoint-initdb.d/scadalts_dump.sql:rw&quot;
+            ],
+            &quot;ContainerIDFile&quot;: &quot;&quot;,
+            &quot;LogConfig&quot;: {
+--
+        &quot;Mounts&quot;: [
+            {
+                &quot;Type&quot;: &quot;bind&quot;,
+                &quot;Source&quot;: &quot;/home/ubuntu/scadaLTS/scadalts_dump.sql&quot;,
+                &quot;Destination&quot;: &quot;/docker-entrypoint-initdb.d/scadalts_dump.sql&quot;,
+                &quot;Mode&quot;: &quot;rw&quot;,
+                &quot;RW&quot;: true,
+                &quot;Propagation&quot;: &quot;rprivate&quot;
+            },
+            {
+                &quot;Type&quot;: &quot;volume&quot;,
+ubuntu@pgt:~$ docker inspect matlab_container | grep -i mount -A 10
+        &quot;MountLabel&quot;: &quot;&quot;,
+        &quot;ProcessLabel&quot;: &quot;&quot;,
+        &quot;AppArmorProfile&quot;: &quot;docker-default&quot;,
+        &quot;ExecIDs&quot;: null,
+        &quot;HostConfig&quot;: {
+            &quot;Binds&quot;: [
+                &quot;/home/ubuntu/matlab_projects:/home/matlab/projects&quot;,
+                &quot;/home/ubuntu/database_toolbox:/usr/local/MATLAB/R2025a/toolbox/database&quot;,
+                &quot;/home/ubuntu/matlab_licenses:/usr/local/MATLAB/R2025a/licenses&quot;,
+                &quot;/home/ubuntu/matlab_local:/usr/local/MATLAB/R2025a/toolbox/local&quot;
+            ],
+--
+        &quot;Mounts&quot;: [
+            {
+                &quot;Type&quot;: &quot;bind&quot;,
+                &quot;Source&quot;: &quot;/home/ubuntu/matlab_projects&quot;,
+                &quot;Destination&quot;: &quot;/home/matlab/projects&quot;,
+                &quot;Mode&quot;: &quot;&quot;,
+                &quot;RW&quot;: true,
+                &quot;Propagation&quot;: &quot;rprivate&quot;
+            },
+            {
+                &quot;Type&quot;: &quot;bind&quot;,
+ubuntu@pgt:~$ 
+</code></pre>
+<p>✅ <strong>Yes — all your data is safe in all 3 containers.</strong>
+Here is the breakdown, container by container, so you can be confident nothing will be lost even if you recreate or restart them.</p>
+<hr />
+<h1 id="1-scada-lts-container-data-is-safe">✅ 1. SCADA-LTS Container — <strong>Data is SAFE</strong></h1>
+<p>You have this mount:</p>
+<pre><code>&quot;Type&quot;: &quot;volume&quot;,
+&quot;Name&quot;: &quot;scadalts_scadalts-data&quot;,
+&quot;Destination&quot;: &quot;/usr/local/tomcat/webapps/Scada-LTS&quot;
+</code></pre>
+<p>✅ This is a <strong>Docker-managed volume</strong>
+✅ All SCADA-LTS application files, configs, DB files (for embedded DB, if any), and runtime data are stored in:</p>
+<pre><code>/var/lib/docker/volumes/scadalts_scadalts-data/_data
+</code></pre>
+<p>This will <strong>persist across container removal, recreation, and reboots</strong>.</p>
+<p>✅ <strong>SCADALTS data is safe.</strong></p>
+<hr />
+<h1 id="2-mysql-container-data-is-safe">✅ 2. MySQL Container — <strong>Data is SAFE</strong></h1>
+<p>You have two mounts:</p>
+<h3 id="mysql-data-directory-volume-critical-one">✅ MySQL data directory volume (critical one)</h3>
+<pre><code>&quot;Type&quot;: &quot;volume&quot;,
+&quot;Name&quot;: &quot;scadalts_mysql-data&quot;,
+&quot;Destination&quot;: &quot;/var/lib/mysql&quot;
+</code></pre>
+<p>This means your actual MySQL database files (<code>.frm</code>, <code>.ibd</code>, logs, binary logs, etc.) are safely stored in a Docker volume.</p>
+<p>✅ This is the most important part — your database content is protected.</p>
+<h3 id="sql-dump-bind-mount">✅ SQL dump bind mount</h3>
+<pre><code>&quot;Type&quot;: &quot;bind&quot;,
+&quot;Source&quot;: &quot;/home/ubuntu/scadaLTS/scadalts_dump.sql&quot;
+</code></pre>
+<p>This is only for <em>initial database import</em> and is not overwritten.
+It does <em>not</em> affect or replace your real MySQL data.</p>
+<p>✅ Your MySQL database is safe and future-proof.</p>
+<hr />
+<h1 id="3-matlab-container-data-is-safe">✅ 3. MATLAB Container — <strong>Data is SAFE</strong></h1>
+<p>Everything important is mounted via bind mounts:</p>
+<pre><code>/home/ubuntu/matlab_projects → /home/matlab/projects
+/home/ubuntu/database_toolbox → /usr/local/MATLAB/...
+/home/ubuntu/matlab_licenses → /usr/local/MATLAB/...
+/home/ubuntu/matlab_local → /usr/local/MATLAB/...
+</code></pre>
+<p>✅ All your projects, toolbox files, and license files are stored on the host filesystem.</p>
+<p>None of your work is inside the container’s internal filesystem.</p>
+<p>✅ MATLAB data is safe.</p>
+<hr />
+<h1 id="final-summary-you-are-safe-to-restart-recreate-or-apply-restart-policies">✅ ✅ Final Summary — You are SAFE to Restart, Recreate, or Apply Restart Policies</h1>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>Uses Docker Volume?</th>
+<th>Uses Bind Mount?</th>
+<th>Is Data Safe?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SCADA-LTS</strong></td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+<td>✅ Safe</td>
+</tr>
+<tr>
+<td><strong>MySQL</strong></td>
+<td>✅ Yes (DB data)</td>
+<td>✅ Yes (SQL file only)</td>
+<td>✅ Safe</td>
+</tr>
+<tr>
+<td><strong>MATLAB</strong></td>
+<td>❌ No volume</td>
+<td>✅ All data in bind mounts</td>
+<td>✅ Safe</td>
+</tr>
+</tbody>
+</table>
+<p>👉 <strong>All 3 containers store their important data outside the container filesystem.
+So even if you delete the containers (<code>docker rm</code>), your data stays intact.</strong></p>
+<hr />
+<h1 id="next-steps-safe-to-do-now">✅ Next Steps (Safe to Do Now)</h1>
+<p>You can now safely apply restart policies:</p>
+<pre><code>docker update --restart unless-stopped scadalts
+docker update --restart unless-stopped mysql
+docker update --restart unless-stopped matlab_container
+</code></pre>
+<p>Then:</p>
+<pre><code>docker start scadalts
+docker start mysql
+docker start matlab_container
+</code></pre>
+<p>After reboot:</p>
+<pre><code>docker ps -a
+</code></pre>
+<p>All three should show “Up …” — meaning they auto-started.</p>
+<hr />
+<p>If you want, I can also help you:</p>
+<p>✅ convert this setup into a <strong>docker-compose.yml</strong>
+✅ simplify all services into a clean, reproducible stack
+✅ automatically restore on reboot</p>
+<p>Just let me know.</p>
 
 
 
