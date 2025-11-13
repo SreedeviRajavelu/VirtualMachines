@@ -181,3 +181,388 @@ Then it will *never* change, even if DHCP fails.
 
 If yes, I can give you a simple static IP config file for Ubuntu 22.04 (netplan).
 
+
+# Question: based on output below, which ip should I use to ssh into the VM 
+
+```
+ubuntu@pgt: $ sudo dhclient -r 
+ubuntu@pgt: $ sudo dhclient 
+ubuntu@pgt:~$ ip a | grep 192 
+inet 192.168.30.60/24 brd 192.168.30.255 scope global enp0s3 
+inet 192.168.30.54/24 brd 192.168.30.255 scope global secondary dynamic enp0s3 
+inet 192.168.40.254/24 scope global macvlano 
+inet 192.168.40.250/24 scope global macvlan-host 
+ubuntu@pgt: $
+```
+
+
+Use **192.168.30.54** for SSH — and here’s why.
+
+---
+
+# ✅ Understanding Your IP Addresses
+
+Your output:
+
+```
+inet 192.168.30.60/24 brd 192.168.30.255 scope global enp0s3
+inet 192.168.30.54/24 brd 192.168.30.255 scope global secondary dynamic enp0s3
+inet 192.168.40.254/24 scope global macvlano
+inet 192.168.40.250/24 scope global macvlan-host
+```
+
+### ✅ Which IP belongs to your VM for normal network access?
+
+Look at the interface:
+
+### **enp0s3 → the NAT/Bridged Adapter interface used for SSH**
+
+It has two IPs:
+
+* `192.168.30.60` (primary)
+* `192.168.30.54` (secondary, dynamic)
+
+Now you said earlier:
+
+> there is already another VM that I have ssh-ed into that uses the IP 192.168.30.60
+
+✅ So **192.168.30.60 is used by your other VM.**
+✅ Your *new VM* therefore must use the **other IP on enp0s3 → 192.168.30.54**.
+
+---
+
+# ✅ Why *not* the 192.168.40.x addresses?
+
+```
+inet 192.168.40.254 … macvlano
+inet 192.168.40.250 … macvlan-host
+```
+
+These are **Macvlan virtual interfaces** used by your PLC/IED/docker networks.
+They cannot be SSH’d directly from your laptop.
+
+So ignore 192.168.40.xxx for SSH.
+
+---
+
+# ✅ ✅ Final Answer
+
+SSH into your new VM using:
+
+```
+ssh ubuntu@192.168.30.54
+```
+
+---
+
+If connection fails, tell me and I’ll help you confirm:
+✅ which interface is bridged
+✅ whether SSH is running
+✅ whether Windows host firewall is interfering.
+
+Want me to help you make this IP stable so it never changes again?
+
+
+
+
+Perfect — this explains **exactly why** your second VM keeps getting the same IP (`192.168.30.60`) and causes conflicts.
+
+Let’s unpack this and fix it properly 👇
+
+---
+
+## 🧠 What’s happening
+
+Your `/etc/netplan/*.yaml` shows this:
+
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: no
+      addresses:
+        - 192.168.30.60/24
+      routes:
+        - to: default
+          via: 192.168.30.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+```
+
+That line
+
+```yaml
+addresses:
+  - 192.168.30.60/24
+```
+
+means your VM is using a **static IP** (`192.168.30.60`) instead of DHCP.
+
+So — both VMs having that same YAML config → both use `.60` → **IP conflict**.
+
+---
+
+## ✅ Fix — give this VM a new unique IP
+
+### Option 1: Set a new static IP (recommended)
+
+Edit the YAML file:
+
+```bash
+sudo nano /etc/netplan/*.yaml
+```
+
+Change this line:
+
+```yaml
+addresses:
+  - 192.168.30.60/24
+```
+
+to something like:
+
+```yaml
+addresses:
+  - 192.168.30.61/24
+```
+
+Then apply the change:
+
+```bash
+sudo netplan apply
+```
+
+Verify:
+
+```bash
+ip a | grep 192
+```
+
+You should see:
+
+```
+inet 192.168.30.61/24 brd 192.168.30.255 scope global enp0s3
+```
+
+---
+
+### Option 2: Switch back to DHCP (if you want IPs assigned automatically)
+
+Edit the YAML again and change:
+
+```yaml
+dhcp4: no
+```
+
+to:
+
+```yaml
+dhcp4: yes
+```
+
+Remove (or comment out) the `addresses`, `routes`, and `nameservers` lines.
+
+Then apply:
+
+```bash
+sudo netplan apply
+```
+
+DHCP will now assign a new IP (e.g. `192.168.30.54`).
+
+Check it:
+
+```bash
+ip a | grep 192
+```
+
+---
+
+## ⚠️ Important
+
+After changing the IP:
+
+* Make sure your **other VM** stays on `192.168.30.60`
+* SSH to this new one with the new IP:
+
+  ```bash
+  ssh ubuntu@192.168.30.61
+  ```
+* Both VMs can now coexist on the same network with no conflict.
+
+---
+
+Would you like me to help you decide whether to keep static IPs or switch to DHCP (depending on how you use these VMs)?
+
+
+# Question: why is the IP address changing and what to do now ?
+
+```
+ubuntu@pgt:~$ ls -l /etc/netplan 
+total 8 
+-rw------ 1 root root 270 Nov 11 05:37 01-netcfg.yaml 
+drwxr-xr-x 2 root root 4096 Oct 21 06:55 backup 
+ubuntu@pgt:~$ cat backup 
+cat: backup: No such file or directory 
+ubuntu@pgt:~$ cd backup 
+ubuntu@pgt: $-bash: cd: backup: No such file or directory. 
+
+ubuntu@pgt:~$ grep -R "network" /etc/cloud/cloud.cfg 
+    network: activators: ['netplan', 'eni', 'network-manager', 'networkd'] 
+    
+ubuntu@pgt: $
+```
+
+Your VM’s IP address is changing **because netplan is NOT the only thing configuring the network**.
+
+Based on your output, the root cause is clear:
+
+---
+
+# ✅ **ROOT CAUSE — cloud-init is still managing networking**
+
+You ran:
+
+```
+grep -R "network" /etc/cloud/cloud.cfg
+```
+
+And got:
+
+```
+network:
+  activators: ['netplan', 'eni', 'network-manager', 'networkd']
+```
+
+✅ This means **cloud-init is active and allowed to manage networking**, and it is overriding your static netplan config on every reboot.
+
+This is exactly why:
+
+* Your IP keeps reverting to a DHCP IP like **192.168.30.54**
+* `sudo netplan apply` works temporarily
+* After reboot, it changes again
+
+Cloud-init re-applies its own config early in the boot process, overwriting your netplan settings.
+
+---
+
+# ✅ **Second clue: Only one netplan file exists**
+
+```
+/etc/netplan/01-netcfg.yaml
+```
+
+This is good — it means the conflict is not from multiple netplan files.
+The conflict is external → **cloud-init**.
+
+---
+
+# ✅ ✅ ✅ What you must do now
+
+## ✅ Step 1 — Disable cloud-init networking completely
+
+Create this file:
+
+```bash
+sudo nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+```
+
+Add ONLY this:
+
+```
+network: {config: disabled}
+```
+
+Save → exit.
+
+This tells cloud-init:
+
+❌ "DO NOT touch networking again."
+
+---
+
+## ✅ Step 2 — Prevent cloud-init from generating netplan at boot
+
+Run:
+
+```bash
+sudo touch /etc/cloud/cloud-init.disabled
+```
+
+(This disables cloud-init completely—safe for VMs that no longer use cloud provisioning.)
+
+---
+
+## ✅ Step 3 — Re-apply your permanent static netplan config
+
+Edit your file:
+
+```bash
+sudo nano /etc/netplan/01-netcfg.yaml
+```
+
+It should look like:
+
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: no
+      addresses:
+        - 192.168.30.61/24
+      gateway4: 192.168.30.1
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+```
+
+Apply:
+
+```bash
+sudo netplan generate
+sudo netplan apply
+```
+
+---
+
+## ✅ Step 4 — REBOOT
+
+```bash
+sudo reboot
+```
+
+After reboot, check:
+
+```bash
+ip a | grep 192
+```
+
+✅ You should now only see your static IP
+✅ It will remain permanent
+✅ It will not change again unless you modify netplan manually
+
+---
+
+# ✅ Summary: Why the IP kept changing
+
+| Component      | Behavior                                              |
+| -------------- | ----------------------------------------------------- |
+| **netplan**    | You set static IP manually                            |
+| **cloud-init** | Overrode netplan on every boot → set DHCP             |
+| **Result**     | Static IP temporarily works, but changes after reboot |
+
+---
+
+# ✅ If you show me your `/etc/netplan/01-netcfg.yaml`, I can verify it's correct before you reboot.
+
+Just send:
+
+```
+cat /etc/netplan/01-netcfg.yaml
+```
+
