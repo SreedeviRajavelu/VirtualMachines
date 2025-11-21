@@ -521,6 +521,66 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#run-all-the-services-in-isolation-on-your-macbook-and-access-the-plc-browsers-vnc-and-web-apps-then-clean-everything-up-afterward" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run all the services in isolation on your MacBook and access the PLC browsers, VNC, and web apps, then clean everything up afterward.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run all the services in isolation on your MacBook and access the PLC browsers, VNC, and web apps, then clean everything up afterward.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-run-everything-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ Run everything safely
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-access-services-and-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      2️⃣ Access services and ports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-check-container-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      3️⃣ Check container status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tear-everything-down-after-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      4️⃣ Tear everything down after testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-test-in-an-even-cleaner-sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Optional: Test in an even cleaner sandbox
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1417,6 +1477,66 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#run-all-the-services-in-isolation-on-your-macbook-and-access-the-plc-browsers-vnc-and-web-apps-then-clean-everything-up-afterward" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run all the services in isolation on your MacBook and access the PLC browsers, VNC, and web apps, then clean everything up afterward.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run all the services in isolation on your MacBook and access the PLC browsers, VNC, and web apps, then clean everything up afterward.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-run-everything-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ Run everything safely
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-access-services-and-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      2️⃣ Access services and ports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-check-container-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      3️⃣ Check container status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tear-everything-down-after-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      4️⃣ Tear everything down after testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-test-in-an-even-cleaner-sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Optional: Test in an even cleaner sandbox
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1436,8 +1556,6 @@
   
 
 
-  <h1>Docker Compose</h1>
-
 <h2 id="difference-between-docker-compose-up-with-hyphen-and-docker-compose-up-d-no-hyphen-between-docker-and-compose">Difference between docker-compose up (with hyphen) and docker compose up -d (no hyphen between docker and compose )</h2>
 <h3 id="docker-compose-up-with-hyphen">docker-compose up (with hyphen)</h3>
 <ul>
@@ -1454,6 +1572,118 @@
 <li>you get your terminal back immediately</li>
 <li>logs are not streamed to terminal but you can view it with <code>docker compose logs -f</code></li>
 </ul>
+<h1 id="run-all-the-services-in-isolation-on-your-macbook-and-access-the-plc-browsers-vnc-and-web-apps-then-clean-everything-up-afterward">Run all the services in isolation on your MacBook and access the PLC browsers, VNC, and web apps, then clean everything up afterward.</h1>
+<p>Perfect — thanks for sharing. Based on this <code>docker-compose.yml</code>, here’s how you can safely <strong>run all the services in isolation</strong> on your MacBook and access the PLC browsers, VNC, and web apps, then clean everything up afterward.</p>
+<hr />
+<h2 id="1-run-everything-safely">1️⃣ Run everything safely</h2>
+<p>Use a <strong>unique project name</strong> to isolate networks, volumes, and containers:</p>
+<pre><code class="language-bash">docker compose -p pptwin_test up -d
+</code></pre>
+<ul>
+<li><code>-p pptwin_test</code> ensures all containers, networks, and volumes are prefixed with <code>pptwin_test_</code></li>
+<li><code>-d</code> runs in detached mode (background)</li>
+<li>Make sure all <code>.tar</code> images are already loaded:</li>
+</ul>
+<pre><code class="language-bash">docker load -i pptwin_all_docker_images.tar
+</code></pre>
+<hr />
+<h2 id="2-access-services-and-ports">2️⃣ Access services and ports</h2>
+<p>From your MacBook, use the <code>localhost</code> IP + exposed ports in the <code>docker-compose.yml</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Access Method</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ScadaLTS</td>
+<td>Browser</td>
+<td><code>http://localhost:8080</code></td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>MySQL client</td>
+<td>3307</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>Postgres client</td>
+<td>5432</td>
+</tr>
+<tr>
+<td>MATLAB (VNC)</td>
+<td>VNC viewer (e.g., RealVNC)</td>
+<td>5901</td>
+</tr>
+<tr>
+<td>MATLAB (web)</td>
+<td>Browser</td>
+<td><code>http://localhost:6080/vnc.html</code></td>
+</tr>
+<tr>
+<td>PLC (openplc)</td>
+<td>Browser, if PLC web UI enabled</td>
+<td>Depends on container (usually default ports like 8080 inside container — check container logs)</td>
+</tr>
+<tr>
+<td>IED containers</td>
+<td>Internal services used by PLC/Scada</td>
+<td>Usually communicate inside Docker network</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: Since the openplc and IED containers don’t have ports mapped in your <code>docker-compose.yml</code>, they are <strong>internal only</strong>. If you need browser access, you must map ports like:</p>
+</blockquote>
+<pre><code class="language-yaml">openplc_hrsg:
+  image: openplc:v3
+  ports:
+    - &quot;8081:80&quot;  # Example: maps container 80 to host 8081
+</code></pre>
+<hr />
+<h2 id="3-check-container-status">3️⃣ Check container status</h2>
+<pre><code class="language-bash">docker compose -p pptwin_test ps
+</code></pre>
+<ul>
+<li>This will list all containers and the ports you can access</li>
+<li>You can also check logs:</li>
+</ul>
+<pre><code class="language-bash">docker compose -p pptwin_test logs -f scadalts
+</code></pre>
+<hr />
+<h2 id="4-tear-everything-down-after-testing">4️⃣ Tear everything down after testing</h2>
+<p>Once you’ve confirmed all services work:</p>
+<pre><code class="language-bash">docker compose -p pptwin_test down -v --rmi all
+</code></pre>
+<p>This does <strong>all of the following</strong>:</p>
+<ul>
+<li>Stops and removes all containers</li>
+<li>Removes all networks created for this project</li>
+<li>Removes all volumes created for this project</li>
+<li>Removes all images used <strong>by this Compose file</strong> (that you loaded for this test)</li>
+</ul>
+<p>Your existing Docker images, networks, and containers <strong>outside this project</strong> remain untouched.</p>
+<hr />
+<h2 id="optional-test-in-an-even-cleaner-sandbox">⚡ Optional: Test in an even cleaner sandbox</h2>
+<p>If you want <strong>100% isolation</strong>, you can use:</p>
+<pre><code class="language-bash">docker context create pptwin_test_ctx
+docker context use pptwin_test_ctx
+docker compose -p pptwin_test up -d
+</code></pre>
+<ul>
+<li>After testing:</li>
+</ul>
+<pre><code class="language-bash">docker compose -p pptwin_test down -v --rmi all
+docker context use default
+docker context rm pptwin_test_ctx
+</code></pre>
+<p>This ensures no overlap with your main Docker environment at all.</p>
+<hr />
+<p>If you want, I can <strong>write an updated <code>docker-compose.yml</code></strong> that <strong>maps all PLC browser ports and VNC ports</strong>, so you can open all PLC web UIs and MATLAB directly from your MacBook without editing later.</p>
+<p>Do you want me to do that?</p>
 
 
 

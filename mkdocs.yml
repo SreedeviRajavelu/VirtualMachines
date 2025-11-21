@@ -19,6 +19,7 @@ nav:
       - Docker Compose: Docker_Compose.md
       - Docker Volumes: Docker_Volumes.md
       - Docker Space Optimization: Docker_Space_Optimization.md
+      - Docker Images and Docker Load: Docker_Images_and_Docker_Load.md
   - Virtualization:
       - VM-to-VM Communication: VM-to-VM-Communication.md
       - Fix Slow Ubuntu VM Boot: Fix_Slow_UbuntuVM_Boot.md

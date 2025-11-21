@@ -13,6 +13,7 @@ Welcome! Use the sidebar to navigate to different sections of this project.
 - [Docker Compose](Docker_Compose.md)
 - [Docker Volumes](Docker_Volumes.md)
 - [Docker Space Optimization](Docker_Space_Optimization.md)
+- [Docker Images and Docker Load](Docker_Images_and_Docker_Load.md)
 
 ## Virtualization
 
