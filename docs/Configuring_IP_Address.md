@@ -579,3 +579,5 @@ ubuntu@pgt:~$
 
 ![alt text](image-5.png)
 
+`docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}: {{$v.IPAddress}}{{"\n"}}{{end}}' st_ied`
+
