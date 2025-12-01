@@ -1,0 +1,3477 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Docker_Images_and_Docker_Load/">
+      
+      
+        <link rel="prev" href="../Docker_Space_Optimization/">
+      
+      
+        <link rel="next" href="../VM-to-VM-Communication/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Docker Images and Docker Load - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#question" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-header__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sree Devi’s Documentation on Virtual Machines, Docker & Networking
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Docker Images and Docker Load
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SreedeviRajavelu/VirtualMachines" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-nav__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sree Devi’s Documentation on Virtual Machines, Docker & Networking
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SreedeviRajavelu/VirtualMachines" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker, Virtual Machines & Networks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DockerBuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Build
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Networking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Macvlan_Network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Macvlan Network
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DockerEngine_Ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Engine on Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CommunicationBetweenInsideAndOutsideDocker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Communication Inside & Outside Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Container_Interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Container Interfaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_tgz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using tarballs (.tgz)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Volumes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Volumes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Space_Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Space Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Docker Images and Docker Load
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Images and Docker Load
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#question" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Answer:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-1-use-a-docker-context-isolated-project-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Option 1: Use a Docker context + isolated project name
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧭 Option 1: Use a Docker context + isolated project name">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-load-your-tar-images-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ Load your .tar images safely
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-use-a-unique-project-name-for-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2️⃣ Use a unique project name for isolation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-access-plc-browsers-and-vnc" class="md-nav__link">
+    <span class="md-ellipsis">
+      3️⃣ Access PLC browsers and VNC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tear-everything-down-no-leftovers" class="md-nav__link">
+    <span class="md-ellipsis">
+      4️⃣ Tear everything down (no leftovers)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-2-use-a-docker-desktop-dev-environment-gui-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧱 Option 2: Use a Docker Desktop “Dev Environment” (GUI isolation)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-extra-isolation-if-you-want-to-be-100-sure" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧹 Optional Extra Isolation (if you want to be 100% sure)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#second-question-after" class="md-nav__link">
+    <span class="md-ellipsis">
+      SECOND QUESTION AFTER
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ANSWER:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-liner-extract-load-all-tars-inside-the-big-tar" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ One-liner: Extract &amp; load all tars inside the big tar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ One-liner: Extract &amp; load all tars inside the big tar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#this-does-all-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✔ This does all at once:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#after-loading-the-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 After loading the images
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remove-everything-after-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧹 Remove everything after testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-you-want-paste-your-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      If you want, paste your docker-compose.yml
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question 3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      ANSWER:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-an-isolated-docker-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ STEP 1 — Create an isolated Docker context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-start-the-entire-plc-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ STEP 2 — Start the entire PLC environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-verify-that-everything-is-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ STEP 3 — Verify that everything is running
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-access-each-plc-scada-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ STEP 4 — Access each PLC / SCADA / Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ STEP 4 — Access each PLC / SCADA / Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scada-lts-browser-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      SCADA-LTS (browser UI)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-port-exposed" class="md-nav__link">
+    <span class="md-ellipsis">
+      MySQL (port exposed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postgres" class="md-nav__link">
+    <span class="md-ellipsis">
+      Postgres
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matlab-ui-novnc" class="md-nav__link">
+    <span class="md-ellipsis">
+      MATLAB UI (NoVNC)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matlab-vnc-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      MATLAB VNC viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openplc-runtime-these-have-no-ports-exposed" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenPLC runtime (these have no ports exposed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ied-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      IED containers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-optional-see-the-internal-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      📡 STEP 5 — (Optional) See the internal network
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-clean-up-everything-after-you-finish-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧹 STEP 6 — Clean up everything after you finish testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-remove-the-isolated-docker-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧼 STEP 7 — Remove the isolated Docker context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#you-are-ready-to-run-the-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 You are ready to run the simulation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      QUESTION 4:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer-to-question-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ANSWER TO QUESTION 4:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-happens" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Why This Happens
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-it-depending-on-your-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Fix It Depending on Your Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Fix It Depending on Your Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-if-you-want-the-container-to-connect-to-postgres-running-on-your-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. If you want the container to connect to Postgres running on your Mac
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-if-a-postgres-container-should-be-used-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. If a Postgres container should be used (recommended)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. If a Postgres container should be used (recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example docker-compose.yml:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-if-the-db-connection-parameters-are-empty" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. If the DB connection parameters are empty
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. If the DB connection parameters are empty">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#try" class="md-nav__link">
+    <span class="md-ellipsis">
+      Try:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-should-do-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ What You Should Do Now
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question-5-how-should-i-modify-docker-composeyml-and-what-other-details-do-you-need-regarding-the-postgres-container-and-how-should-i-find-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      QUESTION 5: how should I modify docker-compose.yml and what other details do you need regarding the postgres container and how should I find it ?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer-to-question-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      ANSWER TO QUESTION 5:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-we-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 1. What we know
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-modify-docker-composeyml-so-ied-containers-get-db-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 2. Modify docker-compose.yml so IED containers get DB credentials
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 2. Modify docker-compose.yml so IED containers get DB credentials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updated-docker-composeyml-only-showing-the-changed-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Updated docker-compose.yml (only showing the changed part):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-this-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 3. Why this works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-after-editing-the-file-reload-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 4. After editing the file, reload everything
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-i-still-need-optional-for-full-correctness" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 5. What I still need (optional, for full correctness)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 5. What I still need (optional, for full correctness)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-environment-variable-names-your-ied-images-actually-expect" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✔ What environment variable names your IED images actually expect
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-you-want-share" class="md-nav__link">
+    <span class="md-ellipsis">
+      If you want, share:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question-6-why-are-the-ied-containers-still-exiting-based-on-the-docker-logs-below" class="md-nav__link">
+    <span class="md-ellipsis">
+      QUESTION 6: Why are the IED containers still exiting based on the docker logs below?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer-to-question-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      ANSWER TO QUESTION 6:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-ied-is-failing-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Why IED is failing now
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-fix-is-simple-add-docker-healthcheck-depends_on-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⭐ The FIX is simple: Add Docker healthcheck + depends_on: condition
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-docker-composeyml-snippet-add-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ FIXED docker-compose.yml snippet (add this)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ FIXED docker-compose.yml snippet (add this)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-add-a-healthcheck-to-postgres" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Add a healthcheck to Postgres
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-add-depends_on-for-ied-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Add depends_on for IED containers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-example-for-one-ied" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✔ Full example for one IED
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#after-modifying-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      🟢 After modifying docker-compose
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-but-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      🟦 OPTIONAL (but recommended)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-why-your-ieds-are-exiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      🟣 Summary: Why your IEDs are exiting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Virtualization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Virtualization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VM-to-VM-Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM-to-VM Communication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fix_Slow_UbuntuVM_Boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fix Slow Ubuntu VM Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Recovering_VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Recovering VM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Configuring_IP_Address/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuring IP Address
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab_Docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Wine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab_Data_Sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab Data Sources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Remote_PortForwarding_SSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remote Port Fowarding SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NAT_Adapter_Iptables_Forwarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NAT Adapter Iptables Fowarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Bridged_Adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bridged Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File_Transfer_Host_To_Remote/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    File Transfer Host To Remote
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Systemctl_Systemd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Systemctl Systemd
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ubuntu_Python_Packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu Python Packages
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Connecting_DB_IEDs_PLCs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connecting DB IEDs PLCs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Routes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Routes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    SCADA
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            SCADA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ScadaLTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ScadaLTS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mac Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    System Administration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            System Administration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux_System_Administration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux System Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Networking_Fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networking Fundamentals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Troubleshooting_Tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#question" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Answer:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-1-use-a-docker-context-isolated-project-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Option 1: Use a Docker context + isolated project name
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧭 Option 1: Use a Docker context + isolated project name">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-load-your-tar-images-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ Load your .tar images safely
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-use-a-unique-project-name-for-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2️⃣ Use a unique project name for isolation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-access-plc-browsers-and-vnc" class="md-nav__link">
+    <span class="md-ellipsis">
+      3️⃣ Access PLC browsers and VNC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tear-everything-down-no-leftovers" class="md-nav__link">
+    <span class="md-ellipsis">
+      4️⃣ Tear everything down (no leftovers)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-2-use-a-docker-desktop-dev-environment-gui-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧱 Option 2: Use a Docker Desktop “Dev Environment” (GUI isolation)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-extra-isolation-if-you-want-to-be-100-sure" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧹 Optional Extra Isolation (if you want to be 100% sure)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#second-question-after" class="md-nav__link">
+    <span class="md-ellipsis">
+      SECOND QUESTION AFTER
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ANSWER:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-liner-extract-load-all-tars-inside-the-big-tar" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ One-liner: Extract &amp; load all tars inside the big tar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ One-liner: Extract &amp; load all tars inside the big tar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#this-does-all-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✔ This does all at once:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#after-loading-the-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 After loading the images
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remove-everything-after-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧹 Remove everything after testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-you-want-paste-your-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      If you want, paste your docker-compose.yml
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question 3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      ANSWER:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-an-isolated-docker-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ STEP 1 — Create an isolated Docker context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-start-the-entire-plc-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ STEP 2 — Start the entire PLC environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-verify-that-everything-is-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ STEP 3 — Verify that everything is running
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-access-each-plc-scada-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ STEP 4 — Access each PLC / SCADA / Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ STEP 4 — Access each PLC / SCADA / Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scada-lts-browser-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      SCADA-LTS (browser UI)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-port-exposed" class="md-nav__link">
+    <span class="md-ellipsis">
+      MySQL (port exposed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postgres" class="md-nav__link">
+    <span class="md-ellipsis">
+      Postgres
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matlab-ui-novnc" class="md-nav__link">
+    <span class="md-ellipsis">
+      MATLAB UI (NoVNC)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matlab-vnc-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      MATLAB VNC viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openplc-runtime-these-have-no-ports-exposed" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenPLC runtime (these have no ports exposed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ied-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      IED containers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-optional-see-the-internal-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      📡 STEP 5 — (Optional) See the internal network
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-clean-up-everything-after-you-finish-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧹 STEP 6 — Clean up everything after you finish testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-remove-the-isolated-docker-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧼 STEP 7 — Remove the isolated Docker context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#you-are-ready-to-run-the-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 You are ready to run the simulation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      QUESTION 4:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer-to-question-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ANSWER TO QUESTION 4:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-happens" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Why This Happens
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-it-depending-on-your-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Fix It Depending on Your Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Fix It Depending on Your Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-if-you-want-the-container-to-connect-to-postgres-running-on-your-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. If you want the container to connect to Postgres running on your Mac
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-if-a-postgres-container-should-be-used-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. If a Postgres container should be used (recommended)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. If a Postgres container should be used (recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example docker-compose.yml:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-if-the-db-connection-parameters-are-empty" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. If the DB connection parameters are empty
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. If the DB connection parameters are empty">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#try" class="md-nav__link">
+    <span class="md-ellipsis">
+      Try:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-should-do-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ What You Should Do Now
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question-5-how-should-i-modify-docker-composeyml-and-what-other-details-do-you-need-regarding-the-postgres-container-and-how-should-i-find-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      QUESTION 5: how should I modify docker-compose.yml and what other details do you need regarding the postgres container and how should I find it ?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer-to-question-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      ANSWER TO QUESTION 5:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-we-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ 1. What we know
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-modify-docker-composeyml-so-ied-containers-get-db-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 2. Modify docker-compose.yml so IED containers get DB credentials
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 2. Modify docker-compose.yml so IED containers get DB credentials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updated-docker-composeyml-only-showing-the-changed-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Updated docker-compose.yml (only showing the changed part):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-this-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 3. Why this works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-after-editing-the-file-reload-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 4. After editing the file, reload everything
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-i-still-need-optional-for-full-correctness" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 5. What I still need (optional, for full correctness)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 5. What I still need (optional, for full correctness)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-environment-variable-names-your-ied-images-actually-expect" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✔ What environment variable names your IED images actually expect
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-you-want-share" class="md-nav__link">
+    <span class="md-ellipsis">
+      If you want, share:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question-6-why-are-the-ied-containers-still-exiting-based-on-the-docker-logs-below" class="md-nav__link">
+    <span class="md-ellipsis">
+      QUESTION 6: Why are the IED containers still exiting based on the docker logs below?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#answer-to-question-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      ANSWER TO QUESTION 6:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-ied-is-failing-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Why IED is failing now
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-fix-is-simple-add-docker-healthcheck-depends_on-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⭐ The FIX is simple: Add Docker healthcheck + depends_on: condition
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-docker-composeyml-snippet-add-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ FIXED docker-compose.yml snippet (add this)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ FIXED docker-compose.yml snippet (add this)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-add-a-healthcheck-to-postgres" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Add a healthcheck to Postgres
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-add-depends_on-for-ied-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Add depends_on for IED containers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-example-for-one-ied" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✔ Full example for one IED
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#after-modifying-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      🟢 After modifying docker-compose
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-but-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      🟦 OPTIONAL (but recommended)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-why-your-ieds-are-exiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      🟣 Summary: Why your IEDs are exiting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h2 id="question">Question:</h2>
+<p>if I want to test out the docker images on my local machine MacBook without conflicting anything with my existing docker networks or images or volumes or running docker instances and I want to run all docker instances access all plc browsers, vnc viewer and then make sure I remove all of the associated networks, volumes and images  after testing, how can I do that </p>
+<p>sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % ls
+docker-compose.yml      pptwin_all_docker_images.tar
+sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % </p>
+<h2 id="answer">Answer:</h2>
+<p>Excellent — that’s a smart and <strong>safe approach</strong> ✅</p>
+<p>You can test all your <code>PPTWIN</code> Docker images and services <strong>completely isolated</strong> on your MacBook <strong>without touching</strong> your existing Docker setup by using one of two clean methods:</p>
+<hr />
+<h2 id="option-1-use-a-docker-context-isolated-project-name">🧭 Option 1: Use a <strong>Docker context + isolated project name</strong></h2>
+<p>This keeps everything separate <strong>inside your existing Docker Desktop</strong>, and you can cleanly remove everything later.</p>
+<h3 id="steps">🧩 Steps</h3>
+<h4 id="1-load-your-tar-images-safely">1️⃣ Load your <code>.tar</code> images safely</h4>
+<pre><code class="language-bash">docker load -i pptwin_all_docker_images.tar
+</code></pre>
+<h4 id="2-use-a-unique-project-name-for-isolation">2️⃣ Use a unique project name for isolation</h4>
+<p>Docker Compose automatically namespaces containers, networks, and volumes per project.</p>
+<p>So when you run:</p>
+<pre><code class="language-bash">docker compose -p pptwin_test up -d
+</code></pre>
+<p>…it will create containers, networks, and volumes prefixed like <code>pptwin_test_...</code></p>
+<p>Your local images, networks, etc. won’t be touched.</p>
+<h4 id="3-access-plc-browsers-and-vnc">3️⃣ Access PLC browsers and VNC</h4>
+<p>Run:</p>
+<pre><code class="language-bash">docker ps
+</code></pre>
+<p>Then look for <code>PORTS</code> columns like:</p>
+<pre><code>0.0.0.0:8080-&gt;80/tcp
+0.0.0.0:5901-&gt;5900/tcp
+</code></pre>
+<p>Then you can:</p>
+<ul>
+<li>Access PLC or ScadaLTS web UIs via browser:
+  👉 <a href="http://localhost">http://localhost</a>:<port></li>
+<li>Access VNC with any VNC client:
+  👉 <code>localhost:&lt;vnc_port&gt;</code> (e.g., 5901)</li>
+</ul>
+<h4 id="4-tear-everything-down-no-leftovers">4️⃣ Tear everything down (no leftovers)</h4>
+<p>After testing, stop and remove everything:</p>
+<pre><code class="language-bash">docker compose -p pptwin_test down -v --rmi all
+</code></pre>
+<p>That removes:</p>
+<ul>
+<li>All containers</li>
+<li>All networks</li>
+<li>All volumes</li>
+<li>All images <strong>created</strong> by this Compose project</li>
+</ul>
+<p>Your pre-existing Docker setup stays untouched.</p>
+<hr />
+<h2 id="option-2-use-a-docker-desktop-dev-environment-gui-isolation">🧱 Option 2: Use a <strong>Docker Desktop “Dev Environment”</strong> (GUI isolation)</h2>
+<p>If you’re using <strong>Docker Desktop for Mac</strong>:</p>
+<ol>
+<li>Go to <strong>Dev Environments → Create</strong></li>
+<li>Point it to your folder containing <code>docker-compose.yml</code></li>
+<li>This runs everything in a separate dev context (no interference with your default Docker engine).</li>
+<li>When done, simply <strong>delete the Dev Environment</strong> — it wipes all containers, volumes, and networks for that project.</li>
+</ol>
+<hr />
+<h2 id="optional-extra-isolation-if-you-want-to-be-100-sure">🧹 Optional Extra Isolation (if you want to be 100% sure)</h2>
+<p>You can even use a <strong>temporary Docker context</strong>:</p>
+<pre><code class="language-bash">docker context create pptwin_test_ctx
+docker context use pptwin_test_ctx
+</code></pre>
+<p>Then run your images:</p>
+<pre><code class="language-bash">docker compose -p pptwin_test up -d
+</code></pre>
+<p>When finished:</p>
+<pre><code class="language-bash">docker compose -p pptwin_test down -v --rmi all
+docker context use default
+docker context rm pptwin_test_ctx
+</code></pre>
+<p>That ensures <strong>nothing</strong> touches your default Docker engine.</p>
+<hr />
+<p>Would you like me to quickly look at your <code>docker-compose.yml</code> file and show you exactly <strong>which URLs and ports</strong> you can open for the PLC browsers and VNC once it’s up?
+If yes, please paste or upload it.</p>
+<h1 id="second-question-after">SECOND QUESTION AFTER</h1>
+<p>run <code>tar -tvf pptwin_all_docker_images.tar</code></p>
+<p>Output:</p>
+<pre><code>sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % tar -tvf pptwin_all_docker_images.tar
+-rw-------  0 ubuntu ubuntu 406601216 12 Nov 15:45 ied_dockers-eg_ied.tar
+-rw-------  0 ubuntu ubuntu 406601216 12 Nov 15:45 ied_dockers-gt_ied.tar
+-rw-------  0 ubuntu ubuntu 406601216 12 Nov 15:45 ied_dockers-hrsg_ied.tar
+-rw-------  0 ubuntu ubuntu 406601216 12 Nov 15:44 ied_dockers-st_ied.tar
+-rw-------  0 ubuntu ubuntu 6437874176 12 Nov 15:53 matlab.tar
+-rw-------  0 ubuntu ubuntu  448714240 12 Nov 15:47 mysql.tar
+-rw-------  0 ubuntu ubuntu 1083206144 12 Nov 16:01 openplc.tar
+-rw-------  0 ubuntu ubuntu  457962496 12 Nov 15:59 postgres.tar
+-rw-------  0 ubuntu ubuntu  664389632 12 Nov 15:46 scadalts.tar
+</code></pre>
+<h1 id="answer_1">ANSWER:</h1>
+<p>Great — this explains <strong>exactly</strong> why you got:</p>
+<pre><code>unrecognized image format
+</code></pre>
+<p>Your file <strong>pptwin_all_docker_images.tar</strong> is <em>not</em> a Docker image tar.
+It is a <strong>tar containing multiple individual Docker image tar files</strong>:</p>
+<pre><code>ied_dockers-eg_ied.tar
+ied_dockers-gt_ied.tar
+ied_dockers-hrsg_ied.tar
+ied_dockers-st_ied.tar
+matlab.tar
+mysql.tar
+openplc.tar
+postgres.tar
+scadalts.tar
+</code></pre>
+<p>Docker cannot load the <strong>outer</strong> tar.
+You must extract and load <strong>each inner tar</strong>.</p>
+<p>But you asked for:</p>
+<blockquote>
+<p>a single-line command to extract and load all images directly
+without creating a temporary directory</p>
+</blockquote>
+<p>Here is the <strong>exact one-liner</strong> you need.
+No temp folder needed.
+Works on macOS <strong>zsh</strong> and <strong>bash</strong>.</p>
+<hr />
+<h1 id="one-liner-extract-load-all-tars-inside-the-big-tar">✅ <strong>One-liner: Extract &amp; load all tars inside the big tar</strong></h1>
+<pre><code class="language-bash">tar -O -xf pptwin_all_docker_images.tar | while read f; do tar -xf pptwin_all_docker_images.tar &quot;$f&quot;; docker load -i &quot;$f&quot;; rm &quot;$f&quot;; done
+</code></pre>
+<p>But this fails on macOS because <code>tar -O</code> does not list names correctly for loops.</p>
+<p>So here is the <strong>correct macOS-compatible version</strong>:</p>
+<pre><code class="language-bash">tar -tf pptwin_all_docker_images.tar | while read f; do tar -xOf pptwin_all_docker_images.tar &quot;$f&quot; &gt; &quot;$f&quot;; docker load -i &quot;$f&quot;; rm &quot;$f&quot;; done
+</code></pre>
+<h3 id="this-does-all-at-once">✔ This does all at once:</h3>
+<ul>
+<li>Lists each inner tar</li>
+<li>Extracts it <strong>to memory</strong>, writes it to a file</li>
+<li>Loads it with <code>docker load -i</code></li>
+<li>Deletes the extracted file</li>
+<li>No temp directory created</li>
+<li>No intermediate directories</li>
+</ul>
+<hr />
+<h1 id="after-loading-the-images">🧪 After loading the images</h1>
+<p>Start your environment safely using the isolation method:</p>
+<pre><code class="language-bash">docker context create pptwin_test_ctx
+docker context use pptwin_test_ctx
+docker compose -p pptwin_test up -d
+</code></pre>
+<hr />
+<h1 id="remove-everything-after-testing">🧹 Remove everything after testing</h1>
+<pre><code class="language-bash">docker compose -p pptwin_test down -v --rmi all
+docker context use default
+docker context rm pptwin_test_ctx
+</code></pre>
+<hr />
+<h1 id="if-you-want-paste-your-docker-composeyml">If you want, paste your <code>docker-compose.yml</code></h1>
+<p>I can:</p>
+<ul>
+<li>Tell you <strong>which PLC runs on which port</strong></li>
+<li>Provide URLs for all PLCs, HMIs, VNC servers, SCADA, etc.</li>
+<li>Generate a diagram showing <strong>how all PLCs connect</strong></li>
+</ul>
+<p>Just send it when ready.</p>
+<h1 id="question-3">Question 3</h1>
+<pre><code>below is the output and content of docker-compose.yml , outline what are the next steps for me to do 
+
+sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % tar -tf pptwin_all_docker_images.tar | while read f; do tar -xOf pptwin_all_docker_images.tar &quot;$f&quot; &gt; &quot;$f&quot;; docker load -i &quot;$f&quot;; rm &quot;$f&quot;; done
+
+Loaded image: ied_dockers-eg_ied:latest
+Loaded image: ied_dockers-gt_ied:latest
+Loaded image: ied_dockers-hrsg_ied:latest
+Loaded image: ied_dockers-st_ied:latest
+Loaded image: mathworks/matlab:r2025a
+Loaded image: mysql/mysql-server:5.7
+Loaded image: openplc:v3
+Loaded image: postgres:16
+Loaded image: scadalts/scadalts:latest
+sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % 
+
+
+CONTENT OF docker-compose.yml :
+
+version: '3.8'
+
+services:
+  scadalts:
+    image: scadalts/scadalts:latest
+    ports:
+      - &quot;8080:8080&quot;
+
+  mysql:
+    image: mysql/mysql-server:5.7
+    ports:
+      - &quot;3307:3306&quot;
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: scadalts
+
+  matlab:
+    image: mathworks/matlab:r2025a
+    ports:
+      - &quot;6080:6080&quot;
+      - &quot;5901:5901&quot;
+
+  postgres:
+    image: postgres:16
+    ports:
+      - &quot;5432:5432&quot;
+    environment:
+      POSTGRES_PASSWORD: root
+
+  openplc_hrsg:
+    image: openplc:v3
+  openplc_gt:
+    image: openplc:v3
+  openplc_eg:
+    image: openplc:v3
+  openplc_st:
+    image: openplc:v3
+
+  ied_hrsg:
+    image: ied_dockers-hrsg_ied
+  ied_gt:
+    image: ied_dockers-gt_ied
+  ied_eg:
+    image: ied_dockers-eg_ied
+  ied_st:
+    image: ied_dockers-st_ied
+</code></pre>
+<h1 id="answer_2">ANSWER:</h1>
+<p>Great — your images are loaded correctly, and the <code>docker-compose.yml</code> is simple and clean.
+Here are your <strong>exact next steps</strong>, in order, to safely run and later clean up the entire PLC test environment <strong>without conflicting with your Mac’s existing Docker setup</strong>.</p>
+<hr />
+<h1 id="step-1-create-an-isolated-docker-context">✅ <strong>STEP 1 — Create an isolated Docker context</strong></h1>
+<p>This makes sure NOTHING mixes with your real Docker networks/images/volumes.</p>
+<pre><code class="language-bash">docker context create pptwin_test_ctx
+docker context use pptwin_test_ctx
+</code></pre>
+<hr />
+<h1 id="step-2-start-the-entire-plc-environment">✅ <strong>STEP 2 — Start the entire PLC environment</strong></h1>
+<p>Run everything inside an isolated namespace (<code>-p pptwin_test</code>):</p>
+<pre><code class="language-bash">docker compose -p pptwin_test up -d
+</code></pre>
+<p>Your containers will be named like:</p>
+<ul>
+<li><code>pptwin_test_scadalts</code></li>
+<li><code>pptwin_test_mysql</code></li>
+<li><code>pptwin_test_matlab</code></li>
+<li><code>pptwin_test_openplc_gt</code></li>
+<li><code>pptwin_test_ied_hrsg</code></li>
+<li>etc.</li>
+</ul>
+<p>And your networks/volumes will also be isolated.</p>
+<hr />
+<h1 id="step-3-verify-that-everything-is-running">✅ <strong>STEP 3 — Verify that everything is running</strong></h1>
+<pre><code class="language-bash">docker ps
+</code></pre>
+<p>You should see 12 containers (SCADA, MySQL, MATLAB, Postgres, 4 OpenPLC, 4 IEDs).</p>
+<hr />
+<h1 id="step-4-access-each-plc-scada-tools">✅ <strong>STEP 4 — Access each PLC / SCADA / Tools</strong></h1>
+<h3 id="scada-lts-browser-ui"><strong>SCADA-LTS (browser UI)</strong></h3>
+<pre><code>http://localhost:8080
+</code></pre>
+<h3 id="mysql-port-exposed"><strong>MySQL (port exposed)</strong></h3>
+<pre><code>localhost:3307
+user: root
+password: rootpassword
+</code></pre>
+<h3 id="postgres"><strong>Postgres</strong></h3>
+<pre><code>localhost:5432
+user: postgres
+password: root
+</code></pre>
+<h3 id="matlab-ui-novnc"><strong>MATLAB UI (NoVNC)</strong></h3>
+<pre><code>http://localhost:6080
+</code></pre>
+<h3 id="matlab-vnc-viewer"><strong>MATLAB VNC viewer</strong></h3>
+<pre><code>localhost:5901
+</code></pre>
+<h3 id="openplc-runtime-these-have-no-ports-exposed"><strong>OpenPLC runtime (these have no ports exposed)</strong></h3>
+<p><code>openplc_hrsg</code>, <code>openplc_gt</code>, <code>openplc_eg</code>, <code>openplc_st</code>
+→ These run <em>inside the Docker internal network</em>.</p>
+<p>You can check logs:</p>
+<pre><code class="language-bash">docker logs pptwin_test_openplc_gt
+</code></pre>
+<h3 id="ied-containers"><strong>IED containers</strong></h3>
+<p><code>ied_hrsg</code>, <code>ied_gt</code>, <code>ied_eg</code>, <code>ied_st</code>
+→ These also run internally, accessed by SCADA.
+If they expose ports internally, you can inspect them:</p>
+<pre><code class="language-bash">docker inspect pptwin_test_ied_gt | grep -i port -A5
+</code></pre>
+<hr />
+<h1 id="step-5-optional-see-the-internal-network">📡 <strong>STEP 5 — (Optional) See the internal network</strong></h1>
+<p>To check how containers can reach each other:</p>
+<pre><code class="language-bash">docker network inspect pptwin_test_default
+</code></pre>
+<p>All services are inside this network.</p>
+<hr />
+<h1 id="step-6-clean-up-everything-after-you-finish-testing">🧹 <strong>STEP 6 — Clean up everything after you finish testing</strong></h1>
+<p>This removes:</p>
+<ul>
+<li>All containers</li>
+<li>Networks</li>
+<li>Volumes</li>
+<li>Images created by compose</li>
+</ul>
+<pre><code class="language-bash">docker compose -p pptwin_test down -v --rmi all
+</code></pre>
+<hr />
+<h1 id="step-7-remove-the-isolated-docker-context">🧼 <strong>STEP 7 — Remove the isolated Docker context</strong></h1>
+<p>Switch back to your real Docker:</p>
+<pre><code class="language-bash">docker context use default
+</code></pre>
+<p>Then delete the context:</p>
+<pre><code class="language-bash">docker context rm pptwin_test_ctx
+</code></pre>
+<p>After this, <strong>your Mac is completely clean</strong> — as if you never ran the PLC test environment at all.</p>
+<hr />
+<h1 id="you-are-ready-to-run-the-simulation">🚀 <strong>You are ready to run the simulation</strong></h1>
+<p>If you want, I can also:</p>
+<ul>
+<li>Check if your IED images expose ports</li>
+<li>Generate a diagram showing how SCADA → PLC → IED → MATLAB interact</li>
+<li>Help update the docker-compose for better networking</li>
+</ul>
+<p>Just let me know!</p>
+<h1 id="question-4">QUESTION 4:</h1>
+<pre><code>sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % docker logs pptwin_test-ied_gt-1
+
+Connecting to DB at None:None as None
+[FATAL ERROR] connection to server at &quot;localhost&quot; (::1), port 5432 failed: Connection refused
+    Is the server running on that host and accepting TCP/IP connections?
+connection to server at &quot;localhost&quot; (127.0.0.1), port 5432 failed: Connection refused
+    Is the server running on that host and accepting TCP/IP connections?
+
+sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % 
+</code></pre>
+<h1 id="answer-to-question-4">ANSWER TO QUESTION 4:</h1>
+<p>This error means the container is trying to connect to <strong>PostgreSQL at localhost:5432</strong>, but <strong>no Postgres server is running inside the container</strong> (or there’s no host mapping).</p>
+<p>Let’s debug step by step.</p>
+<hr />
+<h1 id="why-this-happens">✅ <strong>Why This Happens</strong></h1>
+<p>Inside a Docker container, <strong>localhost = the container itself</strong>, not your host machine.</p>
+<p>So if your application inside the container uses:</p>
+<pre><code>DB_HOST=localhost
+DB_PORT=5432
+</code></pre>
+<p>…it will look <strong>inside the container</strong>, not outside.
+Unless Postgres is also running in the same container (unlikely), this will fail.</p>
+<hr />
+<h1 id="fix-it-depending-on-your-setup">✅ <strong>Fix It Depending on Your Setup</strong></h1>
+<h2 id="1-if-you-want-the-container-to-connect-to-postgres-running-on-your-mac"><strong>1. If you want the container to connect to Postgres running on your Mac</strong></h2>
+<p>Use <strong>host.docker.internal</strong> instead of localhost.</p>
+<p>Update env variables when running the container:</p>
+<pre><code>-e DB_HOST=host.docker.internal \
+-e DB_PORT=5432 \
+-e DB_USER=youruser \
+-e DB_PASSWORD=yourpass
+</code></pre>
+<p>Or in docker-compose:</p>
+<pre><code class="language-yaml">environment:
+  DB_HOST: host.docker.internal
+  DB_PORT: 5432
+  DB_USER: youruser
+  DB_PASSWORD: yourpass
+</code></pre>
+<hr />
+<h2 id="2-if-a-postgres-container-should-be-used-recommended"><strong>2. If a Postgres container should be used (recommended)</strong></h2>
+<p>Run Postgres in <strong>another container</strong> and put them on the same Docker network.</p>
+<h3 id="example-docker-composeyml">Example <code>docker-compose.yml</code>:</h3>
+<pre><code class="language-yaml">version: &quot;3.8&quot;
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_DB: mydb
+    ports:
+      - &quot;5432:5432&quot;
+
+  pptwin_test-ied_gt-1:
+    image: pptwin_test-ied_gt-1
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: myuser
+      DB_PASSWORD: mypass
+    depends_on:
+      - db
+</code></pre>
+<p>Inside the pptwin container, you now connect using:</p>
+<pre><code>DB_HOST=db
+</code></pre>
+<hr />
+<h2 id="3-if-the-db-connection-parameters-are-empty"><strong>3. If the DB connection parameters are empty</strong></h2>
+<p>Your logs show:</p>
+<pre><code>Connecting to DB at None:None as None
+</code></pre>
+<p>This means <strong>DB_HOST, DB_PORT, DB_USER, DB_PASSWORD are not set at all</strong>.</p>
+<p>Check how the container expects DB credentials:</p>
+<h3 id="try">Try:</h3>
+<pre><code>docker inspect pptwin_test-ied_gt-1 | grep -i db
+</code></pre>
+<p>or</p>
+<pre><code>docker exec -it pptwin_test-ied_gt-1 env | grep -i db
+</code></pre>
+<p>If you see nothing → environment variables were not passed.</p>
+<p>Fix by re-running the container with proper envs.</p>
+<hr />
+<h1 id="what-you-should-do-now">⚠️ <strong>What You Should Do Now</strong></h1>
+<p>Please tell me:</p>
+<ol>
+<li>
+<p>How are you running the container?</p>
+</li>
+<li>
+<p><code>docker run ...</code> (paste command)</p>
+</li>
+<li>or <code>docker-compose.yml</code></li>
+<li>
+<p>or a script like <code>start.sh</code>?</p>
+</li>
+<li>
+<p>Do you have a Postgres container or Postgres running on your Mac?</p>
+</li>
+</ol>
+<p>If you send the run command or compose file, I can give you the exact fix.</p>
+<h1 id="question-5-how-should-i-modify-docker-composeyml-and-what-other-details-do-you-need-regarding-the-postgres-container-and-how-should-i-find-it">QUESTION 5: how should I modify docker-compose.yml and what other details do you need regarding the postgres container and how should I find it ?</h1>
+<p>content of docker-compose.yml file :</p>
+<pre><code>version: '3.8'
+
+services:
+  scadalts:
+    image: scadalts/scadalts:latest
+    ports:
+      - &quot;8080:8080&quot;
+
+  mysql:
+    image: mysql/mysql-server:5.7
+    ports:
+      - &quot;3307:3306&quot;
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: scadalts
+
+  matlab:
+    image: mathworks/matlab:r2025a
+    ports:
+      - &quot;6080:6080&quot;
+      - &quot;5901:5901&quot;
+
+  postgres:
+    image: postgres:16
+    ports:
+      - &quot;5432:5432&quot;
+    environment:
+      POSTGRES_PASSWORD: root
+
+  openplc_hrsg:
+    image: openplc:v3
+  openplc_gt:
+    image: openplc:v3
+  openplc_eg:
+    image: openplc:v3
+  openplc_st:
+    image: openplc:v3
+
+  ied_hrsg:
+    image: ied_dockers-hrsg_ied
+  ied_gt:
+    image: ied_dockers-gt_ied
+  ied_eg:
+    image: ied_dockers-eg_ied
+  ied_st:
+    image: ied_dockers-st_ied
+</code></pre>
+<p>docker container where Postgres is running :</p>
+<pre><code>cbfcad904f62   postgres:16            &quot;docker-entrypoint.s…&quot;   22 hours ago   Up 22 hours             0.0.0.0:5432-&gt;5432/tcp, [::]:5432-&gt;5432/tcp   pptwin_test-postgres-1
+sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES %
+</code></pre>
+<h1 id="answer-to-question-5">ANSWER TO QUESTION 5:</h1>
+<p>Great — you <em>already have</em> a working Postgres container (<code>pptwin_test-postgres-1</code>).
+Now we just need to <strong>wire your IED containers to use that Postgres</strong>.</p>
+<p>Right now your docker-compose has <strong>no environment variables</strong> for the IED containers, so they default to:</p>
+<pre><code>DB_HOST=None
+DB_PORT=None
+DB_USER=None
+DB_PASSWORD=None
+</code></pre>
+<p>…which explains the logs:</p>
+<pre><code>Connecting to DB at None:None as None
+</code></pre>
+<p>Let’s fix this properly.</p>
+<hr />
+<h1 id="1-what-we-know">✅ <strong>1. What we know</strong></h1>
+<p>From your compose file:</p>
+<pre><code class="language-yaml">postgres:
+  image: postgres:16
+  ports:
+    - &quot;5432:5432&quot;
+  environment:
+    POSTGRES_PASSWORD: root
+</code></pre>
+<p>This means:</p>
+<ul>
+<li><strong>DB host inside Docker network = <code>postgres</code></strong></li>
+<li><strong>DB port = <code>5432</code></strong></li>
+<li><strong>DB password = <code>root</code></strong></li>
+<li><strong>DB user (default PostgreSQL user) = <code>postgres</code></strong></li>
+<li><strong>DB name (default) = <code>postgres</code></strong></li>
+</ul>
+<p>Your running container name:</p>
+<pre><code>pptwin_test-postgres-1
+</code></pre>
+<p>is normal — Docker Compose automatically prefixes names.</p>
+<hr />
+<h1 id="2-modify-docker-composeyml-so-ied-containers-get-db-credentials">🚀 <strong>2. Modify docker-compose.yml so IED containers get DB credentials</strong></h1>
+<p>Add environment variables to each IED service:</p>
+<h3 id="updated-docker-composeyml-only-showing-the-changed-part">✅ <strong>Updated docker-compose.yml (only showing the changed part):</strong></h3>
+<pre><code class="language-yaml">  ied_hrsg:
+    image: ied_dockers-hrsg_ied
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: root
+      DB_NAME: postgres
+    depends_on:
+      - postgres
+
+  ied_gt:
+    image: ied_dockers-gt_ied
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: root
+      DB_NAME: postgres
+    depends_on:
+      - postgres
+
+  ied_eg:
+    image: ied_dockers-eg_ied
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: root
+      DB_NAME: postgres
+    depends_on:
+      - postgres
+
+  ied_st:
+    image: ied_dockers-st_ied
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: root
+      DB_NAME: postgres
+    depends_on:
+      - postgres
+</code></pre>
+<p>You can place these anywhere inside your compose file.</p>
+<hr />
+<h1 id="3-why-this-works">🎯 <strong>3. Why this works</strong></h1>
+<p>Inside Docker Compose:</p>
+<ul>
+<li>All services automatically share the <strong>same network</strong>.</li>
+<li>Each service can connect to another using the <strong>service name</strong>.</li>
+</ul>
+<p>So <code>DB_HOST: postgres</code> is correct.</p>
+<p>Your IED containers will now connect to:</p>
+<pre><code>host: postgres
+port: 5432
+database: postgres
+user: postgres
+password: root
+</code></pre>
+<p>Which is exactly the database running at:</p>
+<pre><code>pptwin_test-postgres-1
+</code></pre>
+<hr />
+<h1 id="4-after-editing-the-file-reload-everything">🧪 <strong>4. After editing the file, reload everything</strong></h1>
+<p>You must recreate the containers so env variables apply:</p>
+<pre><code>docker compose down
+docker compose up -d
+</code></pre>
+<p>Then check logs:</p>
+<pre><code>docker logs pptwin_test-ied_gt-1
+</code></pre>
+<p>You should now see something like:</p>
+<pre><code>Connecting to DB at postgres:5432 as postgres
+</code></pre>
+<p>…and no more “Connection refused”.</p>
+<hr />
+<h1 id="5-what-i-still-need-optional-for-full-correctness">🔍 <strong>5. What I still need (optional, for full correctness)</strong></h1>
+<p>To be 100% precise, I need to know:</p>
+<h3 id="what-environment-variable-names-your-ied-images-actually-expect">✔ What environment variable names your IED images actually expect</h3>
+<p>(e.g., are they <code>DB_HOST</code>, <code>POSTGRES_HOST</code>, <code>DATABASE_HOST</code>, etc.?)</p>
+<p>To check:</p>
+<pre><code>docker exec -it pptwin_test-ied_gt-1 env | grep -i db
+</code></pre>
+<p>or:</p>
+<pre><code>docker exec -it pptwin_test-ied_gt-1 cat /app/config.yml
+</code></pre>
+<p>But most ICS-style containers use <code>DB_HOST/DB_PORT/DB_USER/DB_PASSWORD</code>.</p>
+<hr />
+<h1 id="if-you-want-share">If you want, share:</h1>
+<p>✅ The output of <code>docker exec -it pptwin_test-ied_gt-1 env</code>
+…and I can confirm the exact variables needed.</p>
+<p>I can also rewrite your entire docker-compose.yml cleanly if you prefer.</p>
+<h1 id="question-6-why-are-the-ied-containers-still-exiting-based-on-the-docker-logs-below">QUESTION 6: Why are the IED containers still exiting based on the docker logs below?</h1>
+<pre><code>sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % docker logs  ied_dockers-st_ied
+Error response from daemon: No such container: ied_dockers-st_ied
+sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % docker logs pptwin_test-ied_st-1
+Connecting to DB at postgres:5432 as postgres
+[FATAL ERROR] connection to server at &quot;postgres&quot; (172.23.0.8), port 5432 failed: Connection refused
+    Is the server running on that host and accepting TCP/IP connections?
+
+sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % 
+</code></pre>
+<h1 id="answer-to-question-6">ANSWER TO QUESTION 6:</h1>
+<p>Great — this log <strong>finally gives us the real root cause</strong>:</p>
+<pre><code>Connecting to DB at postgres:5432 as postgres
+[FATAL ERROR] connection to server at &quot;postgres&quot; (172.23.0.8), port 5432 failed: Connection refused
+</code></pre>
+<p>This means:</p>
+<ol>
+<li>The <strong>IED container now sees the correct host: <code>postgres</code></strong></li>
+<li>The <strong>environment variables ARE being passed correctly</strong></li>
+<li>But <strong>the Postgres server is not yet ready</strong> when the IED container starts</li>
+<li>So the IED Python script immediately tries to connect → fails → exits (Exit 0)</li>
+</ol>
+<p>This is extremely common in Docker: <strong>database containers take 5–10 seconds to initialize</strong> before accepting connections.</p>
+<p>Your IED starts instantly and gives up instantly.</p>
+<hr />
+<h1 id="why-ied-is-failing-now">✅ <strong>Why IED is failing now</strong></h1>
+<p>Even though you have:</p>
+<ul>
+<li>Postgres container <strong>running</strong></li>
+<li>IED correctly using host=postgres, port=5432, user=postgres</li>
+<li>Correct password environment variables</li>
+</ul>
+<p>The IED starts <strong>before</strong> Postgres is fully ready.</p>
+<p>Result:</p>
+<p>❌ Postgres is still initializing
+❌ It cannot accept connections yet
+❌ IED Python script exits → container stops</p>
+<hr />
+<h1 id="the-fix-is-simple-add-docker-healthcheck-depends_on-condition">⭐ The FIX is simple: Add Docker healthcheck + depends_on: condition</h1>
+<p>You MUST modify docker-compose.yml so that:</p>
+<ol>
+<li>Postgres waits until it becomes <strong>healthy</strong></li>
+<li>IED services only start <strong>after Postgres is healthy</strong></li>
+</ol>
+<p>Here is the COMPOSE FIX 👇</p>
+<hr />
+<h1 id="fixed-docker-composeyml-snippet-add-this">✅ <strong>FIXED docker-compose.yml snippet</strong> (add this)</h1>
+<h3 id="step-1-add-a-healthcheck-to-postgres"><strong>Step 1: Add a healthcheck to Postgres</strong></h3>
+<pre><code class="language-yaml">  postgres:
+    image: postgres:16
+    ports:
+      - &quot;5432:5432&quot;
+    environment:
+      POSTGRES_PASSWORD: root
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;pg_isready -U postgres&quot;]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+</code></pre>
+<hr />
+<h3 id="step-2-add-depends_on-for-ied-containers"><strong>Step 2: Add <code>depends_on</code> for IED containers</strong></h3>
+<pre><code class="language-yaml">  ied_st:
+    image: ied_dockers-st_ied
+    depends_on:
+      postgres:
+        condition: service_healthy
+</code></pre>
+<p>Then repeat for:</p>
+<ul>
+<li>ied_eg</li>
+<li>ied_gt</li>
+<li>ied_hrsg</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-yaml">  ied_gt:
+    image: ied_dockers-gt_ied
+    depends_on:
+      postgres:
+        condition: service_healthy
+</code></pre>
+<hr />
+<h1 id="full-example-for-one-ied">✔ Full example for one IED</h1>
+<pre><code class="language-yaml">  ied_hrsg:
+    image: ied_dockers-hrsg_ied
+    depends_on:
+      postgres:
+        condition: service_healthy
+</code></pre>
+<hr />
+<h1 id="after-modifying-docker-compose">🟢 After modifying docker-compose</h1>
+<p>Run:</p>
+<pre><code>docker compose -p pptwin_test down
+docker compose -p pptwin_test up -d --build
+</code></pre>
+<p>Then check:</p>
+<pre><code>docker ps
+docker logs pptwin_test-ied_st-1
+</code></pre>
+<p>Now logs should show:</p>
+<pre><code>Connecting to DB at postgres:5432 as postgres
+Connection successful!
+</code></pre>
+<hr />
+<h1 id="optional-but-recommended">🟦 OPTIONAL (but recommended)</h1>
+<p>Your Python script may need retry logic. Most industrial IED codebases include a loop like:</p>
+<pre><code class="language-python">while True:
+    try:
+        conn = psycopg2.connect(...)
+        break
+    except:
+        time.sleep(2)
+</code></pre>
+<p>If your script does NOT include this loop, it will always exit if DB is not ready.
+But the <code>depends_on: service_healthy</code> already solves this for now.</p>
+<hr />
+<h1 id="summary-why-your-ieds-are-exiting">🟣 Summary: Why your IEDs are exiting</h1>
+<ul>
+<li>They <em>are</em> receiving correct DB info.</li>
+<li>The Postgres server is not yet fully ready.</li>
+<li>IED exits because the script quits immediately on failure.</li>
+<li>Adding <strong>healthchecks + depends_on</strong> ensures proper startup order.</li>
+</ul>
+<hr />
+<p>If you want, I can:</p>
+<p>✔ rewrite your entire docker-compose.yml correctly
+✔ add consistent platform settings
+✔ add logging, restart policies
+✔ fix MATLAB container startup crash
+✔ fix slow SCADA startup</p>
+<p>Just paste your full current docker-compose.yml and I’ll rewrite it cleanly.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

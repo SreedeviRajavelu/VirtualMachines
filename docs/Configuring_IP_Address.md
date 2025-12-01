@@ -566,3 +566,16 @@ Just send:
 cat /etc/netplan/01-netcfg.yaml
 ```
 
+
+# Checking ip address of a Docker container
+
+Finding ip address of docker container:
+ 
+ubuntu@pgt:~$ docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}: {{$v.IPAddress}}{{"\n"}}{{end}}' st_ied
+ied_pg_net: 172.21.0.6
+plc-macvlan-40: 192.168.40.212
+
+ubuntu@pgt:~$
+
+![alt text](image-5.png)
+

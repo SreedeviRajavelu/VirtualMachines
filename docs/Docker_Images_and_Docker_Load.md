@@ -1057,4 +1057,187 @@ If you want, I can:
 Just paste your full current docker-compose.yml and I’ll rewrite it cleanly.
 
 
+# QUESTION 10:  
+'''
+sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % docker logs pptwin_test-ied_st-1
+Connecting to DB at postgres:5432 as postgres
+[FATAL ERROR] connection to server at "postgres" (172.23.0.8), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+sreedevirajavelu@iTrust-9000003511 PPTWIN_DOCKER_IMAGES % 
+'''
+
+# ANSWER TO QUESTION 10:
+
+Great — this log **finally gives us the real root cause**:
+
+```
+Connecting to DB at postgres:5432 as postgres
+[FATAL ERROR] connection to server at "postgres" (172.23.0.8), port 5432 failed: Connection refused
+```
+
+This means:
+
+1. The **IED container now sees the correct host: `postgres`**
+2. The **environment variables ARE being passed correctly**
+3. But **the Postgres server is not yet ready** when the IED container starts
+4. So the IED Python script immediately tries to connect → fails → exits (Exit 0)
+
+This is extremely common in Docker: **database containers take 5–10 seconds to initialize** before accepting connections.
+
+Your IED starts instantly and gives up instantly.
+
+---
+
+# ✅ **Why IED is failing now**
+
+Even though you have:
+
+* Postgres container **running**
+* IED correctly using host=postgres, port=5432, user=postgres
+* Correct password environment variables
+
+The IED starts **before** Postgres is fully ready.
+
+Result:
+
+❌ Postgres is still initializing
+❌ It cannot accept connections yet
+❌ IED Python script exits → container stops
+
+---
+
+# ⭐ The FIX is simple: Add Docker healthcheck + depends_on: condition
+
+You MUST modify docker-compose.yml so that:
+
+1. Postgres waits until it becomes **healthy**
+2. IED services only start **after Postgres is healthy**
+
+Here is the COMPOSE FIX 👇
+
+---
+
+# ✅ **FIXED docker-compose.yml snippet** (add this)
+
+### **Step 1: Add a healthcheck to Postgres**
+
+```yaml
+  postgres:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: root
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+```
+
+---
+
+### **Step 2: Add `depends_on` for IED containers**
+
+```yaml
+  ied_st:
+    image: ied_dockers-st_ied
+    depends_on:
+      postgres:
+        condition: service_healthy
+```
+
+Then repeat for:
+
+* ied_eg
+* ied_gt
+* ied_hrsg
+
+Example:
+
+```yaml
+  ied_gt:
+    image: ied_dockers-gt_ied
+    depends_on:
+      postgres:
+        condition: service_healthy
+```
+
+---
+
+# ✔ Full example for one IED
+
+```yaml
+  ied_hrsg:
+    image: ied_dockers-hrsg_ied
+    depends_on:
+      postgres:
+        condition: service_healthy
+```
+
+---
+
+# 🟢 After modifying docker-compose
+
+Run:
+
+```
+docker compose -p pptwin_test down
+docker compose -p pptwin_test up -d --build
+```
+
+Then check:
+
+```
+docker ps
+docker logs pptwin_test-ied_st-1
+```
+
+Now logs should show:
+
+```
+Connecting to DB at postgres:5432 as postgres
+Connection successful!
+```
+
+---
+
+# 🟦 OPTIONAL (but recommended)
+
+Your Python script may need retry logic. Most industrial IED codebases include a loop like:
+
+```python
+while True:
+    try:
+        conn = psycopg2.connect(...)
+        break
+    except:
+        time.sleep(2)
+```
+
+If your script does NOT include this loop, it will always exit if DB is not ready.
+But the `depends_on: service_healthy` already solves this for now.
+
+---
+
+# 🟣 Summary: Why your IEDs are exiting
+
+* They *are* receiving correct DB info.
+* The Postgres server is not yet fully ready.
+* IED exits because the script quits immediately on failure.
+* Adding **healthchecks + depends_on** ensures proper startup order.
+
+---
+
+If you want, I can:
+
+✔ rewrite your entire docker-compose.yml correctly
+✔ add consistent platform settings
+✔ add logging, restart policies
+✔ fix MATLAB container startup crash
+✔ fix slow SCADA startup
+
+Just paste your full current docker-compose.yml and I’ll rewrite it cleanly.
+
 
