@@ -1822,6 +1822,13 @@ sudo netplan apply
 <p>Just send:</p>
 <pre><code>cat /etc/netplan/01-netcfg.yaml
 </code></pre>
+<h1 id="checking-ip-address-of-a-docker-container">Checking ip address of a Docker container</h1>
+<p>Finding ip address of docker container:</p>
+<p>ubuntu@pgt:~$ docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}: {{$v.IPAddress}}{{"\n"}}{{end}}' st_ied
+ied_pg_net: 172.21.0.6
+plc-macvlan-40: 192.168.40.212</p>
+<p>ubuntu@pgt:~$</p>
+<p><img alt="alt text" src="../image-5.png" /></p>
 
 
 
