@@ -11,6 +11,10 @@
         <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Linux_System_Administration_1/">
       
       
+        <link rel="prev" href="../Linux_System_Administration/">
+      
+      
+        <link rel="next" href="../Networking_Fundamentals/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -18,7 +22,7 @@
     
     
       
-        <title>Linux System Administration 1 - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+        <title>Linux System Administration - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
       
     
     
@@ -96,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Linux System Administration 1
+              Linux System Administration
             
           </span>
         </div>
@@ -1196,18 +1200,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
@@ -1223,7 +1229,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             System Administration
@@ -1248,6 +1254,415 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Linux System Administration
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux System Administration
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-docker-was-not-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Docker was not running
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-docker-is-not-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Docker is not running
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-plan-safe-step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix plan (safe, step-by-step)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-find-whats-eating-your-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Find what’s eating your disk
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-immediate-high-impact-cleanup-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Immediate high-impact cleanup (safe)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Immediate high-impact cleanup (safe)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-clean-logs-very-common-on-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      A️⃣ Clean logs (very common on servers)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-if-docker-was-used-before-nuke-old-docker-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      B️⃣ If Docker was used before: nuke old Docker data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-clear-apt-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      C️⃣ Clear apt cache
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-check-home-directory-research-vms-love-to-die-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      D️⃣ Check home directory (research VMs love to die here)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-verify-space-is-freed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Verify space is freed
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-reset-docker-socket-failure-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Reset Docker socket failure counter
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-start-docker-this-should-now-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Start Docker (this should now work)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-vm-broke-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why this VM broke (important)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevent-this-from-happening-again-do-this-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prevent this from happening again (do this once)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prevent this from happening again (do this once)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-log-size-limits-for-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable log size limits for Docker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next-after-docker-starts" class="md-nav__link">
+    <span class="md-ellipsis">
+      What’s next (after Docker starts)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What’s next (after Docker starts)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#your-next-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your next action
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-decide-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let’s Decide Safely
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Let’s Decide Safely">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-do-you-actually-need-those-old-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ Do you actually need those old containers?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-you-want-to-be-100-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      If You Want to Be 100% Safe
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safer-alternative-if-you-want-to-keep-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safer Alternative (If You Want to Keep Images)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-question-for-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 Important Question For You
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-i-recommend-based-on-your-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      What I Recommend (Based on Your Setup)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-decision-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Decision Tree
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-clarifying-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Clarifying Question
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Final Clarifying Question">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-did-this-to-clear-space-occupied-by-log-files-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      I did this to clear space occupied by log files (docker)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Next Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reset-systemd-failure-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ Reset systemd failure counter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-start-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      2️⃣ Start Docker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-test-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      3️⃣ Test Docker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#very-important-prevent-this-from-happening-again" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 VERY IMPORTANT (Prevent This From Happening Again)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-just-did-real-devops-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 What You Just Did (Real DevOps Work)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#after-docker-is-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 After Docker Is Running
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 After Docker Is Running">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to-be-continued" class="md-nav__link">
+    <span class="md-ellipsis">
+      to be continued ...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
