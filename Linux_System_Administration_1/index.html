@@ -1,0 +1,2134 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Linux_System_Administration_1/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Linux System Administration 1 - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#why-docker-was-not-running" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-header__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sree Devi’s Documentation on Virtual Machines, Docker & Networking
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux System Administration 1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SreedeviRajavelu/VirtualMachines" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Sree Devi’s Documentation on Virtual Machines, Docker &amp; Networking" class="md-nav__button md-logo" aria-label="Sree Devi’s Documentation on Virtual Machines, Docker & Networking" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Sree Devi’s Documentation on Virtual Machines, Docker & Networking
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SreedeviRajavelu/VirtualMachines" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker, Virtual Machines & Networks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DockerBuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Build
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Networking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Macvlan_Network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Macvlan Network
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DockerEngine_Ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Engine on Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CommunicationBetweenInsideAndOutsideDocker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Communication Inside & Outside Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Container_Interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Container Interfaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_tgz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using tarballs (.tgz)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Volumes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Volumes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Space_Optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Space Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Images_and_Docker_Load/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Images and Docker Load
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Virtualization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Virtualization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VM-to-VM-Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM-to-VM Communication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fix_Slow_UbuntuVM_Boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fix Slow Ubuntu VM Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Recovering_VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Recovering VM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Configuring_IP_Address/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuring IP Address
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab_Docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Wine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PostgreSQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Matlab_Data_Sources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matlab Data Sources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Remote_PortForwarding_SSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remote Port Fowarding SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NAT_Adapter_Iptables_Forwarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NAT Adapter Iptables Fowarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Bridged_Adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bridged Adapter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File_Transfer_Host_To_Remote/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    File Transfer Host To Remote
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Systemctl_Systemd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Systemctl Systemd
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ubuntu_Python_Packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu Python Packages
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Connecting_DB_IEDs_PLCs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Connecting DB IEDs PLCs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Routes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Routes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    SCADA
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            SCADA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ScadaLTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ScadaLTS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mac Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    System Administration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            System Administration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux_System_Administration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux System Administration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Networking_Fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Networking Fundamentals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Troubleshooting_Tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-docker-was-not-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Docker was not running
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-docker-is-not-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Docker is not running
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-plan-safe-step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix plan (safe, step-by-step)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-find-whats-eating-your-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Find what’s eating your disk
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-immediate-high-impact-cleanup-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Immediate high-impact cleanup (safe)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Immediate high-impact cleanup (safe)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-clean-logs-very-common-on-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      A️⃣ Clean logs (very common on servers)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-if-docker-was-used-before-nuke-old-docker-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      B️⃣ If Docker was used before: nuke old Docker data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-clear-apt-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      C️⃣ Clear apt cache
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-check-home-directory-research-vms-love-to-die-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      D️⃣ Check home directory (research VMs love to die here)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-verify-space-is-freed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Verify space is freed
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-reset-docker-socket-failure-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Reset Docker socket failure counter
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-start-docker-this-should-now-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Start Docker (this should now work)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-vm-broke-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why this VM broke (important)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevent-this-from-happening-again-do-this-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prevent this from happening again (do this once)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prevent this from happening again (do this once)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-log-size-limits-for-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable log size limits for Docker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next-after-docker-starts" class="md-nav__link">
+    <span class="md-ellipsis">
+      What’s next (after Docker starts)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What’s next (after Docker starts)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#your-next-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your next action
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-decide-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let’s Decide Safely
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Let’s Decide Safely">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-do-you-actually-need-those-old-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ Do you actually need those old containers?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-you-want-to-be-100-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      If You Want to Be 100% Safe
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safer-alternative-if-you-want-to-keep-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safer Alternative (If You Want to Keep Images)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-question-for-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 Important Question For You
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-i-recommend-based-on-your-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      What I Recommend (Based on Your Setup)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-decision-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Decision Tree
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-clarifying-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Clarifying Question
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Final Clarifying Question">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-did-this-to-clear-space-occupied-by-log-files-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      I did this to clear space occupied by log files (docker)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Next Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reset-systemd-failure-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ Reset systemd failure counter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-start-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      2️⃣ Start Docker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-test-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      3️⃣ Test Docker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#very-important-prevent-this-from-happening-again" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 VERY IMPORTANT (Prevent This From Happening Again)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-just-did-real-devops-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 What You Just Did (Real DevOps Work)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#after-docker-is-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 After Docker Is Running
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 After Docker Is Running">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to-be-continued" class="md-nav__link">
+    <span class="md-ellipsis">
+      to be continued ...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h2 id="why-docker-was-not-running">Why Docker was not running</h2>
+<pre><code>ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$ sudo journalctl -u docker.service --no-pager -n 100
+-- No entries --
+ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$ sudo systemctl status containerd
+● containerd.service - containerd container runtime
+     Loaded: loaded (/lib/systemd/system/containerd.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2026-01-06 05:12:55 UTC; 1 month 5 days ago
+       Docs: https://containerd.io
+   Main PID: 812 (containerd)
+      Tasks: 13
+     Memory: 61.6M
+        CPU: 8min 50.626s
+     CGroup: /system.slice/containerd.service
+             └─812 /usr/bin/containerd
+
+Notice: journal has been rotated since unit was started, output may be incomplete.
+ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$ 
+
+ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$ sudo systemctl status docker.socket
+× docker.socket - Docker Socket for the API
+     Loaded: loaded (/lib/systemd/system/docker.socket; enabled; vendor preset: enabled)
+     Active: failed (Result: service-start-limit-hit) since Wed 2026-02-04 04:28:15 UTC; 1 week 0 days ago
+   Triggers: ● docker.service
+     Listen: /run/docker.sock (Stream)
+        CPU: 777us
+
+Notice: journal has been rotated since unit was started, output may be incomplete.
+ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$ 
+
+ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$ df -h
+Filesystem                         Size  Used Avail Use% Mounted on
+tmpfs                              1.6G  161M  1.5G  11% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv   57G   57G     0 100% /
+tmpfs                              7.9G     0  7.9G   0% /dev/shm
+tmpfs                              5.0M     0  5.0M   0% /run/lock
+/dev/sda2                          2.0G  256M  1.6G  14% /boot
+tmpfs                              1.6G  4.0K  1.6G   1% /run/user/1000
+ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$ 
+</code></pre>
+<p>Boom — <strong>we found the smoking gun</strong> 🔥
+This one line explains <em>everything</em>:</p>
+<pre><code>/dev/mapper/ubuntu--vg-ubuntu--lv   57G   57G     0 100% /
+</code></pre>
+<h2 id="why-docker-is-not-running">Why Docker is not running</h2>
+<p>Docker <strong>cannot start when <code>/</code> is full</strong>. Period.</p>
+<p>What’s happening under the hood:</p>
+<ul>
+<li>
+<p>Docker needs to create:</p>
+</li>
+<li>
+<p><code>/var/run/docker.sock</code></p>
+</li>
+<li><code>/var/lib/docker/*</code></li>
+<li>temp files, network namespaces, logs</li>
+<li>Your root filesystem has <strong>0 bytes free</strong></li>
+<li>
+<p>So:</p>
+</li>
+<li>
+<p><code>docker.service</code> fails instantly</p>
+</li>
+<li><code>docker.socket</code> hits <code>service-start-limit-hit</code></li>
+<li>No logs get written → <code>journalctl</code> shows <em>nothing</em></li>
+</ul>
+<p>This is <strong>exactly</strong> why:</p>
+<ul>
+<li>containerd is running (it was already started)</li>
+<li>Docker daemon crashes immediately</li>
+<li>You see no Docker logs</li>
+</ul>
+<hr />
+<h2 id="fix-plan-safe-step-by-step">Fix plan (safe, step-by-step)</h2>
+<p>We’ll:</p>
+<ol>
+<li>Free space</li>
+<li>Restart Docker</li>
+<li>Lock it in so it doesn’t break again</li>
+</ol>
+<hr />
+<h2 id="step-1-find-whats-eating-your-disk">Step 1: Find what’s eating your disk</h2>
+<p>Run these <strong>in order</strong>:</p>
+<pre><code class="language-bash">sudo du -xh /var | sort -h | tail -20
+</code></pre>
+<p>and</p>
+<pre><code class="language-bash">sudo du -xh / | sort -h | tail -20
+</code></pre>
+<p>You will almost certainly see one or more of:</p>
+<ul>
+<li><code>/var/lib/docker</code></li>
+<li><code>/var/log</code></li>
+<li><code>/home</code></li>
+<li>old datasets / dumps / artifacts</li>
+</ul>
+<hr />
+<h2 id="step-2-immediate-high-impact-cleanup-safe">Step 2: Immediate high-impact cleanup (safe)</h2>
+<h3 id="a-clean-logs-very-common-on-servers">A️⃣ Clean logs (very common on servers)</h3>
+<pre><code class="language-bash">sudo journalctl --vacuum-size=200M
+sudo du -sh /var/log/*
+</code></pre>
+<p>If you see huge logs:</p>
+<pre><code class="language-bash">sudo rm -f /var/log/*.log
+sudo rm -f /var/log/*/*.log
+</code></pre>
+<hr />
+<h3 id="b-if-docker-was-used-before-nuke-old-docker-data">B️⃣ If Docker was used before: nuke old Docker data</h3>
+<p>This is <strong>safe</strong> for you — you don’t have running containers anyway.</p>
+<pre><code class="language-bash">sudo systemctl stop docker docker.socket
+sudo rm -rf /var/lib/docker
+</code></pre>
+<p>That alone often frees <strong>multiple GBs</strong>.</p>
+<hr />
+<h3 id="c-clear-apt-cache">C️⃣ Clear apt cache</h3>
+<pre><code class="language-bash">sudo apt clean
+</code></pre>
+<hr />
+<h3 id="d-check-home-directory-research-vms-love-to-die-here">D️⃣ Check home directory (research VMs love to die here)</h3>
+<pre><code class="language-bash">du -sh /home/*
+</code></pre>
+<p>If you see giant folders (datasets, results, checkpoints), move or delete them.</p>
+<hr />
+<h2 id="step-3-verify-space-is-freed">Step 3: Verify space is freed</h2>
+<p>You want <strong>at least 3–5 GB free</strong>.</p>
+<pre><code class="language-bash">df -h /
+</code></pre>
+<p>Expected:</p>
+<pre><code>Use% &lt; 90%
+</code></pre>
+<hr />
+<h2 id="step-4-reset-docker-socket-failure-counter">Step 4: Reset Docker socket failure counter</h2>
+<p>Because systemd rate-limited it:</p>
+<pre><code class="language-bash">sudo systemctl reset-failed docker docker.socket
+</code></pre>
+<hr />
+<h2 id="step-5-start-docker-this-should-now-work">Step 5: Start Docker (this should now work)</h2>
+<pre><code class="language-bash">sudo systemctl start docker
+sudo systemctl status docker
+</code></pre>
+<p>Then:</p>
+<pre><code class="language-bash">docker ps
+</code></pre>
+<p>If you see a table (even empty) → 🎉 Docker is back.</p>
+<hr />
+<h2 id="why-this-vm-broke-important">Why this VM broke (important)</h2>
+<p>This didn’t happen randomly.</p>
+<p>Very likely causes:</p>
+<ul>
+<li>Long-running VM with no log rotation</li>
+<li>Docker images/volumes accumulating</li>
+<li>Datasets copied into <code>/</code> instead of mounted storage</li>
+<li>Snapshots restored without cleanup</li>
+</ul>
+<p>Docker was enabled → disk filled → daemon died → never recovered.</p>
+<hr />
+<h2 id="prevent-this-from-happening-again-do-this-once">Prevent this from happening again (do this once)</h2>
+<h3 id="enable-log-size-limits-for-docker">Enable log size limits for Docker</h3>
+<pre><code class="language-bash">sudo mkdir -p /etc/docker
+sudo nano /etc/docker/daemon.json
+</code></pre>
+<p>Paste:</p>
+<pre><code class="language-json">{
+  &quot;log-driver&quot;: &quot;json-file&quot;,
+  &quot;log-opts&quot;: {
+    &quot;max-size&quot;: &quot;50m&quot;,
+    &quot;max-file&quot;: &quot;3&quot;
+  }
+}
+</code></pre>
+<p>Then:</p>
+<pre><code class="language-bash">sudo systemctl restart docker
+</code></pre>
+<hr />
+<h2 id="whats-next-after-docker-starts">What’s next (after Docker starts)</h2>
+<p>Once Docker is alive, your <strong>next errors will be expected</strong>:</p>
+<ul>
+<li>❌ <code>network plc-macvlan-40 not found</code></li>
+<li>❌ macvlan parent interface issues</li>
+<li>❌ IP conflicts on <code>192.168.40.210–213</code></li>
+</ul>
+<p>Those are <strong>normal next steps</strong>, and much easier to fix.</p>
+<hr />
+<h3 id="your-next-action">Your next action</h3>
+<p>1️⃣ Free disk space
+2️⃣ Run:</p>
+<pre><code class="language-bash">df -h /
+docker ps
+</code></pre>
+<p>Paste the output — we’ll move straight into fixing the <strong>macvlan + compose</strong> side 🚀</p>
+<p>Excellent question — and I’m glad you asked <strong>before</strong> running <code>rm -rf</code>.</p>
+<p>Short answer:</p>
+<blockquote>
+<p>✅ Yes — if you delete <code>/var/lib/docker</code>, you will permanently lose:</p>
+</blockquote>
+<ul>
+<li>All stopped containers</li>
+<li>All running containers</li>
+<li>All images</li>
+<li>All volumes</li>
+<li>All container logs</li>
+</ul>
+<p>But you will <strong>NOT</strong> lose:</p>
+<ul>
+<li>Your project files in <code>/home</code></li>
+<li>Your <code>docker-compose.yml</code></li>
+<li>Your Python scripts</li>
+<li>Your source code</li>
+</ul>
+<hr />
+<h1 id="lets-decide-safely">Let’s Decide Safely</h1>
+<p>Before deleting anything, let’s check something important:</p>
+<h2 id="1-do-you-actually-need-those-old-containers">1️⃣ Do you actually need those old containers?</h2>
+<p>Ask yourself:</p>
+<ul>
+<li>Are any of those containers storing important data?</li>
+<li>Are you using Docker volumes for databases?</li>
+<li>Or were they just test / lab containers (MATLAB etc.)?</li>
+</ul>
+<p>From your disk output:</p>
+<pre><code>18G  /var/lib/docker/containers
+</code></pre>
+<p>That is almost certainly:</p>
+<ul>
+<li>Massive container logs</li>
+<li>Old MATLAB container</li>
+<li>Possibly long-running containers</li>
+</ul>
+<hr />
+<h1 id="if-you-want-to-be-100-safe">If You Want to Be 100% Safe</h1>
+<p>We can inspect what containers exist <strong>without Docker running</strong>.</p>
+<p>Run:</p>
+<pre><code class="language-bash">ls /var/lib/docker/containers
+</code></pre>
+<p>You’ll see long container IDs.</p>
+<p>To inspect one:</p>
+<pre><code class="language-bash">sudo du -sh /var/lib/docker/containers/*
+</code></pre>
+<p>This will show which ones are huge.</p>
+<hr />
+<h1 id="safer-alternative-if-you-want-to-keep-images">Safer Alternative (If You Want to Keep Images)</h1>
+<p>Instead of deleting everything, we can just delete logs first.</p>
+<p>Most of your 18GB is likely <code>.log</code> files.</p>
+<p>Check:</p>
+<pre><code class="language-bash">sudo find /var/lib/docker/containers -name &quot;*.log&quot; -exec du -h {} +
+</code></pre>
+<p>If they are huge (hundreds of MB or GB), then you can safely delete ONLY logs:</p>
+<pre><code class="language-bash">sudo find /var/lib/docker/containers -name &quot;*.log&quot; -delete
+</code></pre>
+<p>This alone might free 15–18GB.</p>
+<p>That way:</p>
+<ul>
+<li>Containers remain</li>
+<li>Images remain</li>
+<li>Only logs are cleared</li>
+</ul>
+<hr />
+<h1 id="important-question-for-you">🚨 Important Question For You</h1>
+<p>Did you run any database containers whose data was NOT mounted to a host volume?</p>
+<p>If yes → we must be careful.</p>
+<p>If no → full reset is safe.</p>
+<hr />
+<h1 id="what-i-recommend-based-on-your-setup">What I Recommend (Based on Your Setup)</h1>
+<p>This looks like a <strong>lab VM used for experiments (MATLAB + IED docker)</strong>.</p>
+<p>If that’s true:</p>
+<p>👉 Full Docker reset is totally fine and cleaner.</p>
+<p>You can always rebuild with:</p>
+<pre><code>docker compose up --build
+</code></pre>
+<hr />
+<h1 id="quick-decision-tree">Quick Decision Tree</h1>
+<p>If this VM is:</p>
+<ul>
+<li>🎓 Research / lab / reproducible builds → Delete safely</li>
+<li>🏢 Production / important persistent DB → Investigate volumes first</li>
+</ul>
+<hr />
+<h1 id="final-clarifying-question">Final Clarifying Question</h1>
+<p>Are you storing any persistent database data inside Docker volumes that you care about?</p>
+<p>If yes, I’ll guide you safely.
+If no, we proceed with the clean reset confidently.</p>
+<h2 id="i-did-this-to-clear-space-occupied-by-log-files-docker">I did this to clear space occupied by log files (docker)</h2>
+<p>Check:</p>
+<pre><code class="language-bash">sudo find /var/lib/docker/containers -name &quot;*.log&quot; -exec du -h {} +
+</code></pre>
+<p>If they are huge (hundreds of MB or GB), then you can safely delete ONLY logs:</p>
+<pre><code class="language-bash">sudo find /var/lib/docker/containers -name &quot;*.log&quot; -delete
+</code></pre>
+<pre><code>ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$ sudo find /var/lib/docker/containers -name &quot;*.log&quot; -exec du -h {} +
+344K    /var/lib/docker/containers/017a83b809c7ddf9f6cd38fc497d5ae838d9da97eb948a1a46870c449136f087/017a83b809c7ddf9f6cd38fc497d5ae838d9da97eb948a1a46870c449136f087-json.log
+1.5G    /var/lib/docker/containers/1134e2bbfdd34378a09f29d1c156e331fec642477c754f64fa6dccc2597aac0e/1134e2bbfdd34378a09f29d1c156e331fec642477c754f64fa6dccc2597aac0e-json.log
+433M    /var/lib/docker/containers/2b1086d186115a0f2f138779f0e6dc069141f252cf54899d99e344a0b57adbeb/2b1086d186115a0f2f138779f0e6dc069141f252cf54899d99e344a0b57adbeb-json.log
+2.8G    /var/lib/docker/containers/72b13d80edc7e0fb93a952fc6afbb73bbc95acdbd43a738b224850b34b2642ae/72b13d80edc7e0fb93a952fc6afbb73bbc95acdbd43a738b224850b34b2642ae-json.log
+433M    /var/lib/docker/containers/9cb56020ebd5ec148cf5d19df36a5047afd5feadacf8740e73cea59b2f3ae997/9cb56020ebd5ec148cf5d19df36a5047afd5feadacf8740e73cea59b2f3ae997-json.log
+433M    /var/lib/docker/containers/8a3e578d184f610f5833034a590748af53f338a3b583b44d49c5604e65f95637/8a3e578d184f610f5833034a590748af53f338a3b583b44d49c5604e65f95637-json.log
+4.5G    /var/lib/docker/containers/0de05aa18e4e6a0d35c41be7da37d54d9a8dff2de16ff103b970150b1b4491ff/0de05aa18e4e6a0d35c41be7da37d54d9a8dff2de16ff103b970150b1b4491ff-json.log
+8.0K    /var/lib/docker/containers/d38cf688db439b2ae6e63f31ad56968fff571157b83e8974ee5a680823029b6c/d38cf688db439b2ae6e63f31ad56968fff571157b83e8974ee5a680823029b6c-json.log
+7.0G    /var/lib/docker/containers/a81ce7e4ede2d414a17dcdcef10d44539262f00122ed01c0a0326f6cce745727/a81ce7e4ede2d414a17dcdcef10d44539262f00122ed01c0a0326f6cce745727-json.log
+8.0K    /var/lib/docker/containers/32091f06ab4e82609b81dee5b142e1076a41f4a2b39185c177a318415dad9e12/32091f06ab4e82609b81dee5b142e1076a41f4a2b39185c177a318415dad9e12-json.log
+16K /var/lib/docker/containers/8ddf0f1a81bfd29eee1cffc1a35225d268068bcf397eb484fd7428249f290768/8ddf0f1a81bfd29eee1cffc1a35225d268068bcf397eb484fd7428249f290768-json.log
+433M    /var/lib/docker/containers/aaf025ae453d9653a95f876211a94e3a41f556b82d85eb485df05f7733d73bee/aaf025ae453d9653a95f876211a94e3a41f556b82d85eb485df05f7733d73bee-json.log
+ubuntu@pgt:~/Setting up IED (py files to share)/IED_DOCKERS$ 
+</code></pre>
+<p>Excellent 👏</p>
+<p>You just freed ~17GB.</p>
+<pre><code>Before: 100% full
+Now:    73% used (15GB free)
+</code></pre>
+<p>That is completely healthy. Docker can start now.</p>
+<hr />
+<h1 id="next-steps">🚀 Next Steps</h1>
+<h2 id="1-reset-systemd-failure-counter">1️⃣ Reset systemd failure counter</h2>
+<p>Docker was rate-limited earlier, so we must reset it:</p>
+<pre><code class="language-bash">sudo systemctl reset-failed docker docker.socket
+</code></pre>
+<hr />
+<h2 id="2-start-docker">2️⃣ Start Docker</h2>
+<pre><code class="language-bash">sudo systemctl start docker
+</code></pre>
+<p>Check status:</p>
+<pre><code class="language-bash">sudo systemctl status docker
+</code></pre>
+<p>You want to see:</p>
+<pre><code>Active: active (running)
+</code></pre>
+<hr />
+<h2 id="3-test-docker">3️⃣ Test Docker</h2>
+<pre><code class="language-bash">docker ps
+</code></pre>
+<p>If it prints a table (even empty), Docker is fully restored.</p>
+<hr />
+<h1 id="very-important-prevent-this-from-happening-again">🔒 VERY IMPORTANT (Prevent This From Happening Again)</h1>
+<p>Those 7GB and 4.5GB logs happened because Docker log rotation was not configured.</p>
+<p>Set it now.</p>
+<pre><code class="language-bash">sudo mkdir -p /etc/docker
+sudo nano /etc/docker/daemon.json
+</code></pre>
+<p>Paste:</p>
+<pre><code class="language-json">{
+  &quot;log-driver&quot;: &quot;json-file&quot;,
+  &quot;log-opts&quot;: {
+    &quot;max-size&quot;: &quot;50m&quot;,
+    &quot;max-file&quot;: &quot;3&quot;
+  }
+}
+</code></pre>
+<p>Save, then:</p>
+<pre><code class="language-bash">sudo systemctl restart docker
+</code></pre>
+<p>Now each container is capped at <strong>150MB max logs</strong>.</p>
+<p>This VM will not die again from log bloat.</p>
+<hr />
+<h1 id="what-you-just-did-real-devops-work">🧠 What You Just Did (Real DevOps Work)</h1>
+<p>You:</p>
+<ul>
+<li>Diagnosed daemon failure</li>
+<li>Identified disk exhaustion</li>
+<li>Located root cause (container logs)</li>
+<li>Cleaned surgically</li>
+<li>Restored service</li>
+</ul>
+<p>That is <strong>proper infrastructure troubleshooting</strong>, not just “running commands”.</p>
+<hr />
+<h1 id="after-docker-is-running">🎯 After Docker Is Running</h1>
+<p>Next:</p>
+<pre><code class="language-bash">docker compose up --build
+</code></pre>
+<p>You may now get:</p>
+<ul>
+<li>network not found (external macvlan)</li>
+<li>IP conflict</li>
+<li>compose errors</li>
+</ul>
+<p>Those are expected next-layer issues.</p>
+<hr />
+<p>Run:</p>
+<pre><code>sudo systemctl start docker
+docker ps
+</code></pre>
+<p>Paste the output and we’ll continue.</p>
+<h2 id="to-be-continued">to be continued ...</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
