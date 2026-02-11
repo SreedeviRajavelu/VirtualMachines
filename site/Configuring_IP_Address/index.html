@@ -1829,6 +1829,7 @@ ied_pg_net: 172.21.0.6
 plc-macvlan-40: 192.168.40.212</p>
 <p>ubuntu@pgt:~$</p>
 <p><img alt="alt text" src="../image-5.png" /></p>
+<p><code>docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}: {{$v.IPAddress}}{{"\n"}}{{end}}' st_ied</code></p>
 
 
 
