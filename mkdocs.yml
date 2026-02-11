@@ -47,5 +47,6 @@ nav:
       - Mac Notes: Mac.md
   - System Administration:
       - Linux System Administration: Linux_System_Administration.md
+      - Linux System Administration: Linux_System_Administration_1.md
       - Networking Fundamentals: Networking_Fundamentals.md
       - Troubleshooting Tools: Troubleshooting_Tools.md
