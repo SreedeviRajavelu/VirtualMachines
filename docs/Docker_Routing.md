@@ -588,3 +588,276 @@ I can help you:
 * Or explain how your system *should* auto-configure these routes
 
 Just tell me 👍
+
+
+
+Great — these are foundational questions. Once this clicks, everything your senior said will make perfect sense.
+
+---
+
+# 🧠 1️⃣ What is a **gateway**?
+
+### Simple definition:
+
+A **gateway** is:
+
+> A device (usually a router) that forwards your traffic to other networks.
+
+---
+
+### Think of it like this:
+
+* Your container (IED) = your house
+* Your subnet = your neighborhood
+* Gateway = the **main road exit / junction**
+
+👉 If you want to go:
+
+* **within your neighborhood** → go directly
+* **outside your neighborhood** → go through the gateway
+
+---
+
+### In routing terms:
+
+```bash
+172.30.22.0/24 via 172.30.30.100
+```
+
+👉 Means:
+
+> “To reach 172.30.22.0/24, send packets to gateway **172.30.30.100**”
+
+---
+
+# 🧠 2️⃣ Types of routes (this answers your confusion)
+
+### 🔹 Direct route (no gateway)
+
+```bash
+172.30.11.0/24 dev eth0
+```
+
+👉 Means:
+
+* This network is **directly connected**
+* No gateway needed
+
+---
+
+### 🔹 Indirect route (via gateway)
+
+```bash
+172.30.22.0/24 via 172.30.30.100 dev eth2
+```
+
+👉 Means:
+
+* Not directly connected
+* Must go through **gateway = 172.30.30.100**
+
+---
+
+### 🔹 Default gateway
+
+```bash
+default via 172.18.0.1
+```
+
+👉 Means:
+
+* “If I don’t know where to send → send to 172.18.0.1”
+
+---
+
+# 🧠 3️⃣ How to find the **IP address of the device itself**
+
+> ❗ Important: The routing table does NOT directly tell you “this is the device IP”
+
+But it gives a strong clue.
+
+---
+
+### Look at this:
+
+```bash
+172.30.11.0/24 dev eth0 proto kernel scope link src 172.30.11.12
+```
+
+---
+
+### 🔍 Key part:
+
+```bash
+src 172.30.11.12
+```
+
+👉 This is the **IP address of THIS container on eth0**
+
+---
+
+### So YES — you were close:
+
+> ✅ The IP bound to an interface (eth0, eth1, etc.) is the device’s IP
+
+---
+
+# 🧠 4️⃣ Proper way to find device IP
+
+### Best command:
+
+```bash
+ip addr
+```
+
+Example:
+
+```bash
+eth0: inet 172.30.11.12/24
+eth1: inet 10.30.1.56/24
+eth2: inet 172.18.0.44/16
+```
+
+---
+
+### Meaning:
+
+| Interface | IP           | Network         |
+| --------- | ------------ | --------------- |
+| eth0      | 172.30.11.12 | IED subnet      |
+| eth1      | 10.30.1.56   | control network |
+| eth2      | 172.18.0.44  | Docker network  |
+
+---
+
+👉 So a container can have **multiple IPs** (one per interface)
+
+---
+
+# 🧠 5️⃣ How to read routing table + infer device IP
+
+From your example:
+
+```bash
+172.30.11.0/24 dev eth0 src 172.30.11.12
+```
+
+👉 You can infer:
+
+* Interface: `eth0`
+* Device IP on that interface: `172.30.11.12`
+
+---
+
+If `src` is not shown, you can still infer:
+
+* If route is:
+
+```bash
+172.30.11.0/24 dev eth0
+```
+
+👉 Then device IP is **some IP inside that subnet**, check with:
+
+```bash
+ip addr
+```
+
+---
+
+# 🧠 6️⃣ How to identify the gateway from routing table
+
+### Look for `via`
+
+```bash
+172.30.22.0/24 via 172.30.30.100 dev eth2
+```
+
+👉 Gateway = `172.30.30.100`
+
+---
+
+### Or default route:
+
+```bash
+default via 172.18.0.1
+```
+
+👉 Default gateway = `172.18.0.1`
+
+---
+
+# 🧠 7️⃣ Apply this to YOUR setup
+
+### Example (PS container):
+
+```bash
+default via 172.18.0.1 dev eth2
+172.30.11.0/24 dev eth0 src 172.30.11.12
+```
+
+---
+
+### Interpretation:
+
+* Device IPs:
+
+  * eth0 → `172.30.11.12`
+  * eth1 → `10.30.1.56`
+  * eth2 → `172.18.0.44`
+
+* Gateway:
+
+  * Default → `172.18.0.1` (Docker bridge)
+
+---
+
+### 🚨 Problem (this is what your senior saw)
+
+There is NO route like:
+
+```bash
+172.30.22.0/24 via <router>
+```
+
+👉 So:
+
+* PS doesn’t know how to reach other IEDs
+* It sends to Docker gateway instead
+* ❌ Wrong network path
+
+---
+
+# 🧠 8️⃣ Key mental model (very important)
+
+### For ANY routing table:
+
+1. **dev ethX** → “Which interface I use”
+2. **src IP** → “My IP on that interface”
+3. **via IP** → “Gateway (router) I send to”
+4. **default** → “Fallback gateway”
+
+---
+
+# ✅ Final takeaway
+
+* A **gateway** = next-hop router to reach other networks
+* Device IP = found via:
+
+  * `ip addr` (best)
+  * `src` in routing table
+* Routing table tells:
+
+  * What networks you can reach
+  * Whether directly or via gateway
+
+---
+
+If you want, I can now connect this back to your SCADA system and show:
+
+👉 “Exactly which gateway each IED SHOULD be using instead of 172.18.0.1”
+
+That’s the missing piece to fixing your routing.
+
+
+
