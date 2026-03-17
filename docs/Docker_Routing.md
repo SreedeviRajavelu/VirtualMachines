@@ -590,9 +590,9 @@ I can help you:
 Just tell me 👍
 
 
-```
-what is a gateway ? how to tell from the routing table which is the ip address of that device ? is it that the ip address bound to eth0 interface is the ip address of the device ? if not, what is the way to find the ip address of device from routing table
-```
+
+**what is a gateway ? how to tell from the routing table which is the ip address of that device ? is it that the ip address bound to eth0 interface is the ip address of the device ? if not, what is the way to find the ip address of device from routing table**
+
 
 Great — these are foundational questions. Once this clicks, everything your senior said will make perfect sense.
 
