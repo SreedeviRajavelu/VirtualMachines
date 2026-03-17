@@ -53,6 +53,7 @@ default via 172.18.0.1 dev eth1
 172.30.34.0/24 via 172.30.30.100 dev eth2 
 172.30.35.0/24 via 172.30.30.100 dev eth2
 172.100.0.0/24 via 172.30.30.100 dev eth2
+```
 
 my senior engineer also said 'even the routers are having incomplete routes' :
 

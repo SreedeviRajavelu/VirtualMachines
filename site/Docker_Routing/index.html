@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Configuring_IP_Address/">
+        <link rel="canonical" href="https://sreedevirajavelu.github.io/VirtualMachines/Docker_Routing/">
       
       
-        <link rel="prev" href="../Recovering_VM/">
+        <link rel="prev" href="../Docker_Images_and_Docker_Load/">
       
       
-        <link rel="next" href="../SSH/">
+        <link rel="next" href="../VM-to-VM-Communication/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Configuring IP Address - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
+        <title>Docker Routing - Sree Devi’s Documentation on Virtual Machines, Docker & Networking</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#why-both-vms-showed-the-same-ip-earlier" class="md-skip">
+        <a href="#inference" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Configuring IP Address
+              Docker Routing
             
           </span>
         </div>
@@ -239,18 +239,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -266,7 +268,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Docker
@@ -530,10 +532,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../Docker_Routing/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Docker Routing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -544,6 +566,306 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Inference:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-we-know-ds-is-a-central-aggregation-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 3️⃣ How we know DS is a central / aggregation node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 3️⃣ How we know DS is a central / aggregation node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      PS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ds" class="md-nav__link">
+    <span class="md-ellipsis">
+      DS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Key difference:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Inference:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-how-we-interpret-this-routing-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 4️⃣ How we interpret THIS routing table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 4️⃣ How we interpret THIS routing table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#line-by-line-meaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Line-by-line meaning:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1723011024-dev-eth0" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 172.30.11.0/24 dev eth0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10301024-dev-eth1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 10.30.1.0/24 dev eth1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172180016-dev-eth2" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 172.18.0.0/16 dev eth2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-via-1721801" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 default via 172.18.0.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Summary table:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-now-how-your-senior-saw-routes-are-incomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 5️⃣ NOW — how your senior saw routes are incomplete
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 5️⃣ NOW — how your senior saw routes are incomplete">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#look-at-ps-ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Look at PS / TS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❗ What’s missing?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seniors-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Senior’s reasoning:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-why-default-route-is-not-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔥 6️⃣ Why default route is NOT enough
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-ds-is-ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 7️⃣ Why DS is “OK”
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-router-is-incomplete-too" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 8️⃣ Router is incomplete too
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 8️⃣ Router is incomplete too">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-router-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Expected router behavior:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-senior-says" class="md-nav__link">
+    <span class="md-ellipsis">
+      So senior says:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-mental-model-this-is-the-key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Final mental model (this is the key takeaway)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Final mental model (this is the key takeaway)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ps-ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      PS / TS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ds_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      DS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#router" class="md-nav__link">
+    <span class="md-ellipsis">
+      Router:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-you-want-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ If you want next step
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -560,20 +882,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -589,7 +909,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Virtualization
@@ -669,32 +989,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Configuring IP Address
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../Configuring_IP_Address/" class="md-nav__link">
         
   
   
@@ -705,44 +1003,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-new-vm-was-cloned-without-changing-the-mac-address" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. The new VM was cloned without changing the MAC address
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-you-imported-an-appliance-ova-that-preserved-the-old-mac" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. You imported an appliance (.ova) that preserved the old MAC
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1435,8 +1695,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1445,18 +1703,282 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-new-vm-was-cloned-without-changing-the-mac-address" class="md-nav__link">
+  <a href="#inference" class="md-nav__link">
     <span class="md-ellipsis">
-      1. The new VM was cloned without changing the MAC address
+      🧠 Inference:
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-you-imported-an-appliance-ova-that-preserved-the-old-mac" class="md-nav__link">
+  <a href="#3-how-we-know-ds-is-a-central-aggregation-node" class="md-nav__link">
     <span class="md-ellipsis">
-      2. You imported an appliance (.ova) that preserved the old MAC
+      🧠 3️⃣ How we know DS is a central / aggregation node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 3️⃣ How we know DS is a central / aggregation node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      PS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ds" class="md-nav__link">
+    <span class="md-ellipsis">
+      DS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Key difference:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Inference:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-how-we-interpret-this-routing-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 4️⃣ How we interpret THIS routing table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 4️⃣ How we interpret THIS routing table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#line-by-line-meaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Line-by-line meaning:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1723011024-dev-eth0" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 172.30.11.0/24 dev eth0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10301024-dev-eth1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 10.30.1.0/24 dev eth1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172180016-dev-eth2" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 172.18.0.0/16 dev eth2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-via-1721801" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 default via 172.18.0.1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Summary table:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-now-how-your-senior-saw-routes-are-incomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 5️⃣ NOW — how your senior saw routes are incomplete
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 5️⃣ NOW — how your senior saw routes are incomplete">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#look-at-ps-ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Look at PS / TS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❗ What’s missing?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seniors-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Senior’s reasoning:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-why-default-route-is-not-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔥 6️⃣ Why default route is NOT enough
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-ds-is-ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 7️⃣ Why DS is “OK”
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-router-is-incomplete-too" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 8️⃣ Router is incomplete too
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 8️⃣ Router is incomplete too">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-router-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Expected router behavior:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-senior-says" class="md-nav__link">
+    <span class="md-ellipsis">
+      So senior says:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-mental-model-this-is-the-key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Final mental model (this is the key takeaway)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Final mental model (this is the key takeaway)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ps-ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      PS / TS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ds_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      DS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#router" class="md-nav__link">
+    <span class="md-ellipsis">
+      Router:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-you-want-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ If you want next step
     </span>
   </a>
   
@@ -1481,401 +2003,510 @@
   
 
 
-<p>You <strong>cannot</strong> have two VMs using the <strong>same IP address</strong> on the same network — just like two computers cannot share the same IP.
-If you try, you’ll get:</p>
+<p>my senior said 'the routes in PS &amp; TS are incomplete' :</p>
+<pre><code>root@d6d7b9b11769: /IED# ip_r
+default via 172.18.0.1 dev eth2
+10.30.1.0/24 dev eth1 proto kernel scope link src 10.30.1.32 
+172.18.0.0/16 dev eth2 proto kernel scope link src 172.18.0.20 
+172.30.28.0/24 dev eth0 proto kernel scope link src 172.30.28.15 
+root@d6d7b9b11769: /IED# exit
+exit
+ubuntu@pgt:~/sgg$ docker exec -it ts2q1 bash
+root@dbfb3d388582: /IED# ip_r
+default via 172.18.0.1 dev eth2
+10.30.1.0/24 dev eth1 proto kernel scope link src 10.30.1.55 
+172.18.0.0/16 dev eth2 proto kernel scope link src 172.18.0.43 
+172.30.22.0/24 dev eth0 proto kernel scope link src 172.30.22.12
+root@dbfb3d388582:/IED#
+exit
+ubuntu@pgt:~/sgg$ docker exec -it ps1q1 bash 
+root@7eebdb666168:/IED# ip r
+default via 172.18.0.1 dev eth2
+10.30.1.0/24 dev eth1 proto kernel scope link src 10.30.1.56 
+172.18.0.0/16 dev eth2 proto kernel scope link src 172.18.0.44 
+172.30.11.0/24 dev eth0 proto kernel scope link src 172.30.11.12
+</code></pre>
+<p>he said 'in DS IED ok':</p>
+<pre><code>ubuntu@pgt:~/sgg$ docker exec -it ds0q0 bash 
+root@38ccf946c940:/IED# ip r
+default via 172.18.0.1 dev eth1
+10.30.1.0/24 dev eth0 proto kernel scope link src 10.30.1.77 
+172.18.0.0/16 dev eth1 proto kernel scope link src 172.18.0.13 
+172.30.10.0/24 via 172.30.30.100 dev eth2 
+172.30.11.0/24 via 172.30.30.100 dev eth2 
+172.30.20.0/24 via 172.30.30.100 dev eth2 
+172.30.21.0/24 via 172.30.30.100 dev eth2 
+172.30.22.0/24 via 172.30.30.100 dev eth2 
+172.30.23.0/24 via 172.30.30.100 dev eth2 
+172.30.24.0/24 via 172.30.30.100 dev eth2 
+172.30.25.0/24 via 172.30.30.100 dev eth2 
+172.30.26.0/24 via 172.30.30.100 dev eth2 
+172.30.27.0/24 via 172.30.30.100 dev eth2
+172.30.28.0/24 via 172.30.30.100 dev eth2
+172.30.30.0/24 dev eth2 proto kernel scope link src 172.30.30.11
+172.30.31.0/24 via 172.30.30.100 dev eth2
+172.30.32.0/24 via 172.30.30.100 dev eth2 
+172.30.33.0/24 via 172.30.30.100 dev eth2 
+172.30.34.0/24 via 172.30.30.100 dev eth2 
+172.30.35.0/24 via 172.30.30.100 dev eth2
+172.100.0.0/24 via 172.30.30.100 dev eth2
+
+my senior engineer also said 'even the routers are having incomplete routes' :
+
+</code></pre>
+<p>ubuntu@pgt:~/sgg$ docker exec - it router03 ip r
+default via 172.18.0.1 dev eth2
+1030.2.0/24 dev eth1 proto kernel scope link src 10.30.2.20 
+172.18.0.0/16 dev eth2 proto kernel scope link src 172.18.0.13 
+172.30.20.0/24 dev eth0 proto kernel scope link src 172.30.20.100</p>
+<pre><code>
+## How do I verify that the IEDs (docker containers) and routers (docker containers) have complete routes?
+He checked and told me that the routes are incomplete but I don't know how to check whether the routes are complete in the IEDs and routers and what it means when he says the routes are incomplete
+
+My senior engineer did the following:
+docker exec -it &lt;container&gt;
+ip r
+
+And he said:
+If the docker instance does not have &quot;ip&quot; cmd, I will have to do it from the host using nsenter
+
+## What you senior meant by &quot;routes are incomplete&quot;
+
+Every docker container has its own network namespace, which has:
+- its own IP addresses
+- routing table (ip route or route -n)
+
+A **complete route table** in a container means it can reach:
+- its own network (local subnet)
+- other containers it needs to communicate with (e.g. other IEDs, routers, SCADA server)
+- the upstream network (if needed)
+
+If the route table is **incomplete**:
+- the container cannot reach some destinations it should
+- ping or TCP connections may fail
+- simulation messages (IEC 81850 MMS traffic) may not flow 
+
+
+## How to check routes inside a container 
+Step 1: enter the container 
+`docker exec -it &lt;container_name_or_id&gt; bash`
+
+Step 2: Check routes
+`ip r`
+
+or 
+
+`route -n`
+
+Example of a routing table:
+</code></pre>
+<p>default via 172.17.0.1 dev eth0
+172.17.0.0/16 dev eth0 proto kernel scope link src 172.17.0.2
+10.0.0.0/24 dev eth1 proto kernel scope link src 10.0.0.2</p>
+<pre><code>
+- `default via ...` -&gt; container can reach outside networks 
+- `&lt;subnet&gt; dev &lt;interface&gt;` -&gt; container can reach other containers in that subnet 
+
+
+
+## If the container does not have ip or route commands
+- option 1: install iproute2 inside container
+- option 2: check from the host using nsenter
+1. get the PID of the container's main process:
+`docker inspect -f '{{.State.Pid}}' &lt;container&gt;
+2. Enter the container's network namespace
+`sudo nsenter -t &lt;PID&gt; -n ip r`
+
+- `-n` = network namespace
+- this lets you see the routes without modifying the container 
+
+## Things to look for in routes:
+
+- **default route** (via a gateway) is present 
+- **subnet routes** for other containers in the network exist 
+- for multi-subnet setups, make sure each subnet the container needs to reach is listed
+- missing a route = that container cannot reach some other containers
+
+
+## Quick sanity check 
+</code></pre>
+<p>docker exec <IED_container> ping -c 3 <router_container_ip>
+docker exec <IED_container> ping -c 3 <SCADA_container_ip></p>
+<pre><code>
+If ping fails -&gt; route is missing or network misconfigured 
+
+## Summary
+- routes are incomplete -&gt; the container cannot reach all the subnets or hosts it should 
+- verify with `ip r` inside container, or with `nsenter` from host
+- fix by adding proper Docker network routes or bridging subnets
+
+
+
+
+how do you know that each IED sits on it own subnet and that it is 172.30.x.0/24 ?
+
+how do you know that the routers connect these subnets together ?
+
+how do you know that some nodes (like DS) act like aggregation /central nodes ?
+
+
+how do you infer the following 
+
+
+| Route            | Meaning                              |
+| ---------------- | ------------------------------------ |
+| `172.30.11.0/24` | Its **own subnet**                   |
+| `10.30.1.0/24`   | Some internal network                |
+| `172.18.0.0/16`  | Docker bridge                        |
+| `default`        | Send everything else to `172.18.0.1` |
+
+
+
+Great — this is exactly the level where your understanding “clicks.” I’ll walk you through **how your senior inferred everything**, step by step, using only the routing tables you showed. No assumptions — just reasoning.
+
+---
+
+# 🧠 0️⃣ First: Minimal networking you need (quick but essential)
+
+### A routing table entry:
+
+</code></pre>
+<p><destination subnet> [via <gateway>] dev <interface></p>
+<pre><code>
+Means:
+
+&gt; “To reach this subnet, send packets through this interface (and optionally via this gateway).”
+
+---
+
+### Two important types of routes:
+
+### 1. **Directly connected route**
+
+</code></pre>
+<p>172.30.11.0/24 dev eth0</p>
+<pre><code>
+👉 Means:
+
+* This container **is directly inside that subnet**
+* No gateway needed
+
+---
+
+### 2. **Remote route (via gateway)**
+
+</code></pre>
+<p>172.30.22.0/24 via 172.30.30.100 dev eth2</p>
+<pre><code>
+👉 Means:
+
+* That subnet is **NOT directly connected**
+* Must go through a **router (gateway)**
+
+---
+
+### 3. **Default route**
+
+</code></pre>
+<p>default via 172.18.0.1</p>
+<pre><code>
+👉 Means:
+
+* “If I don’t know where to send → send here”
+
+---
+
+# 🧠 1️⃣ How we know each IED sits in its own subnet
+
+Look at this from `ps1q1`:
+
+</code></pre>
+<p>172.30.11.0/24 dev eth0 src 172.30.11.12</p>
+<pre><code>
+---
+
+### 🔍 Key observation:
+
+* IP = `172.30.11.12`
+* Subnet = `172.30.11.0/24`
+
+👉 This means:
+
+&gt; This container is physically (logically) inside subnet **172.30.11.0/24**
+
+---
+
+Now compare:
+
+| Container | IP           | Subnet         |
+| --------- | ------------ | -------------- |
+| ps1q1     | 172.30.11.12 | 172.30.11.0/24 |
+| ts2q1     | 172.30.22.12 | 172.30.22.0/24 |
+| another   | 172.30.28.15 | 172.30.28.0/24 |
+
+---
+
+### 🧠 Inference:
+
+👉 Each IED has:
+
+* A **different 172.30.X subnet**
+* Bound to `eth0`
+
+➡️ So your senior concludes:
+
+&gt; “Each IED is placed in its own subnet”
+
+---
+
+# 🧠 2️⃣ How we know routers connect these subnets
+
+Look at DS:
+
+</code></pre>
+<p>172.30.22.0/24 via 172.30.30.100 dev eth2</p>
+<pre><code>
+---
+
+### 🔍 Interpretation:
+
+* DS is NOT in `172.30.22.0`
+* It sends traffic to:
+
+```bash
+via 172.30.30.100
+</code></pre>
+<p>👉 That IP must be a <strong>router</strong></p>
+<hr />
+<p>Now look:</p>
+<pre><code>172.30.30.0/24 dev eth2 src 172.30.30.11
+</code></pre>
+<p>👉 DS is connected to subnet:</p>
 <ul>
-<li>ARP conflicts</li>
-<li>Connection drops</li>
-<li>One VM unreachable</li>
-<li>Network instability</li>
+<li><code>172.30.30.0/24</code></li>
 </ul>
-<p>✅ <strong>Each VM on the bridged network must have its own unique IP.</strong></p>
 <hr />
-<h1 id="why-both-vms-showed-the-same-ip-earlier">✅ Why both VMs showed the same IP earlier</h1>
-<p>This means one of the following:</p>
-<h3 id="1-the-new-vm-was-cloned-without-changing-the-mac-address"><strong>1. The new VM was cloned without changing the MAC address</strong></h3>
-<p>VirtualBox clones sometimes copy the network interface MAC →
-DHCP sees the same MAC → <strong>assigns the same IP.</strong></p>
-<h3 id="2-you-imported-an-appliance-ova-that-preserved-the-old-mac"><strong>2. You imported an appliance (.ova) that preserved the old MAC</strong></h3>
-<p>The OVA contains the old VM’s MAC address.</p>
-<p>✅ Fix: <strong>Give the VM a new MAC</strong>, then it will get a new IP.</p>
-<hr />
-<h1 id="how-to-fix-and-get-a-unique-ip-for-your-new-vm">✅ How to fix and get a unique IP for your new VM</h1>
-<h3 id="step-1-change-the-mac-address-in-virtualbox">✅ <strong>Step 1 — Change the MAC Address in VirtualBox</strong></h3>
-<ol>
-<li>Power off the VM.</li>
-<li>Go to <strong>VirtualBox → Settings → Network → Adapter 1</strong></li>
-<li>
-<p>Ensure:</p>
-</li>
-<li>
-<p>Attached to: <strong>Bridged Adapter</strong></p>
-</li>
-<li>Click the <strong>refresh icon</strong> next to MAC Address to generate a new one.</li>
-</ol>
-<p>Example:
-Old MAC: <code>0800275A3C1D</code>
-New MAC: <code>080027B9A622</code></p>
-<ol>
-<li>Save and start the VM.</li>
-</ol>
-<hr />
-<h1 id="step-2-inside-the-vm-ask-dhcp-for-a-new-ip">✅ Step 2 — Inside the VM, ask DHCP for a new IP</h1>
-<p>Inside the VM:</p>
-<pre><code class="language-bash">sudo dhclient -r
-sudo dhclient
-</code></pre>
-<p>Then check the new IP:</p>
-<pre><code class="language-bash">ip a | grep 192
-</code></pre>
-<p>You should now see <strong>a different IP</strong> such as:</p>
-<pre><code>192.168.30.61
-192.168.30.72
-192.168.30.85
-</code></pre>
-<hr />
-<h1 id="step-3-ssh-into-the-new-ip">✅ Step 3 — SSH into the new IP</h1>
-<p>From your Mac:</p>
-<pre><code class="language-bash">ssh ubuntu@&lt;new-ip&gt;
-</code></pre>
-<hr />
-<h1 id="step-4-optional-make-the-new-ip-static">✅ Step 4 — (Optional) Make the new IP static</h1>
-<p>If you want, you can set:</p>
+<h3 id="inference">🧠 Inference:</h3>
 <ul>
-<li>VM1 → 192.168.30.60</li>
-<li>VM2 → 192.168.30.61</li>
+<li>DS connects to router network (<code>172.30.30.0</code>)</li>
+<li>Router IP = <code>172.30.30.100</code></li>
+<li>Router connects to all other <code>172.30.x</code> networks</li>
 </ul>
-<p>I can guide you through setting static IP if needed.</p>
-<hr />
-<h1 id="summary">✅ Summary</h1>
-<table>
-<thead>
-<tr>
-<th>Issue</th>
-<th>Solution</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Both VMs have same IP</td>
-<td>Change MAC address in VirtualBox</td>
-</tr>
-<tr>
-<td>DHPC gives same IP</td>
-<td>Release/renew with <code>dhclient</code></td>
-</tr>
-<tr>
-<td>VM unreachable</td>
-<td>Restart VM after MAC change</td>
-</tr>
-</tbody>
-</table>
-<p>✅ After the MAC change, your VM <strong>will always receive a different unique IP</strong>.</p>
-<hr />
-<p>If you want, send me:</p>
-<p>✅ Your current VirtualBox Network settings screenshot
-✅ <code>ip a</code> output from both VMs</p>
-<p>…and I’ll verify the correct configuration for you.</p>
-<h1 id="question-if-i-do-the-steps-above-will-the-ip-address-of-the-vm-change-each-time-i-log-out-and-log-off-or-reboot-the-vm">Question : if I do the steps above, will the ip address of the VM change each time I log out and log off or reboot the VM ?</h1>
-<p>Short answer: <strong>No — the IP will NOT keep changing</strong>, as long as you do <em>one thing</em>:
-✅ <strong>Keep the MAC address fixed after you set it</strong>.</p>
-<p>Let me explain clearly:</p>
-<hr />
-<h1 id="after-you-change-the-mac-once-dhcp-assigns-a-fixed-ip-and-remembers-it">✅ After you change the MAC once → DHCP assigns a fixed IP and remembers it</h1>
-<p>On most networks (home routers, office DHCP), DHCP uses the <strong>MAC address</strong> to give the same IP every time.</p>
-<p>So:</p>
-<h3 id="if-the-mac-stays-the-same">✅ If the MAC stays the same</h3>
-<p>Then your VM will usually get <strong>the same IP every reboot</strong>.</p>
-<p>Example:
-New MAC → 192.168.30.72
-Next reboot → DHCP will likely give <strong>192.168.30.72 again</strong>.</p>
-<h3 id="if-you-keep-changing-the-mac">❌ If you keep changing the MAC</h3>
-<p>The VM will get <strong>different IPs each time</strong>.</p>
-<hr />
-<h1 id="what-each-step-actually-changes">✅ What each step actually changes</h1>
-<h3 id="step-1-change-mac-in-virtualbox">✅ Step 1 — Change MAC in VirtualBox</h3>
-<p>Purpose: ensure the VM gets a <em>unique</em> IP different from your other VM.
-Once changed, <strong>leave it as is</strong>.</p>
-<h3 id="step-2-dhclient">✅ Step 2 — dhclient</h3>
-<p>This only refreshes the IP <strong>once</strong>.
-It does not make it dynamic or unstable.</p>
-<h3 id="step-3-ssh-into-vm">✅ Step 3 — SSH into VM</h3>
-<p>Normal usage.</p>
-<h3 id="step-4-static-ip-optional">✅ Step 4 — Static IP (optional)</h3>
-<p>If you want <strong>absolute stability</strong>, assign a static IP:</p>
-<ul>
-<li>VM1 → 192.168.30.60</li>
-<li>VM2 → 192.168.30.61</li>
-</ul>
-<p>Then it will <em>never</em> change, even if DHCP fails.</p>
-<hr />
-<h1 id="tldr-what-will-happen-after-reboot">✅ TL;DR — What will happen after reboot?</h1>
-<p>✅ <strong>IP stays the same</strong>, because DHCP assigns IP based on the VM’s new MAC.
-❌ IP will change <strong>only</strong> if:</p>
-<ul>
-<li>you change the MAC again, or</li>
-<li>your network regularly resets its DHCP leases (rare).</li>
-</ul>
-<hr />
-<h1 id="do-you-want-the-ip-of-the-extracted-vm-to-always-stay-the-same">✅ Do you want the IP of the extracted VM to always stay the same?</h1>
-<p>If yes, I can give you a simple static IP config file for Ubuntu 22.04 (netplan).</p>
-<h1 id="question-based-on-output-below-which-ip-should-i-use-to-ssh-into-the-vm">Question: based on output below, which ip should I use to ssh into the VM</h1>
-<pre><code>ubuntu@pgt: $ sudo dhclient -r 
-ubuntu@pgt: $ sudo dhclient 
-ubuntu@pgt:~$ ip a | grep 192 
-inet 192.168.30.60/24 brd 192.168.30.255 scope global enp0s3 
-inet 192.168.30.54/24 brd 192.168.30.255 scope global secondary dynamic enp0s3 
-inet 192.168.40.254/24 scope global macvlano 
-inet 192.168.40.250/24 scope global macvlan-host 
-ubuntu@pgt: $
-</code></pre>
-<p>Use <strong>192.168.30.54</strong> for SSH — and here’s why.</p>
-<hr />
-<h1 id="understanding-your-ip-addresses">✅ Understanding Your IP Addresses</h1>
-<p>Your output:</p>
-<pre><code>inet 192.168.30.60/24 brd 192.168.30.255 scope global enp0s3
-inet 192.168.30.54/24 brd 192.168.30.255 scope global secondary dynamic enp0s3
-inet 192.168.40.254/24 scope global macvlano
-inet 192.168.40.250/24 scope global macvlan-host
-</code></pre>
-<h3 id="which-ip-belongs-to-your-vm-for-normal-network-access">✅ Which IP belongs to your VM for normal network access?</h3>
-<p>Look at the interface:</p>
-<h3 id="enp0s3-the-natbridged-adapter-interface-used-for-ssh"><strong>enp0s3 → the NAT/Bridged Adapter interface used for SSH</strong></h3>
-<p>It has two IPs:</p>
-<ul>
-<li><code>192.168.30.60</code> (primary)</li>
-<li><code>192.168.30.54</code> (secondary, dynamic)</li>
-</ul>
-<p>Now you said earlier:</p>
+<p>➡️ Therefore:</p>
 <blockquote>
-<p>there is already another VM that I have ssh-ed into that uses the IP 192.168.30.60</p>
+<p>Router is the <strong>bridge between all subnets</strong></p>
 </blockquote>
-<p>✅ So <strong>192.168.30.60 is used by your other VM.</strong>
-✅ Your <em>new VM</em> therefore must use the <strong>other IP on enp0s3 → 192.168.30.54</strong>.</p>
 <hr />
-<h1 id="why-not-the-19216840x-addresses">✅ Why <em>not</em> the 192.168.40.x addresses?</h1>
-<pre><code>inet 192.168.40.254 … macvlano
-inet 192.168.40.250 … macvlan-host
+<h1 id="3-how-we-know-ds-is-a-central-aggregation-node">🧠 3️⃣ How we know DS is a central / aggregation node</h1>
+<p>Compare:</p>
+<h3 id="ps">PS:</h3>
+<pre><code>ONLY:
+172.30.11.0/24 dev eth0
 </code></pre>
-<p>These are <strong>Macvlan virtual interfaces</strong> used by your PLC/IED/docker networks.
-They cannot be SSH’d directly from your laptop.</p>
-<p>So ignore 192.168.40.xxx for SSH.</p>
-<hr />
-<h1 id="final-answer">✅ ✅ Final Answer</h1>
-<p>SSH into your new VM using:</p>
-<pre><code>ssh ubuntu@192.168.30.54
+<h3 id="ds">DS:</h3>
+<pre><code>172.30.10.0/24 via ...
+172.30.11.0/24 via ...
+172.30.20.0/24 via ...
+...
 </code></pre>
 <hr />
-<p>If connection fails, tell me and I’ll help you confirm:
-✅ which interface is bridged
-✅ whether SSH is running
-✅ whether Windows host firewall is interfering.</p>
-<p>Want me to help you make this IP stable so it never changes again?</p>
-<p>Perfect — this explains <strong>exactly why</strong> your second VM keeps getting the same IP (<code>192.168.30.60</code>) and causes conflicts.</p>
-<p>Let’s unpack this and fix it properly 👇</p>
-<hr />
-<h2 id="whats-happening">🧠 What’s happening</h2>
-<p>Your <code>/etc/netplan/*.yaml</code> shows this:</p>
-<pre><code class="language-yaml">network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    enp0s3:
-      dhcp4: no
-      addresses:
-        - 192.168.30.60/24
-      routes:
-        - to: default
-          via: 192.168.30.1
-      nameservers:
-        addresses:
-          - 8.8.8.8
-          - 8.8.4.4
-</code></pre>
-<p>That line</p>
-<pre><code class="language-yaml">addresses:
-  - 192.168.30.60/24
-</code></pre>
-<p>means your VM is using a <strong>static IP</strong> (<code>192.168.30.60</code>) instead of DHCP.</p>
-<p>So — both VMs having that same YAML config → both use <code>.60</code> → <strong>IP conflict</strong>.</p>
-<hr />
-<h2 id="fix-give-this-vm-a-new-unique-ip">✅ Fix — give this VM a new unique IP</h2>
-<h3 id="option-1-set-a-new-static-ip-recommended">Option 1: Set a new static IP (recommended)</h3>
-<p>Edit the YAML file:</p>
-<pre><code class="language-bash">sudo nano /etc/netplan/*.yaml
-</code></pre>
-<p>Change this line:</p>
-<pre><code class="language-yaml">addresses:
-  - 192.168.30.60/24
-</code></pre>
-<p>to something like:</p>
-<pre><code class="language-yaml">addresses:
-  - 192.168.30.61/24
-</code></pre>
-<p>Then apply the change:</p>
-<pre><code class="language-bash">sudo netplan apply
-</code></pre>
-<p>Verify:</p>
-<pre><code class="language-bash">ip a | grep 192
-</code></pre>
-<p>You should see:</p>
-<pre><code>inet 192.168.30.61/24 brd 192.168.30.255 scope global enp0s3
-</code></pre>
-<hr />
-<h3 id="option-2-switch-back-to-dhcp-if-you-want-ips-assigned-automatically">Option 2: Switch back to DHCP (if you want IPs assigned automatically)</h3>
-<p>Edit the YAML again and change:</p>
-<pre><code class="language-yaml">dhcp4: no
-</code></pre>
-<p>to:</p>
-<pre><code class="language-yaml">dhcp4: yes
-</code></pre>
-<p>Remove (or comment out) the <code>addresses</code>, <code>routes</code>, and <code>nameservers</code> lines.</p>
-<p>Then apply:</p>
-<pre><code class="language-bash">sudo netplan apply
-</code></pre>
-<p>DHCP will now assign a new IP (e.g. <code>192.168.30.54</code>).</p>
-<p>Check it:</p>
-<pre><code class="language-bash">ip a | grep 192
-</code></pre>
-<hr />
-<h2 id="important">⚠️ Important</h2>
-<p>After changing the IP:</p>
+<h3 id="key-difference">🔍 Key difference:</h3>
 <ul>
-<li>Make sure your <strong>other VM</strong> stays on <code>192.168.30.60</code></li>
-<li>SSH to this new one with the new IP:</li>
+<li>PS → knows only itself</li>
+<li>DS → knows <strong>ALL subnets</strong></li>
 </ul>
-<p><code>bash
-  ssh ubuntu@192.168.30.61</code>
-* Both VMs can now coexist on the same network with no conflict.</p>
 <hr />
-<p>Would you like me to help you decide whether to keep static IPs or switch to DHCP (depending on how you use these VMs)?</p>
-<h1 id="question-why-is-the-ip-address-changing-and-what-to-do-now">Question: why is the IP address changing and what to do now ?</h1>
-<pre><code>ubuntu@pgt:~$ ls -l /etc/netplan 
-total 8 
--rw------ 1 root root 270 Nov 11 05:37 01-netcfg.yaml 
-drwxr-xr-x 2 root root 4096 Oct 21 06:55 backup 
-ubuntu@pgt:~$ cat backup 
-cat: backup: No such file or directory 
-ubuntu@pgt:~$ cd backup 
-ubuntu@pgt: $-bash: cd: backup: No such file or directory. 
-
-ubuntu@pgt:~$ grep -R &quot;network&quot; /etc/cloud/cloud.cfg 
-    network: activators: ['netplan', 'eni', 'network-manager', 'networkd'] 
-
-ubuntu@pgt: $
-</code></pre>
-<p>Your VM’s IP address is changing <strong>because netplan is NOT the only thing configuring the network</strong>.</p>
-<p>Based on your output, the root cause is clear:</p>
-<hr />
-<h1 id="root-cause-cloud-init-is-still-managing-networking">✅ <strong>ROOT CAUSE — cloud-init is still managing networking</strong></h1>
-<p>You ran:</p>
-<pre><code>grep -R &quot;network&quot; /etc/cloud/cloud.cfg
-</code></pre>
-<p>And got:</p>
-<pre><code>network:
-  activators: ['netplan', 'eni', 'network-manager', 'networkd']
-</code></pre>
-<p>✅ This means <strong>cloud-init is active and allowed to manage networking</strong>, and it is overriding your static netplan config on every reboot.</p>
-<p>This is exactly why:</p>
+<h3 id="inference_1">🧠 Inference:</h3>
+<p>👉 DS is designed to:</p>
 <ul>
-<li>Your IP keeps reverting to a DHCP IP like <strong>192.168.30.54</strong></li>
-<li><code>sudo netplan apply</code> works temporarily</li>
-<li>After reboot, it changes again</li>
+<li>Communicate with all zones</li>
+<li>Probably collect data / coordinate</li>
 </ul>
-<p>Cloud-init re-applies its own config early in the boot process, overwriting your netplan settings.</p>
+<p>➡️ So your senior concludes:</p>
+<blockquote>
+<p>“DS is acting like a central/aggregation node”</p>
+</blockquote>
 <hr />
-<h1 id="second-clue-only-one-netplan-file-exists">✅ <strong>Second clue: Only one netplan file exists</strong></h1>
-<pre><code>/etc/netplan/01-netcfg.yaml
-</code></pre>
-<p>This is good — it means the conflict is not from multiple netplan files.
-The conflict is external → <strong>cloud-init</strong>.</p>
-<hr />
-<h1 id="what-you-must-do-now">✅ ✅ ✅ What you must do now</h1>
-<h2 id="step-1-disable-cloud-init-networking-completely">✅ Step 1 — Disable cloud-init networking completely</h2>
-<p>Create this file:</p>
-<pre><code class="language-bash">sudo nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
-</code></pre>
-<p>Add ONLY this:</p>
-<pre><code>network: {config: disabled}
-</code></pre>
-<p>Save → exit.</p>
-<p>This tells cloud-init:</p>
-<p>❌ "DO NOT touch networking again."</p>
-<hr />
-<h2 id="step-2-prevent-cloud-init-from-generating-netplan-at-boot">✅ Step 2 — Prevent cloud-init from generating netplan at boot</h2>
-<p>Run:</p>
-<pre><code class="language-bash">sudo touch /etc/cloud/cloud-init.disabled
-</code></pre>
-<p>(This disables cloud-init completely—safe for VMs that no longer use cloud provisioning.)</p>
-<hr />
-<h2 id="step-3-re-apply-your-permanent-static-netplan-config">✅ Step 3 — Re-apply your permanent static netplan config</h2>
-<p>Edit your file:</p>
-<pre><code class="language-bash">sudo nano /etc/netplan/01-netcfg.yaml
-</code></pre>
-<p>It should look like:</p>
-<pre><code class="language-yaml">network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    enp0s3:
-      dhcp4: no
-      addresses:
-        - 192.168.30.61/24
-      gateway4: 192.168.30.1
-      nameservers:
-        addresses: [8.8.8.8, 8.8.4.4]
-</code></pre>
-<p>Apply:</p>
-<pre><code class="language-bash">sudo netplan generate
-sudo netplan apply
+<h1 id="4-how-we-interpret-this-routing-table">🧠 4️⃣ How we interpret THIS routing table</h1>
+<pre><code>default via 172.18.0.1 dev eth2
+10.30.1.0/24 dev eth1
+172.18.0.0/16 dev eth2
+172.30.11.0/24 dev eth0
 </code></pre>
 <hr />
-<h2 id="step-4-reboot">✅ Step 4 — REBOOT</h2>
-<pre><code class="language-bash">sudo reboot
-</code></pre>
-<p>After reboot, check:</p>
-<pre><code class="language-bash">ip a | grep 192
-</code></pre>
-<p>✅ You should now only see your static IP
-✅ It will remain permanent
-✅ It will not change again unless you modify netplan manually</p>
+<h3 id="line-by-line-meaning">Line-by-line meaning:</h3>
 <hr />
-<h1 id="summary-why-the-ip-kept-changing">✅ Summary: Why the IP kept changing</h1>
+<h3 id="1723011024-dev-eth0">🔹 <code>172.30.11.0/24 dev eth0</code></h3>
+<ul>
+<li>Direct route</li>
+<li>IP is inside this subnet</li>
+</ul>
+<p>👉 Meaning:</p>
+<blockquote>
+<p>“This is my local IED network”</p>
+</blockquote>
+<hr />
+<h3 id="10301024-dev-eth1">🔹 <code>10.30.1.0/24 dev eth1</code></h3>
+<ul>
+<li>Another directly connected network</li>
+</ul>
+<p>👉 Likely:</p>
+<blockquote>
+<p>Internal SCADA/control network</p>
+</blockquote>
+<hr />
+<h3 id="172180016-dev-eth2">🔹 <code>172.18.0.0/16 dev eth2</code></h3>
+<ul>
+<li>Docker network</li>
+</ul>
+<p>👉 Why?</p>
+<ul>
+<li>Docker default bridge networks use <code>172.x.x.x</code></li>
+<li>Gateway is usually <code>.1</code></li>
+</ul>
+<hr />
+<h3 id="default-via-1721801">🔹 <code>default via 172.18.0.1</code></h3>
+<p>👉 Meaning:</p>
+<blockquote>
+<p>“If I don’t know → send to Docker bridge”</p>
+</blockquote>
+<hr />
+<h3 id="summary-table">🧠 Summary table:</h3>
 <table>
 <thead>
 <tr>
-<th>Component</th>
-<th>Behavior</th>
+<th>Route</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>netplan</strong></td>
-<td>You set static IP manually</td>
+<td><code>172.30.11.0/24</code></td>
+<td>Local IED subnet</td>
 </tr>
 <tr>
-<td><strong>cloud-init</strong></td>
-<td>Overrode netplan on every boot → set DHCP</td>
+<td><code>10.30.1.0/24</code></td>
+<td>Internal control network</td>
 </tr>
 <tr>
-<td><strong>Result</strong></td>
-<td>Static IP temporarily works, but changes after reboot</td>
+<td><code>172.18.0.0/16</code></td>
+<td>Docker network</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td>Fallback → Docker (WRONG for SCADA routing)</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h1 id="if-you-show-me-your-etcnetplan01-netcfgyaml-i-can-verify-its-correct-before-you-reboot">✅ If you show me your <code>/etc/netplan/01-netcfg.yaml</code>, I can verify it's correct before you reboot.</h1>
-<p>Just send:</p>
-<pre><code>cat /etc/netplan/01-netcfg.yaml
+<h1 id="5-now-how-your-senior-saw-routes-are-incomplete">🚨 5️⃣ NOW — how your senior saw routes are incomplete</h1>
+<h3 id="look-at-ps-ts">Look at PS / TS:</h3>
+<p>They ONLY have:</p>
+<pre><code>172.30.X.0/24   (own subnet)
+default → 172.18.0.1
 </code></pre>
-<h1 id="checking-ip-address-of-a-docker-container">Checking ip address of a Docker container</h1>
-<p>Finding ip address of docker container:</p>
-<p>ubuntu@pgt:~$ docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}: {{$v.IPAddress}}{{"\n"}}{{end}}' st_ied
-ied_pg_net: 172.21.0.6
-plc-macvlan-40: 192.168.40.212</p>
-<p>ubuntu@pgt:~$</p>
-<p><img alt="alt text" src="../image-5.png" /></p>
-<p><code>docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}: {{$v.IPAddress}}{{"\n"}}{{end}}' st_ied</code></p>
+<hr />
+<h3 id="whats-missing">❗ What’s missing?</h3>
+<p>NO routes like:</p>
+<pre><code>172.30.22.0/24 via router
+172.30.20.0/24 via router
+</code></pre>
+<hr />
+<h3 id="seniors-reasoning">🧠 Senior’s reasoning:</h3>
+<ol>
+<li>“IEDs must talk to other IEDs”</li>
+<li>“That requires routes to other 172.30.x networks”</li>
+<li>“These routes are NOT present”</li>
+</ol>
+<p>➡️ Conclusion:</p>
+<blockquote>
+<p>❌ Routes are incomplete</p>
+</blockquote>
+<hr />
+<h1 id="6-why-default-route-is-not-enough">🔥 6️⃣ Why default route is NOT enough</h1>
+<p>This is very important.</p>
+<pre><code>default via 172.18.0.1
+</code></pre>
+<p>👉 This sends traffic to:</p>
+<ul>
+<li>Docker bridge</li>
+<li>NOT your SCADA router</li>
+</ul>
+<hr />
+<p>So when PS tries to reach TS:</p>
+<pre><code>172.30.22.12
+</code></pre>
+<p>It does:</p>
+<pre><code>→ send to 172.18.0.1 (Docker)
+</code></pre>
+<p>❌ Wrong path
+❌ Packet lost / unreachable</p>
+<hr />
+<h1 id="7-why-ds-is-ok">🧠 7️⃣ Why DS is “OK”</h1>
+<p>DS has:</p>
+<pre><code>172.30.x.x via 172.30.30.100
+</code></pre>
+<hr />
+<p>👉 So when DS sends to any subnet:</p>
+<pre><code>→ send to router (172.30.30.100)
+→ router forwards correctly
+</code></pre>
+<p>✔ Works</p>
+<hr />
+<h1 id="8-router-is-incomplete-too">🚨 8️⃣ Router is incomplete too</h1>
+<p>Router03:</p>
+<pre><code>172.30.20.0/24 dev eth0
+</code></pre>
+<hr />
+<h3 id="problem">Problem:</h3>
+<p>Router only knows:</p>
+<ul>
+<li>Its directly connected network</li>
+</ul>
+<p>But NOT:</p>
+<ul>
+<li>Other subnets</li>
+</ul>
+<hr />
+<h3 id="expected-router-behavior">🧠 Expected router behavior:</h3>
+<p>Router should have:</p>
+<pre><code>172.30.21.0/24 via ...
+172.30.22.0/24 via ...
+</code></pre>
+<hr />
+<h3 id="so-senior-says">So senior says:</h3>
+<blockquote>
+<p>“Even routers are incomplete”</p>
+</blockquote>
+<hr />
+<h1 id="final-mental-model-this-is-the-key-takeaway">🧠 Final mental model (this is the key takeaway)</h1>
+<h3 id="ps-ts">PS / TS:</h3>
+<ul>
+<li>Know only themselves</li>
+<li>Send everything else to Docker
+  ❌ Broken communication</li>
+</ul>
+<hr />
+<h3 id="ds_1">DS:</h3>
+<ul>
+<li>Knows all networks via router
+  ✔ Works correctly</li>
+</ul>
+<hr />
+<h3 id="router">Router:</h3>
+<ul>
+<li>Doesn’t know full topology
+  ❌ Cannot route properly</li>
+</ul>
+<hr />
+<h1 id="if-you-want-next-step">⚡ If you want next step</h1>
+<p>I can help you:</p>
+<ul>
+<li>Identify <strong>exact missing routes per container</strong></li>
+<li>Give <strong>exact <code>ip route add</code> commands</strong></li>
+<li>Or explain how your system <em>should</em> auto-configure these routes</li>
+</ul>
+<p>Just tell me 👍</p>
 
 
 
