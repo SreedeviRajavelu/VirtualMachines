@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#inference" class="md-skip">
+        <a href="#how-do-i-verify-that-the-ieds-docker-containers-and-routers-docker-containers-have-complete-routes" class="md-skip">
           Skip to content
         </a>
       
@@ -581,11 +581,191 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-do-i-verify-that-the-ieds-docker-containers-and-routers-docker-containers-have-complete-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I verify that the IEDs (docker containers) and routers (docker containers) have complete routes?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-senior-meant-by-routes-are-incomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you senior meant by "routes are incomplete"
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-check-routes-inside-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to check routes inside a container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-the-container-does-not-have-ip-or-route-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      If the container does not have ip or route commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#things-to-look-for-in-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Things to look for in routes:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-sanity-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick sanity check
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0-first-minimal-networking-you-need-quick-but-essential" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 0️⃣ First: Minimal networking you need (quick but essential)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 0️⃣ First: Minimal networking you need (quick but essential)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-routing-table-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      A routing table entry:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-important-types-of-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two important types of routes:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-directly-connected-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Directly connected route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-remote-route-via-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Remote route (via gateway)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-default-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Default route
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-how-we-know-each-ied-sits-in-its-own-subnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 1️⃣ How we know each IED sits in its own subnet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 1️⃣ How we know each IED sits in its own subnet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-observation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Key observation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#inference" class="md-nav__link">
     <span class="md-ellipsis">
       🧠 Inference:
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-we-know-routers-connect-these-subnets" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 2️⃣ How we know routers connect these subnets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 2️⃣ How we know routers connect these subnets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Interpretation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Inference:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -627,7 +807,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#inference_1" class="md-nav__link">
+  <a href="#inference_2" class="md-nav__link">
     <span class="md-ellipsis">
       🧠 Inference:
     </span>
@@ -1703,11 +1883,191 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-do-i-verify-that-the-ieds-docker-containers-and-routers-docker-containers-have-complete-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I verify that the IEDs (docker containers) and routers (docker containers) have complete routes?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-senior-meant-by-routes-are-incomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you senior meant by "routes are incomplete"
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-check-routes-inside-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to check routes inside a container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-the-container-does-not-have-ip-or-route-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      If the container does not have ip or route commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#things-to-look-for-in-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Things to look for in routes:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-sanity-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick sanity check
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0-first-minimal-networking-you-need-quick-but-essential" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 0️⃣ First: Minimal networking you need (quick but essential)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 0️⃣ First: Minimal networking you need (quick but essential)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-routing-table-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      A routing table entry:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-important-types-of-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two important types of routes:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-directly-connected-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Directly connected route
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-remote-route-via-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Remote route (via gateway)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-default-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Default route
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-how-we-know-each-ied-sits-in-its-own-subnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 1️⃣ How we know each IED sits in its own subnet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 1️⃣ How we know each IED sits in its own subnet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-observation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Key observation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#inference" class="md-nav__link">
     <span class="md-ellipsis">
       🧠 Inference:
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-we-know-routers-connect-these-subnets" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 2️⃣ How we know routers connect these subnets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 2️⃣ How we know routers connect these subnets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Interpretation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Inference:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1749,7 +2109,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#inference_1" class="md-nav__link">
+  <a href="#inference_2" class="md-nav__link">
     <span class="md-ellipsis">
       🧠 Inference:
     </span>
@@ -2050,231 +2410,215 @@ default via 172.18.0.1 dev eth1
 172.30.34.0/24 via 172.30.30.100 dev eth2 
 172.30.35.0/24 via 172.30.30.100 dev eth2
 172.100.0.0/24 via 172.30.30.100 dev eth2
-
-my senior engineer also said 'even the routers are having incomplete routes' :
-
 </code></pre>
-<p>ubuntu@pgt:~/sgg$ docker exec - it router03 ip r
+<p>my senior engineer also said 'even the routers are having incomplete routes' :</p>
+<pre><code>ubuntu@pgt:~/sgg$ docker exec - it router03 ip r
 default via 172.18.0.1 dev eth2
 1030.2.0/24 dev eth1 proto kernel scope link src 10.30.2.20 
 172.18.0.0/16 dev eth2 proto kernel scope link src 172.18.0.13 
-172.30.20.0/24 dev eth0 proto kernel scope link src 172.30.20.100</p>
-<pre><code>
-## How do I verify that the IEDs (docker containers) and routers (docker containers) have complete routes?
-He checked and told me that the routes are incomplete but I don't know how to check whether the routes are complete in the IEDs and routers and what it means when he says the routes are incomplete
-
-My senior engineer did the following:
-docker exec -it &lt;container&gt;
-ip r
-
-And he said:
-If the docker instance does not have &quot;ip&quot; cmd, I will have to do it from the host using nsenter
-
-## What you senior meant by &quot;routes are incomplete&quot;
-
-Every docker container has its own network namespace, which has:
+172.30.20.0/24 dev eth0 proto kernel scope link src 172.30.20.100
+</code></pre>
+<h2 id="how-do-i-verify-that-the-ieds-docker-containers-and-routers-docker-containers-have-complete-routes">How do I verify that the IEDs (docker containers) and routers (docker containers) have complete routes?</h2>
+<p>He checked and told me that the routes are incomplete but I don't know how to check whether the routes are complete in the IEDs and routers and what it means when he says the routes are incomplete</p>
+<p>My senior engineer did the following:
+docker exec -it <container>
+ip r</p>
+<p>And he said:
+If the docker instance does not have "ip" cmd, I will have to do it from the host using nsenter</p>
+<h2 id="what-you-senior-meant-by-routes-are-incomplete">What you senior meant by "routes are incomplete"</h2>
+<p>Every docker container has its own network namespace, which has:
 - its own IP addresses
-- routing table (ip route or route -n)
-
-A **complete route table** in a container means it can reach:
+- routing table (ip route or route -n)</p>
+<p>A <strong>complete route table</strong> in a container means it can reach:
 - its own network (local subnet)
 - other containers it needs to communicate with (e.g. other IEDs, routers, SCADA server)
-- the upstream network (if needed)
-
-If the route table is **incomplete**:
+- the upstream network (if needed)</p>
+<p>If the route table is <strong>incomplete</strong>:
 - the container cannot reach some destinations it should
 - ping or TCP connections may fail
-- simulation messages (IEC 81850 MMS traffic) may not flow 
-
-
-## How to check routes inside a container 
-Step 1: enter the container 
-`docker exec -it &lt;container_name_or_id&gt; bash`
-
-Step 2: Check routes
-`ip r`
-
-or 
-
-`route -n`
-
-Example of a routing table:
-</code></pre>
-<p>default via 172.17.0.1 dev eth0
+- simulation messages (IEC 81850 MMS traffic) may not flow </p>
+<h2 id="how-to-check-routes-inside-a-container">How to check routes inside a container</h2>
+<p>Step 1: enter the container 
+<code>docker exec -it &lt;container_name_or_id&gt; bash</code></p>
+<p>Step 2: Check routes
+<code>ip r</code></p>
+<p>or </p>
+<p><code>route -n</code></p>
+<p>Example of a routing table:</p>
+<pre><code>default via 172.17.0.1 dev eth0
 172.17.0.0/16 dev eth0 proto kernel scope link src 172.17.0.2
-10.0.0.0/24 dev eth1 proto kernel scope link src 10.0.0.2</p>
-<pre><code>
-- `default via ...` -&gt; container can reach outside networks 
-- `&lt;subnet&gt; dev &lt;interface&gt;` -&gt; container can reach other containers in that subnet 
-
-
-
-## If the container does not have ip or route commands
-- option 1: install iproute2 inside container
-- option 2: check from the host using nsenter
-1. get the PID of the container's main process:
-`docker inspect -f '{{.State.Pid}}' &lt;container&gt;
-2. Enter the container's network namespace
-`sudo nsenter -t &lt;PID&gt; -n ip r`
-
-- `-n` = network namespace
-- this lets you see the routes without modifying the container 
-
-## Things to look for in routes:
-
-- **default route** (via a gateway) is present 
-- **subnet routes** for other containers in the network exist 
-- for multi-subnet setups, make sure each subnet the container needs to reach is listed
-- missing a route = that container cannot reach some other containers
-
-
-## Quick sanity check 
+10.0.0.0/24 dev eth1 proto kernel scope link src 10.0.0.2
 </code></pre>
-<p>docker exec <IED_container> ping -c 3 <router_container_ip>
-docker exec <IED_container> ping -c 3 <SCADA_container_ip></p>
-<pre><code>
-If ping fails -&gt; route is missing or network misconfigured 
-
-## Summary
-- routes are incomplete -&gt; the container cannot reach all the subnets or hosts it should 
-- verify with `ip r` inside container, or with `nsenter` from host
-- fix by adding proper Docker network routes or bridging subnets
-
-
-
-
-how do you know that each IED sits on it own subnet and that it is 172.30.x.0/24 ?
-
-how do you know that the routers connect these subnets together ?
-
-how do you know that some nodes (like DS) act like aggregation /central nodes ?
-
-
-how do you infer the following 
-
-
-| Route            | Meaning                              |
-| ---------------- | ------------------------------------ |
-| `172.30.11.0/24` | Its **own subnet**                   |
-| `10.30.1.0/24`   | Some internal network                |
-| `172.18.0.0/16`  | Docker bridge                        |
-| `default`        | Send everything else to `172.18.0.1` |
-
-
-
-Great — this is exactly the level where your understanding “clicks.” I’ll walk you through **how your senior inferred everything**, step by step, using only the routing tables you showed. No assumptions — just reasoning.
-
----
-
-# 🧠 0️⃣ First: Minimal networking you need (quick but essential)
-
-### A routing table entry:
-
+<ul>
+<li><code>default via ...</code> -&gt; container can reach outside networks </li>
+<li><code>&lt;subnet&gt; dev &lt;interface&gt;</code> -&gt; container can reach other containers in that subnet </li>
+</ul>
+<h2 id="if-the-container-does-not-have-ip-or-route-commands">If the container does not have ip or route commands</h2>
+<ul>
+<li>option 1: install iproute2 inside container</li>
+<li>option 2: check from the host using nsenter</li>
+<li>get the PID of the container's main process:
+`docker inspect -f '{{.State.Pid}}' <container></li>
+<li>
+<p>Enter the container's network namespace
+<code>sudo nsenter -t &lt;PID&gt; -n ip r</code></p>
+</li>
+<li>
+<p><code>-n</code> = network namespace</p>
+</li>
+<li>this lets you see the routes without modifying the container </li>
+</ul>
+<h2 id="things-to-look-for-in-routes">Things to look for in routes:</h2>
+<ul>
+<li><strong>default route</strong> (via a gateway) is present </li>
+<li><strong>subnet routes</strong> for other containers in the network exist </li>
+<li>for multi-subnet setups, make sure each subnet the container needs to reach is listed</li>
+<li>missing a route = that container cannot reach some other containers</li>
+</ul>
+<h2 id="quick-sanity-check">Quick sanity check</h2>
+<pre><code>docker exec &lt;IED_container&gt; ping -c 3 &lt;router_container_ip&gt;
+docker exec &lt;IED_container&gt; ping -c 3 &lt;SCADA_container_ip&gt;
 </code></pre>
-<p><destination subnet> [via <gateway>] dev <interface></p>
-<pre><code>
-Means:
-
-&gt; “To reach this subnet, send packets through this interface (and optionally via this gateway).”
-
----
-
-### Two important types of routes:
-
-### 1. **Directly connected route**
-
+<p>If ping fails -&gt; route is missing or network misconfigured </p>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>routes are incomplete -&gt; the container cannot reach all the subnets or hosts it should </li>
+<li>verify with <code>ip r</code> inside container, or with <code>nsenter</code> from host</li>
+<li>fix by adding proper Docker network routes or bridging subnets</li>
+</ul>
+<p>how do you know that each IED sits on it own subnet and that it is 172.30.x.0/24 ?</p>
+<p>how do you know that the routers connect these subnets together ?</p>
+<p>how do you know that some nodes (like DS) act like aggregation /central nodes ?</p>
+<p>how do you infer the following </p>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>172.30.11.0/24</code></td>
+<td>Its <strong>own subnet</strong></td>
+</tr>
+<tr>
+<td><code>10.30.1.0/24</code></td>
+<td>Some internal network</td>
+</tr>
+<tr>
+<td><code>172.18.0.0/16</code></td>
+<td>Docker bridge</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td>Send everything else to <code>172.18.0.1</code></td>
+</tr>
+</tbody>
+</table>
+<p>Great — this is exactly the level where your understanding “clicks.” I’ll walk you through <strong>how your senior inferred everything</strong>, step by step, using only the routing tables you showed. No assumptions — just reasoning.</p>
+<hr />
+<h1 id="0-first-minimal-networking-you-need-quick-but-essential">🧠 0️⃣ First: Minimal networking you need (quick but essential)</h1>
+<h3 id="a-routing-table-entry">A routing table entry:</h3>
+<pre><code>&lt;destination subnet&gt; [via &lt;gateway&gt;] dev &lt;interface&gt;
 </code></pre>
-<p>172.30.11.0/24 dev eth0</p>
-<pre><code>
-👉 Means:
-
-* This container **is directly inside that subnet**
-* No gateway needed
-
----
-
-### 2. **Remote route (via gateway)**
-
+<p>Means:</p>
+<blockquote>
+<p>“To reach this subnet, send packets through this interface (and optionally via this gateway).”</p>
+</blockquote>
+<hr />
+<h3 id="two-important-types-of-routes">Two important types of routes:</h3>
+<h3 id="1-directly-connected-route">1. <strong>Directly connected route</strong></h3>
+<pre><code>172.30.11.0/24 dev eth0
 </code></pre>
-<p>172.30.22.0/24 via 172.30.30.100 dev eth2</p>
-<pre><code>
-👉 Means:
-
-* That subnet is **NOT directly connected**
-* Must go through a **router (gateway)**
-
----
-
-### 3. **Default route**
-
+<p>👉 Means:</p>
+<ul>
+<li>This container <strong>is directly inside that subnet</strong></li>
+<li>No gateway needed</li>
+</ul>
+<hr />
+<h3 id="2-remote-route-via-gateway">2. <strong>Remote route (via gateway)</strong></h3>
+<pre><code>172.30.22.0/24 via 172.30.30.100 dev eth2
 </code></pre>
-<p>default via 172.18.0.1</p>
-<pre><code>
-👉 Means:
-
-* “If I don’t know where to send → send here”
-
----
-
-# 🧠 1️⃣ How we know each IED sits in its own subnet
-
-Look at this from `ps1q1`:
-
+<p>👉 Means:</p>
+<ul>
+<li>That subnet is <strong>NOT directly connected</strong></li>
+<li>Must go through a <strong>router (gateway)</strong></li>
+</ul>
+<hr />
+<h3 id="3-default-route">3. <strong>Default route</strong></h3>
+<pre><code>default via 172.18.0.1
 </code></pre>
-<p>172.30.11.0/24 dev eth0 src 172.30.11.12</p>
-<pre><code>
----
-
-### 🔍 Key observation:
-
-* IP = `172.30.11.12`
-* Subnet = `172.30.11.0/24`
-
-👉 This means:
-
-&gt; This container is physically (logically) inside subnet **172.30.11.0/24**
-
----
-
-Now compare:
-
-| Container | IP           | Subnet         |
-| --------- | ------------ | -------------- |
-| ps1q1     | 172.30.11.12 | 172.30.11.0/24 |
-| ts2q1     | 172.30.22.12 | 172.30.22.0/24 |
-| another   | 172.30.28.15 | 172.30.28.0/24 |
-
----
-
-### 🧠 Inference:
-
-👉 Each IED has:
-
-* A **different 172.30.X subnet**
-* Bound to `eth0`
-
-➡️ So your senior concludes:
-
-&gt; “Each IED is placed in its own subnet”
-
----
-
-# 🧠 2️⃣ How we know routers connect these subnets
-
-Look at DS:
-
+<p>👉 Means:</p>
+<ul>
+<li>“If I don’t know where to send → send here”</li>
+</ul>
+<hr />
+<h1 id="1-how-we-know-each-ied-sits-in-its-own-subnet">🧠 1️⃣ How we know each IED sits in its own subnet</h1>
+<p>Look at this from <code>ps1q1</code>:</p>
+<pre><code>172.30.11.0/24 dev eth0 src 172.30.11.12
 </code></pre>
-<p>172.30.22.0/24 via 172.30.30.100 dev eth2</p>
-<pre><code>
----
-
-### 🔍 Interpretation:
-
-* DS is NOT in `172.30.22.0`
-* It sends traffic to:
-
-```bash
-via 172.30.30.100
+<hr />
+<h3 id="key-observation">🔍 Key observation:</h3>
+<ul>
+<li>IP = <code>172.30.11.12</code></li>
+<li>Subnet = <code>172.30.11.0/24</code></li>
+</ul>
+<p>👉 This means:</p>
+<blockquote>
+<p>This container is physically (logically) inside subnet <strong>172.30.11.0/24</strong></p>
+</blockquote>
+<hr />
+<p>Now compare:</p>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>IP</th>
+<th>Subnet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ps1q1</td>
+<td>172.30.11.12</td>
+<td>172.30.11.0/24</td>
+</tr>
+<tr>
+<td>ts2q1</td>
+<td>172.30.22.12</td>
+<td>172.30.22.0/24</td>
+</tr>
+<tr>
+<td>another</td>
+<td>172.30.28.15</td>
+<td>172.30.28.0/24</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="inference">🧠 Inference:</h3>
+<p>👉 Each IED has:</p>
+<ul>
+<li>A <strong>different 172.30.X subnet</strong></li>
+<li>Bound to <code>eth0</code></li>
+</ul>
+<p>➡️ So your senior concludes:</p>
+<blockquote>
+<p>“Each IED is placed in its own subnet”</p>
+</blockquote>
+<hr />
+<h1 id="2-how-we-know-routers-connect-these-subnets">🧠 2️⃣ How we know routers connect these subnets</h1>
+<p>Look at DS:</p>
+<pre><code>172.30.22.0/24 via 172.30.30.100 dev eth2
+</code></pre>
+<hr />
+<h3 id="interpretation">🔍 Interpretation:</h3>
+<ul>
+<li>DS is NOT in <code>172.30.22.0</code></li>
+<li>It sends traffic to:</li>
+</ul>
+<pre><code class="language-bash">via 172.30.30.100
 </code></pre>
 <p>👉 That IP must be a <strong>router</strong></p>
 <hr />
@@ -2286,7 +2630,7 @@ via 172.30.30.100
 <li><code>172.30.30.0/24</code></li>
 </ul>
 <hr />
-<h3 id="inference">🧠 Inference:</h3>
+<h3 id="inference_1">🧠 Inference:</h3>
 <ul>
 <li>DS connects to router network (<code>172.30.30.0</code>)</li>
 <li>Router IP = <code>172.30.30.100</code></li>
@@ -2316,7 +2660,7 @@ via 172.30.30.100
 <li>DS → knows <strong>ALL subnets</strong></li>
 </ul>
 <hr />
-<h3 id="inference_1">🧠 Inference:</h3>
+<h3 id="inference_2">🧠 Inference:</h3>
 <p>👉 DS is designed to:</p>
 <ul>
 <li>Communicate with all zones</li>
