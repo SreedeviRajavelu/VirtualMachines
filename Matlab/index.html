@@ -1536,6 +1536,35 @@
 <p>OR open with text browser:</p>
 <p><code>wget -qO- http://localhost:6080 | head</code></p>
 <p>If this fails, the MATLAB container did not start the VNC service.</p>
+<p>4️⃣ Confirm Docker port mapping</p>
+<p>Run:</p>
+<p><code>docker port ppdt_matlab_container</code></p>
+<p>Expected output:</p>
+<pre><code>6080/tcp -&gt; 0.0.0.0:6080
+5901/tcp -&gt; 0.0.0.0:5901
+</code></pre>
+<p>5️⃣ Check SSH tunnel is actually active</p>
+<p>On your local computer, after running:</p>
+<p><code>ssh -L 6081:localhost:6080 pgt10.22</code></p>
+<p>Open another terminal and check:</p>
+<p><code>lsof -i :6081</code></p>
+<p>You should see:</p>
+<p><code>ssh ... TCP localhost:6081</code></p>
+<p>6️⃣ Try binding the tunnel to the node IP instead (often fixes this)</p>
+<p>Sometimes localhost inside SSH tunnels resolves incorrectly with jump hosts.</p>
+<p>Use this instead:</p>
+<p><code>ssh -L 6081:10.10.10.22:6080 pgt10.22</code></p>
+<p>Then open:</p>
+<p><code>http://localhost:6081</code></p>
+<p>7️⃣ Verify noVNC is actually running inside the container</p>
+<p>Run:</p>
+<p><code>docker exec -it ppdt_matlab_container ps aux | grep vnc</code></p>
+<p>You should see processes like:</p>
+<pre><code>Xvnc
+websockify
+novnc
+</code></pre>
+<p>If not, MATLAB desktop did not start correctly.</p>
 
 
 
