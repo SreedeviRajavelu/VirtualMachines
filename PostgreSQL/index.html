@@ -979,6 +979,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#to-check-whether-the-stored-procedure-sql-files-like-stored_procedure_pg_stsql-have-already-been-executed-in-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      To check whether the stored procedure SQL files (like stored_procedure_pg_ST.sql) have already been executed in PostgreSQL:
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1606,6 +1615,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#to-check-whether-the-stored-procedure-sql-files-like-stored_procedure_pg_stsql-have-already-been-executed-in-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      To check whether the stored procedure SQL files (like stored_procedure_pg_ST.sql) have already been executed in PostgreSQL:
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1793,6 +1811,17 @@ select * from ccp_values limit 5;
 ➡ Cursor returns cleanly to <code>powerplant=#</code></p>
 <hr />
 <p>Would you like me to suggest an <em>optimal <code>.psqlrc</code> configuration</em> for smooth day-to-day work (no pauses, clean formatting, and instant results)?</p>
+<h3 id="to-check-whether-the-stored-procedure-sql-files-like-stored_procedure_pg_stsql-have-already-been-executed-in-postgresql">To check whether the stored procedure SQL files (like stored_procedure_pg_ST.sql) have already been executed in PostgreSQL:</h3>
+<ol>
+<li>List functions in the database and see if the function defined in that file exists:</li>
+</ol>
+<p>the SQL file defines this function:
+<code>get_st_ied_data()</code></p>
+<p>So we check if that function exists.
+Inside your <code>psql</code> terminal (<code>powerplant=#</code>), run:
+<code>\df</code></p>
+<p>In cyberX node 30.72:</p>
+<p><img alt="alt text" src="../image-6.png" /></p>
 
 
 
