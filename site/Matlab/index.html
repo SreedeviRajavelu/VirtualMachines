@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#running-matlab-as-a-docker-instance" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -765,6 +770,19 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Matlab
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -776,6 +794,41 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-matlab-as-a-docker-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running MATLAB as a docker instance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting steps:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1402,6 +1455,32 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-matlab-as-a-docker-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running MATLAB as a docker instance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting steps:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1426,6 +1505,37 @@
 <p>Native Apple silicon MATLAB requires a Java runtime be installed on your Mac. A supported Java 11 JRE is available free of charge with Amazon Corretto 11</p>
 <p>https://ww2.mathworks.cn/en/support/requirements/apple-silicon.html</p>
 <p>Had to install Xcode from App store</p>
+<h2 id="running-matlab-as-a-docker-instance">Running MATLAB as a docker instance</h2>
+<p>Install matlab using this :</p>
+<p><code>docker run --init -it --name ppdt_matlab_container -p 5901:5901 -p 6080:6080 -v ~/matlab_projects:/home/matlab/projects --shm-size=512M mathworks/matlab:r2025a -vnc</code></p>
+<p><code>ssh -L 6081:localhost:6080 pgt10.22</code></p>
+<ul>
+<li>Replace pgt10.22 with the ssh configuration used for accessing the node </li>
+<li>Replace port 6081 with a different port number if the port is already used</li>
+</ul>
+<p>Run matlab without license and in detached mode, set to keep running unless it is stopped :</p>
+<p><code>docker run -d --name ppdt_matlab_container --restart unless-stopped -p 6080:6080 -p 5901:5901 -v /home/pgt/matlab_projects:/home/matlab/projects mathworks/matlab:r2025a -vnc</code></p>
+<p>Verify it is running:</p>
+<p><code>docker ps</code></p>
+<p>SSH port forwarding:</p>
+<p><code>ssh -L 6081:localhost:6080 pgt10.22</code></p>
+<p>Open the MATLAB desktop in your browser:</p>
+<p><code>http://localhost:6081</code></p>
+<p>Was still unable to access the MATLAB desktop noVNC viewer</p>
+<h2 id="troubleshooting-steps">Troubleshooting steps:</h2>
+<p>Check if port 6080 is open on the node</p>
+<p><code>ss -tulpn | grep 6080</code></p>
+<p>Expected result:</p>
+<p><code>LISTEN 0 4096 0.0.0.0:6080</code></p>
+<p>If nothing appears, then the container is not exposing the port correctly.</p>
+<p>3️⃣ Test access from the node itself</p>
+<p>On pgt10.22 run:</p>
+<p><code>curl http://localhost:6080</code></p>
+<p>Expected response:</p>
+<p><code>&lt;html&gt; noVNC ...</code></p>
+<p>OR open with text browser:</p>
+<p><code>wget -qO- http://localhost:6080 | head</code></p>
+<p>If this fails, the MATLAB container did not start the VNC service.</p>
 
 
 
