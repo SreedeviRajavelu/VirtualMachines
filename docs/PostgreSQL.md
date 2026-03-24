@@ -242,3 +242,22 @@ select * from ccp_values limit 5;
 ---
 
 Would you like me to suggest an *optimal `.psqlrc` configuration* for smooth day-to-day work (no pauses, clean formatting, and instant results)?
+
+
+### To check whether the stored procedure SQL files (like stored_procedure_pg_ST.sql) have already been executed in PostgreSQL:
+
+1. List functions in the database and see if the function defined in that file exists:
+
+
+the SQL file defines this function:
+`get_st_ied_data()`
+
+So we check if that function exists.
+Inside your `psql` terminal (`powerplant=#`), run:
+`\df`
+
+
+In cyberX node 30.72:
+
+![alt text](image-6.png)
+
